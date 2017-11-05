@@ -1,0 +1,107 @@
+
+
+<head>
+<style>
+.drag{position:relative;cursor:hand}
+body {
+	color:'0000FF';
+	font-family:新細明體;
+
+}
+</style>
+<script>
+document.onmousedown = drags;
+var dragapproved=false;
+var z,x,y;
+var mouse_click=0;
+function move() {
+	if (event.button == 1) {
+		z.style.pixelLeft = temp1 + event.clientX - x;
+		z.style.pixelTop = temp2 + event.clientY - y;
+		if (mouse_click == 2) {
+			<!--script_list-->
+		}
+		return false;
+	}
+}
+
+function drags() {
+	dragapproved = true;
+	z = event.srcElement;
+	temp1 = z.style.pixelLeft;
+	temp2 = z.style.pixelTop;
+	x = event.clientX;
+	y = event.clientY;
+	document.onmousemove = move;
+}
+
+function Point(id) {
+	if (mouse_click == 1) {
+		if (confirm('你確定你有先拖曳這個風鈴到右邊的位置嗎\n如果沒有請先按取消\n再重新拖曳一次\n以免別人無法許願\n\n')) {
+			win_open=window.open('','write_form',"width=200,height=120,resizable=no,status=no,scrollbars=no,menubar=no");
+			win_open.moveTo(0,0);
+			document.f1.x_point.value=z.style.pixelTop;
+			document.f1.y_point.value=z.style.pixelLeft;
+			document.f1.target='write_form';
+			document.f1.submit();
+		}
+	}
+	else if (mouse_click == 2) {
+		if (id) {
+			document.f1.job.value='del_mess';
+			document.f1.username.value=prompt("如果你不是本人或版主請勿擅自摘除!!\n請輸入密碼.......","");
+			document.f1.x_point.value=id;
+			document.f1.submit();
+		}
+	}
+	z.style.pixelLeft = temp1;
+	z.style.pixelTop = temp2;
+	mouse_click='0';
+}
+
+document.onmouseup=new Function("Point()");
+</script>
+
+</head>
+
+<body topmargin="0" leftmargin="0" bgcolor=#FFFFFF>
+<table border=0 width="100%" height="100%" cellspacing="0" cellpadding="0"><tr><td align=center>
+<table border="0" width="500" height="360" cellspacing="5" cellpadding="0">
+  <tr>
+    <td width=50 height=360 align="center" rowspan="3" valign="top">
+	將<BR><BR><BR><BR>用<BR>滑<BR>鼠<BR>拖<BR>曳<BR>到<BR>右<BR>邊<BR>，<BR>再<BR>進<BR>行<BR>祈<BR>願<BR>。<BR>。
+	<BR>刪<BR>除<BR>用
+	<img src='tree/60.gif' class='drag' style="position:absolute; left:12 px; top:25 px;" onmousedown="mouse_click='1';" alt='請移至所要掛放的位置' width="23" height="44">
+      <img src='tree/61.gif' class='drag' style="position:absolute; left:12 px; top:350 px;" onmousedown="mouse_click='2';" alt='請將剪刀移至所要摘除的祈願條'  height=20  width=30>
+    </td>
+    <td width="450" height="20">&nbsp;  
+      <!--div_list-->
+     <div style='position:absolute; left:50 px; top:5 px;height:20 px;BORDER: #999999  1px dotted;BACKGROUND-COLOR: #EEEEEE;'>
+	 <MARQUEE scrollamount=3 width=430><font color="#000000">$web_admin</font></MARQUEE></div>
+    </td>
+  </tr>
+  <tr>
+    <td align=center width=450 height=340>
+	 <TABLE border=0 align="center" background="tree/62.gif" width=450 height=340 valign="bottom" CLASS=t4b cellspacing="2" cellpadding="0">
+	  <TR>
+	   <TD align=center CLASS=T4DD>
+     <form action='$cgi_url' method='POST' name='f1'>
+     <input type='Hidden' name='job' value='write_form'>
+     <input type='Hidden' name='username'>
+     <textarea name='comment' rows='3' cols='50' style="position:absolute; left:-100 px; top:-100 px;"></textarea>
+     <input type='Hidden' name='x_point'>  
+     <input type='Hidden' name='y_point'>  
+	   </TD>
+	  </TR>
+	 </TABLE>
+   </td>
+  </tr>
+  <tr>
+    <td align=right><font color="#8EBDF5">＊</font>程式作者：<A HREF="http://jl.830.com.tw" target="_blank">《JL》</A><font color="#8EBDF5">＊</font>版面美化：<A HREF="http://www.fan.idv.tw/" target="_blank">R's Studio~麗塔小窩</A><font color="#8EBDF5">＊</font>
+   </td>
+  </tr>
+</table>
+   </td>
+  </tr>
+</table></form>
+</body>

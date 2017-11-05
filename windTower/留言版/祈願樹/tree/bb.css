@@ -1,0 +1,100 @@
+BODY {
+COLOR: #666666;
+font-family: 'Tahoma','New Gulim','Gulim', 'Verdana', 'Arial','新細明體'; 
+font-size: 8pt;
+line-height:18px;
+scrollbar-face-color: #FFFFFF;
+scrollbar-3dlight-color: #FFFFFF;	
+scrollbar-track-color: #F4F7F5;
+scrollbar-shadow-color: #FFFFFF; 
+scrollbar-highlight-color: #FFFFFF;
+scrollbar-arrow-color: #DFE7E2;
+scrollbar-darkshadow-color: #D5DFD9;
+}
+
+TD {
+COLOR: #666666;
+font-family: 'Tahoma','New Gulim','Gulim', 'Verdana', 'Arial','新細明體'; 
+font-size: 8pt;
+line-height:15px
+}
+
+A:link {
+COLOR: #000000; 
+TEXT-DECORATION: NONE;
+}
+
+A:visited {
+COLOR: #000000; 
+TEXT-DECORATION:NONE;
+}
+
+A:hover {
+COLOR: #999999; 
+TEXT-DECORATION: none;
+cursor: ne-resize;
+border-bottom:2px dotted #000000;
+position: relative; 
+top: 1px; 
+left: 1px
+}
+
+A:active {
+COLOR: #000000 ;
+TEXT-DECORATION: NONE;
+}
+
+select,INPUT,BUTTON,TEXTAREA{
+FONT-SIZE: 9pt;
+BACKGROUND-COLOR: #FFFFFF; 
+BORDER: #999999 1px solid;
+COLOR: #999999;
+font-family:verdana,arial,helvetica,Courier New,Comic Sans MS,細明體,新細明體;
+}
+
+.t4{
+BORDER: #999999 1px dotted;
+}
+
+.bot{
+cursor: crosshair;
+}
+
+.t4w{
+BORDER: #CCCCCC  1px solid;
+BACKGROUND-COLOR: #000000 ; 
+}
+
+.t4d{
+BORDER: #999999 1px solid;
+}
+.t4b{
+BORDER: #333333 1px solid;
+}
+
+.t4dd{
+BORDER: #ffffff 1px dotted;
+}
+
+
+.tlt {
+border-left: #FFFFFF 1px dotted;
+border-top: #FFFFFF 1px dotted;
+}
+
+.alpha{
+filter:Alpha(opacity=70,enabled=70)
+}
+
+.t4wg{
+BORDER: #999999  2px dotted;
+BACKGROUND-COLOR: #999999; 
+}
+
+.sha{
+filter:DropShadow(offx=2,offy=2,color=#CCCCCC);
+}
+
+.sha8{
+filter:DropShadow(offx=2,offy=2,color=#888888);
+}
