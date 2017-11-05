@@ -1,7 +1,7 @@
 var autoClick = {
-	freq = 20000,
-	GoldenCookie,
-	Raeindeer,
+	freq: 20000,
+	GoldenCookie: null,
+	Raeindeer: null,
 	state: function (flag) {
 		if (flag) {
 			autoClick.GoldenCookie = setInterval(function () {
