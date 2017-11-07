@@ -1,5 +1,5 @@
 var autoClick = {
-	freq: 20000,
+	period: 20000,
 	GoldenCookie: null,
 	Raeindeer: null,
 	state: function (flag) {
@@ -10,18 +10,23 @@ var autoClick = {
 							Game.shimmers[h].pop();
 						}
 					}
-				}, autoClick.freq);
+				}, autoClick.period);
 			autoClick.Raeindeer = setInterval(function () {
 					for (var h in Game.shimmers) {
 						if (Game.shimmers[h].type == "reindeer") {
 							Game.shimmers[h].pop();
 						}
 					}
-				}, autoClick.freq);
+				}, autoClick.period);
 		} else {
 			clearInterval(autoClick.GoldenCookie);
 			clearInterval(autoClick.Raeindeer);
 		}
+	},
+	changePeriod : function(period){
+		module.state(false);
+		module.period = period * 1000;
+		module.state(true);
 	}
 };
 
