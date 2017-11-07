@@ -24,9 +24,9 @@ var autoClick = {
 		}
 	},
 	changePeriod : function(period){
-		module.state(false);
-		module.period = period * 1000;
-		module.state(true);
+		autoClick.state(false);
+		autoClick.period = period * 1000;
+		autoClick.state(true);
 	}
 };
 
