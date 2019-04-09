@@ -32,15 +32,14 @@ a {
 }
 
 .flipbook-viewport .flipbook{
-	width:922px;
-	height:600px;
+	width: 1160px;
+	height: 847px;
 	left:-461px;
 	top:-300px;
 }
 
 .flipbook-viewport .page{
-	width:461px;
-	height:600px;
+
 	background-color:white;
 	background-repeat:no-repeat;
 	background-size:100% 100%;

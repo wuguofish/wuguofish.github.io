@@ -5,7 +5,7 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-<meta name="viewport" user-scalable = "no" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
 <script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
 <script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
 <title>Min-sheng & Ting-chun's Wedding - Invitation</title>
@@ -34,12 +34,10 @@ function loadApp() {
 
 	$('.flipbook').turn({
 			// Width
-			width:870,
-			
+			width:870,			
 			// Height
-			height:634,
-
-			
+			height:634,			
+			turnCorners: "l,r",
 			autoCenter: true
 
 	});
