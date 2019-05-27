@@ -2,7 +2,7 @@
 body {
   background-image: url(../img/bg.jpg);
   color: #e7ff8c;
-  font-family: "Righteous", cursive;
+  font-family: "Righteous", cursive, "DroidSansFallback";
 }
 
 .gridcontainer {
