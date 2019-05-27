@@ -1,8 +1,8 @@
 
 body {
-  background-image: url(../img/bg.jpg);
+  background-image: url("../img/bg.jpg?20190528");
   color: #e7ff8c;
-  font-family: "Righteous", cursive, "DroidSansFallback";
+  font-family: "Righteous", "DroidSansFallback";
 }
 
 .gridcontainer {
@@ -83,7 +83,7 @@ body {
 	grid-column: 6/10;
     grid-row: 1/11;
     background: #000;
-    background-image: url(../img/shadow.png);
+    background-image: url("../img/shadow.png?20190528");
     background-size: cover;
     background-blend-mode: exclusion;
 }
@@ -139,7 +139,7 @@ body {
     grid-column: 13/ span 14;
     grid-row: 1/span 8;
     background: #e6cc91;
-    background-image: url(../img/ticket-side-bg.png);
+    background-image: url("../img/ticket-side-bg.png?20190528");
     background-repeat: repeat-x;
     background-size: contain;    
     margin: -1em;
@@ -178,7 +178,7 @@ body {
 }
 
 .gridcontainer .barcode .qrcode{
-	background-image: url(../img/qrcode.png);
+	background-image: url("../img/qrcode.png?20190528");
     width: 3em;
     height: 3em;
     background-size: contain;
