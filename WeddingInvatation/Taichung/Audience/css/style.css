@@ -85,7 +85,6 @@ body {
     background: #000;
     background-image: url("../img/shadow.png?20190528");
     background-size: cover;
-    background-blend-mode: exclusion;
 }
 .gridcontainer .content .details {
   grid-column: 2/span 4;
@@ -179,8 +178,8 @@ body {
 
 .gridcontainer .barcode .qrcode{
 	background-image: url("../img/qrcode.png?20190528");
-    width: 3em;
-    height: 3em;
+    width: 2.8em;
+    height: 2.8em;
     background-size: contain;
     float: right;
 }
