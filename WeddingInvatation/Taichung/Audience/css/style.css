@@ -1,0 +1,188 @@
+
+body {
+  background-image: url(../img/bg.jpg);
+  color: #e7ff8c;
+  font-family: "Righteous", cursive;
+}
+
+.gridcontainer {
+  width: 80vw;
+  height: 60vh;
+  max-width: 650px;
+  min-width: 650px;
+  min-height: 230px;
+  max-height: 230px;
+  padding: 1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  background: #000000;
+  box-shadow: 2px 4px 10px 0px #000, -1px 0px 10px 0px #000;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+.gridcontainer div {
+  margin: 0.2em;
+}
+.gridcontainer .date {
+  grid-column: 1;
+  grid-row: 1/9;
+  width: 34px;
+  background: #444444;
+  color: #ffab4b;
+  writing-mode: vertical-rl;
+  text-align: center;
+  font-size: 1em;
+  transform: rotate(180deg);
+}
+.gridcontainer .date p {
+  line-height: 0.2em;
+  letter-spacing: 0.2em;
+}
+.gridcontainer .headline {
+  grid-column: 2/12;
+  grid-row: 1;
+  text-align: center;
+  margin: 0;
+}
+.gridcontainer .headline p {
+  line-height: 0.1em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  word-spacing: 0.6em;
+}
+.gridcontainer .content {
+  min-width: 420px;
+  grid-column: 2/12;
+  grid-row: 2/9;
+  border: 2px solid #444444;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+.gridcontainer .content div {
+  margin: 0;
+  border-right: 2px solid #444444;
+}
+.gridcontainer .content .sidel,
+.gridcontainer .content .sider {
+  writing-mode: vertical-lr;
+  grid-column: 1;
+  grid-row: 1/11;
+  font-size: 2em;
+}
+.gridcontainer .content .sidel p,
+.gridcontainer .content .sider p {
+  margin: 0;
+  text-align: center;
+  word-spacing: 0.3em;
+}
+.gridcontainer .content .image {    
+	grid-column: 6/10;
+    grid-row: 1/11;
+    background: #000;
+    background-image: url(../img/shadow.png);
+    background-size: cover;
+    background-blend-mode: exclusion;
+}
+.gridcontainer .content .details {
+  grid-column: 2/span 4;
+  grid-row: 1/11;
+  min-width: 140px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto, 1fr);
+}
+.gridcontainer .content .details p {
+  border-bottom: 2px solid #444444;
+  align-self: stretch;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.12em;
+}
+.gridcontainer .content .details p:nth-of-type(2) {
+  background: #444444;
+  color: #ffab4b;
+  letter-spacing: 0.1em;
+}
+.gridcontainer .content .details p:nth-of-type(4) {
+  font-size: 1.1em;
+  letter-spacing: 0.05em;
+  border-bottom: none;
+}
+.gridcontainer .content .sider {
+  grid-column: 10;
+  grid-row: 1/11;
+  border: none;
+}
+.gridcontainer .circles {
+    grid-column: 12;
+    grid-row: 1/9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transform: scale(1.2);
+    margin-left: 1em;
+}
+.gridcontainer .circles .circle {
+    height: 14px;
+    width: 5px;
+    background: #a9001f;
+}
+
+.gridcontainer .barcode {
+    grid-column: 13/ span 14;
+    grid-row: 1/span 8;
+    background: #e6cc91;
+    background-image: url(../img/ticket-side-bg.png);
+    background-repeat: repeat-x;
+    background-size: contain;    
+    margin: -1em;
+	font-family: "微軟正黑體", cursive;
+	color: #a9001f;
+	font-weight: bold;
+}
+
+.gridcontainer .barcode p{ 
+	margin-top: 0.2em;
+    margin-bottom: 0em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+	word-break: break-word;
+}
+
+.gridcontainer .barcode span{ 
+	text-align: center;
+	margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.gridcontainer .barcode p a{ 
+	color: #a9001f;
+}
+
+.info{
+	margin-top: 0.2em;
+	font-size: 0.8em;
+}
+
+.gridcontainer .barcode .title{
+	margin-top: 0.5em;
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.gridcontainer .barcode .qrcode{
+	background-image: url(../img/qrcode.png);
+    width: 3em;
+    height: 3em;
+    background-size: contain;
+    float: right;
+}
+
+
