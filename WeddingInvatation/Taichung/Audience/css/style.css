@@ -143,7 +143,7 @@ body {
     background-repeat: repeat-x;
     background-size: contain;    
     margin: -1em;
-	font-family: "微軟正黑體", cursive;
+	font-family: "Righteous", "微軟正黑體", "DroidSansFallback";
 	color: #a9001f;
 	font-weight: bold;
 }
