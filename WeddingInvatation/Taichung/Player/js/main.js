@@ -18,14 +18,20 @@ $(document).ready(function(){
 	
 	if(pid.length>0){
 		
-		var pid = pid.split("=");
+		var _pid = "-1";
+		var pid = pid.split("&");
 		console.debug(pid);
-		if(pid[0]=="?pid"){
-			pid = pid[1];
-		}else{
-			pid = -1;
+		for(var i = 0;i<pid.length;i++){
+			if(pid[i].indexOf("pid=")>0){
+				var tmp = pid[i].split("=");
+				_pid = tmp[1];
+				break;
+			}
 		}
-		console.debug(pid);
+		
+		
+		pid = _pid;		
+		
 	}
 	console.debug(pid);
 	if(parseInt(pid) > 0){
