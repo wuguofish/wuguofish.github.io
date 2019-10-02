@@ -1,4 +1,3 @@
-
 var height = [16,18,16,21]
 var width=[9, 9,10,10];
 
@@ -6,8 +5,17 @@ function cal(){
   
   var screen = $('#phoneScreen').val();
   var ratioIdx = $('#phoneRatio').val();
-  var pw = width[ratioIdx];
-  var ph = height[ratioIdx];
+  
+  var pw, ph;
+  
+  if(ratioIdx < 0){
+	pw = $('#custRatioWidth').val();
+	ph = $('#custRatioHeight').val();
+  }else{
+	pw = width[ratioIdx];
+	ph = height[ratioIdx];
+  }
+  
   var res = $('#phoneResolution').val()>0? $('#phoneResolution').val() : $('#custRes').val();
    
   var r = ph/pw;
@@ -36,5 +44,13 @@ $(document).on('change', '#phoneResolution', function(){
 	}else{
 		$('#custRes').show();
 		$('#custResLabel').show();
+	}
+});
+
+$(document).on('change', '#phoneRatio', function(){
+	if($('#phoneRatio').val()>0){
+		$('#custRatio').hide();
+	}else{
+		$('#custRatio').show();
 	}
 });

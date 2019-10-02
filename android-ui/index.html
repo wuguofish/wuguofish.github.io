@@ -10,17 +10,22 @@
     <div>
         <h3>畫布大小計算</h3>
         <div>
-        <label for="phoneScreen">手機螢幕</label> 
-        <input id="phoneScreen" value="5.5"/> 
-        <label for="phoneScreen">吋</label></div>
-        <div>
-        <label for="phoneScreen">手機比例</label> 
-        <select id="phoneRatio">
-			<option value="1">18:9</option>
-            <option value="0">16:9</option>            
-            <option value="2">16:10</option>
-            <option value="3">21:10</option>
-        </select></div>
+			<label for="phoneScreen">手機螢幕</label> 
+			<input id="phoneScreen" value="5.5"/> 
+			<label for="phoneScreen">吋</label></div>
+			<div>
+			<label for="phoneScreen">手機比例</label> 
+			<select id="phoneRatio">
+				<option value="1">18:9</option>
+				<option value="0">16:9</option>            
+				<option value="2">16:10</option>
+				<option value="3">21:10</option>
+				<option value="-1">自訂</option>
+			</select>
+			<div id="custRatio" style="display: none;">
+				<label>長</label><input id="custRatioHeight" value="16" />:<label>寬</label><input id="custRatioWidth" value="9" />
+			</div>
+		</div>
         <div>
         <label for="phoneScreen">解析度</label> 
         <select id="phoneResolution">
