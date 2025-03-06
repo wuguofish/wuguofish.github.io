@@ -1,0 +1,9 @@
+.good{
+	color: lightseagreen;
+	font-weight: bold;
+}
+
+textarea {
+  width: 80%;
+  height: 20rem;  
+}
