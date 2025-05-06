@@ -17,27 +17,6 @@
 </code></pre>
 <p>每個元素可以不只一個單字，每個單字用逗號分隔。<br>
 提示詞可以分行，但運算的時候分行會被省略，所以分行後也要記得用逗號隔開。</p>
-<h2 id="常用提示詞參考">常用提示詞參考</h2>
-<h3 id="視角">視角</h3>
-<ul>
-<li>close-up</li>
-<li>upper body</li>
-<li>full body</li>
-<li>wide angle</li>
-</ul>
-<h3 id="畫風">畫風</h3>
-<ul>
-<li>illustration, painting, paintbrush</li>
-<li>anime, comic, digital art, game CG</li>
-<li>semi-realistic, 2.5D</li>
-<li>photorealistic, realistic, photograph</li>
-</ul>
-<h3 id="畫質">畫質</h3>
-<ul>
-<li>通用：best quality, ultra-detailed, masterpiece, 8k</li>
-<li>超高解析度或寫實風格適用：extremely detailed</li>
-<li>3D建模風格適用：unreal engine rendered, 3D rendered</li>
-</ul>
 <h2 id="提示詞符號">提示詞符號</h2>
 <h3 id="權重符號">權重符號</h3>
 <p>沒有下符號的情況下，預設每個提示詞權重都是1。<br>
@@ -133,4 +112,161 @@
 <p>其中when代表取樣時機，假設when = 0.25時，表示：<br>
 進度0% ~ 25%的時候要取樣"from"的元素；<br>
 進度25% ~ 100%要取樣"to"的元素。</p>
+<h2 id="常用提示詞參考">常用提示詞參考</h2>
+<h3 id="鏡頭遠近">鏡頭遠近</h3>
+<ul>
+<li><code>extreme close-up</code>  超近鏡</li>
+<li><code>close-up</code>  近鏡</li>
+<li><code>medium close-up</code>  中近鏡</li>
+<li><code>medium shot</code>  中景鏡</li>
+<li><code>cowboy shot</code>  上半身至大腿</li>
+<li><code>medium full shot</code>  中風全景鏡</li>
+<li><code>full shot</code>  全景鏡</li>
+<li><code>long shot</code>  遠鏡</li>
+<li><code>establishing shot</code>  場景鏡</li>
+</ul>
+<h3 id="鏡頭聚焦">鏡頭聚焦</h3>
+<ul>
+<li><code>upper body</code>  上半身</li>
+<li><code>full body</code>  全身</li>
+<li><code>wide angle view</code> 廣角鏡</li>
+</ul>
+<h3 id="鏡頭視角">鏡頭視角</h3>
+<ul>
+<li><code>point-of-view</code>、<code>pov</code>  主觀視角</li>
+<li><code>female pov</code> （女性向）主觀視角</li>
+<li><code>dutch angle</code> 斜角鏡頭</li>
+<li><code>shot from side</code> 從人物側面拍攝</li>
+<li><code>shot from back</code>、<code>shot from behind</code> 從人物背面拍攝</li>
+<li><code>shot from below</code> 從下方拍攝</li>
+<li><code>shot from above</code> 從上方拍攝</li>
+<li><code>overhead shot</code>  俯視</li>
+<li><code>bird's eye view</code>  鳥瞰</li>
+<li><code>high angle</code>  高角度</li>
+<li><code>slightly above</code>  微高角度</li>
+<li><code>straight on</code>  水平拍攝</li>
+<li><code>selfie</code>  自拍</li>
+<li><code>45 degree angle</code> 45度角</li>
+<li><code>three-quarter view</code> 四分之三視圖，特別用在描述人物肖像畫上，視角介於側臉輪廓與正面全臉之間</li>
+</ul>
+<h3 id="畫風">畫風</h3>
+<ul>
+<li>illustration, painting, paintbrush</li>
+<li>anime, comic, digital art, game CG</li>
+<li>semi-realistic, 2.5D</li>
+<li>photorealistic, realistic, photograph</li>
+</ul>
+<h3 id="畫質">畫質</h3>
+<ul>
+<li>通用：best quality, ultra-detailed, masterpiece, 8k</li>
+<li>超高解析度或寫實風格適用：extremely detailed</li>
+<li>3D建模風格適用：unreal engine rendered, 3D rendered</li>
+</ul>
+<h3 id="人物篇">人物篇</h3>
+<h4 id="頭髮">頭髮</h4>
+<p>– <strong>長度</strong></p>
+<ul>
+<li>absurdly long hair</li>
+<li>very long hair</li>
+<li>waist-length hair</li>
+<li>long hair</li>
+<li>medium hair</li>
+<li>shoulder-length hair</li>
+<li>short hair</li>
+<li>very short hair</li>
+</ul>
+<p>– <strong>髮色</strong></p>
+<ul>
+<li>多髮色
+<ul>
+<li>two-tone hair</li>
+<li>multicolored hair</li>
+<li>gradient hair</li>
+</ul>
+</li>
+<li>blonde hair</li>
+<li>brown hair</li>
+<li>black hair</li>
+<li>blue hair</li>
+<li>purple hair</li>
+<li>white hair</li>
+<li>red hair</li>
+<li>grey hair</li>
+<li>green hair</li>
+<li>silver hair</li>
+<li>orange hair</li>
+<li>aqua hair</li>
+<li>light brown hair</li>
+</ul>
+<p>– <strong>髮型</strong></p>
+<ul>
+<li>flipped hair</li>
+<li>spiked hair</li>
+<li>messy hair</li>
+<li>wavy hair</li>
+<li>curly hair</li>
+<li>ringlets</li>
+<li>big hair</li>
+<li>afro</li>
+<li>dreadlocks</li>
+<li>bob cut</li>
+<li>hime cut</li>
+<li>hair bun
+<ul>
+<li>double bun</li>
+<li>single hair bun</li>
+<li>braided bun</li>
+<li>cone hair bun</li>
+<li>topknot</li>
+</ul>
+</li>
+<li>ponytail
+<ul>
+<li>short ponytail</li>
+<li>high ponytail</li>
+<li>side ponytail</li>
+<li>folded ponytail</li>
+</ul>
+</li>
+<li>braid
+<ul>
+<li>single braid</li>
+<li>twin braids</li>
+<li>side braid</li>
+<li>french braid</li>
+</ul>
+</li>
+<li>twintails
+<ul>
+<li>low twintails</li>
+<li>short twintails</li>
+<li>quad tails</li>
+<li>twin drills</li>
+</ul>
+</li>
+<li>half updo</li>
+<li>bald</li>
+</ul>
+<p>– <strong>瀏海</strong></p>
+<ul>
+<li>bangs</li>
+<li>natural bangs</li>
+<li>parted bangs</li>
+<li>blunt bangs</li>
+<li>swept bangs</li>
+<li>overlap bangs</li>
+<li>crossed bangs、hair between eyes</li>
+<li>asymmetrical bangs</li>
+<li>arched bangs</li>
+<li>hair pulled back</li>
+<li>hair slicked back</li>
+<li>bangs pinned back</li>
+<li>hair over one eye</li>
+</ul>
+<p>– <strong>呆毛</strong></p>
+<ul>
+<li>ahoge</li>
+<li>huge ahoge</li>
+<li>antenna hair</li>
+</ul>
 
