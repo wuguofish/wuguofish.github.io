@@ -28,7 +28,7 @@
 <h3 id="目前大多數的模型，都是從其他模型變體而來。">目前大多數的模型，都是從其他模型變體而來。</h3>
 <p>也就是拿現有的模型加上一些資料後再訓練過。<br>
 意思就是這些模型其實會有相似的表現。<br>
-<strong>可以把這些模型其實都是同一個父母生的兄弟姊妹。</strong></p>
+<strong>可以把這些模型想成是同一個父母生的兄弟姊妹。</strong></p>
 <h3 id="兩大xl模型家族：">兩大XL模型家族：</h3>
 <ol>
 <li><strong><a href="https://civitai.com/articles/8380/tips-for-illustrious-xl-prompting-updates">Illustrious</a></strong>：
