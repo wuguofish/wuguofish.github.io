@@ -270,9 +270,11 @@
 <li>antenna hair</li>
 </ul>
 <hr>
-<h3 id="參考資料：">參考資料：</h3>
+<h3 id="參考資料">參考資料</h3>
 <p><a href="https://github.com/Stability-AI/stablediffusion">https://github.com/Stability-AI/stablediffusion</a><br>
 <a href="https://stable-diffusion-art.com/prompt-guide/">https://stable-diffusion-art.com/prompt-guide/</a><br>
 <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">https://github.com/AUTOMATIC1111/stable-diffusion-webui</a><br>
 <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20">https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20</a></p>
+<h3 id="額外補充">額外補充</h3>
+<p>SDXL的原始論文：<a href="https://arxiv.org/abs/2307.01952">https://arxiv.org/abs/2307.01952</a></p>
 
