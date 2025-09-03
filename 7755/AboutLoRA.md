@@ -85,4 +85,14 @@ Pony家族提升畫質的關鍵字：<code>score_9, score_8_up, score_7_up</code
 <p>當LoRA為負的時候，表示圖片的效果要把LoRA的部份盡量避免掉。</p>
 <p>因此可以視自己需要調整LoRA權重。</p>
 <p>有些LoRA作者也會在說明裡面寫建議的權重。</p>
+<hr>
+<h3 id="參考資料">參考資料</h3>
+<p><a href="https://stable-diffusion-art.com/lora/">https://stable-diffusion-art.com/lora/</a><br>
+<a href="https://stable-diffusion-art.com/train-lora/">https://stable-diffusion-art.com/train-lora/</a><br>
+<a href="https://stable-diffusion-art.com/train-lora-sdxl/">https://stable-diffusion-art.com/train-lora-sdxl/</a><br>
+<a href="https://support.pixai.art/en/articles/8259846-train-lora-with-pixai">https://support.pixai.art/en/articles/8259846-train-lora-with-pixai</a><br>
+<a href="https://www.illustrious-xl.ai/blog">https://www.illustrious-xl.ai/blog</a><br>
+<a href="https://civitai.com/articles/8380/tips-for-illustrious-xl-prompting-updates">https://civitai.com/articles/8380/tips-for-illustrious-xl-prompting-updates</a><br>
+<a href="https://stable-diffusion-art.com/pony-diffusion-v6-xl/">https://stable-diffusion-art.com/pony-diffusion-v6-xl/</a><br>
+<a href="https://www.reddit.com/r/StableDiffusion/comments/1g2zmwv/whats_with_all_the_hype_around_illustrious_xl_the/">https://www.reddit.com/r/StableDiffusion/comments/1g2zmwv/whats_with_all_the_hype_around_illustrious_xl_the/</a></p>
 
