@@ -85,6 +85,30 @@ Pony家族提升畫質的關鍵字：<code>score_9, score_8_up, score_7_up</code
 <p>當LoRA為負的時候，表示圖片的效果要把LoRA的部份盡量避免掉。</p>
 <p>因此可以視自己需要調整LoRA權重。</p>
 <p>有些LoRA作者也會在說明裡面寫建議的權重。</p>
+<h1 id="在pixai上訓練自己的lora">在PixAI上訓練自己的LoRA</h1>
+<h2 id="事前準備">事前準備</h2>
+<ul>
+<li>用來訓練的圖片（建議25張~100張）</li>
+<li>把訓練圖片裁成正方形（邊長至少768px）
+<ul>
+<li>如果是角色LoRA的話
+<ul>
+<li>臉部清晰置中</li>
+<li>盡量不要被手或其他東西遮擋（除非那是要被訓練的特徵之一）</li>
+<li>最好每個角度都要至少3張（正面、側面、45度角、仰角、俯角）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="訓練介面操作">訓練介面操作</h2>
+<ul>
+<li>輸入LoRA名稱，建議後綴訓練模型，讓別人好選擇</li>
+<li>訓練LoRA的模型請選擇你預計要使用的模型或至少是同家族的模型</li>
+<li>觸發詞：請輸入所有訓練圖片的<strong>共通點</strong></li>
+</ul>
+<h3 id="現在pixai允許同一個lora訓練多的版本：">現在PixAI允許同一個LoRA訓練多的版本：</h3>
+<p>可以在過去訓練完成的模型頁按下「新增版本」或是按右上角的 <strong>︙</strong> 後，選擇「重複使用資料集」，就可以訓練適應不同模型版本的LoRA。</p>
 <hr>
 <h3 id="參考資料">參考資料</h3>
 <p><a href="https://stable-diffusion-art.com/lora/">https://stable-diffusion-art.com/lora/</a><br>
