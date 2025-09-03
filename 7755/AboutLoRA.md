@@ -100,6 +100,8 @@ Pony家族提升畫質的關鍵字：<code>score_9, score_8_up, score_7_up</code
 </li>
 </ul>
 </li>
+<li>❗訓練圖<strong>重質不重量</strong><br>
+<strong>寧可高品質的圖片少一點，也不要一堆低品質的雜圖</strong></li>
 </ul>
 <h2 id="訓練介面操作">訓練介面操作</h2>
 <ul>
