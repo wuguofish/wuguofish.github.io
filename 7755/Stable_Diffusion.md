@@ -272,6 +272,7 @@
 <hr>
 <h3 id="參考資料">參考資料</h3>
 <p><a href="https://github.com/Stability-AI/stablediffusion">https://github.com/Stability-AI/stablediffusion</a><br>
+<a href="https://stable-diffusion-art.com/models/">https://stable-diffusion-art.com/models/</a><br>
 <a href="https://stable-diffusion-art.com/prompt-guide/">https://stable-diffusion-art.com/prompt-guide/</a><br>
 <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">https://github.com/AUTOMATIC1111/stable-diffusion-webui</a><br>
 <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20">https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20</a></p>
