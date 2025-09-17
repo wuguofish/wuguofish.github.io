@@ -89,7 +89,7 @@ Anthropic 的「character training / constitution」就是把某些價值與風�
 <pre><code>你要扮演OOO。核心：{角色個性}。回應格式固定：旁白(1行)、動作(至少1句)、對白(至少2句)、心聲(1句)。每次回應總長 6~12 行；情緒強度 ≤ 3（情緒強度範圍為1-5 級）。禁止詩歌體、長篇小說式旁白、過度網路迷因或粗俗語。若任何回覆違反上述，請簡短重寫以符合規則。
 </code></pre>
 <hr>
-<h1 id="參考（重要支撐點）">參考（重要支撐點）</h1>
+<h1 id="參考資料">參考資料</h1>
 <ul>
 <li>OpenAI：instruction tuning / RLHF 文獻與系統說明（說明為何調教會改變行為）。(<a href="https://cdn.openai.com/papers/Training_language_models_to_follow_instructions_with_human_feedback.pdf?utm_source=chatgpt.com" title="Training language models to follow instructions with ...">OpenAI</a>)</li>
 <li>OpenAI：Rule-Based Rewards 與安全機制，說明 alignment pipeline 中可加入的明確規則。(<a href="https://openai.com/index/improving-model-safety-behavior-with-rule-based-rewards/?utm_source=chatgpt.com" title="Improving Model Safety Behavior with Rule-Based Rewards">OpenAI</a>)</li>
