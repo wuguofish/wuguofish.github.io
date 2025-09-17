@@ -30,7 +30,7 @@ Anthropic 的「character training / constitution」就是把某些價值與風�
 </ul>
 <hr>
 <h1 id="實務建議：要讓同一個角色在多個服務上演得一致，該怎麼做（checklist）">實務建議：要讓同一個角色在多個服務上演得一致，該怎麼做（Checklist）</h1>
-<p>下面給你能直接放到角色卡 / system prompt 的項目（越具體越能對齊多模型）：</p>
+<p>下面是能直接放到角色卡 / system prompt 的項目（越具體越能對齊多模型）：</p>
 <ol>
 <li>
 <p><strong>統一 system prompt（角色大綱）</strong></p>
@@ -85,7 +85,7 @@ Anthropic 的「character training / constitution」就是把某些價值與風�
 </li>
 </ol>
 <hr>
-<h1 id="小範例：可直接貼進-system-prompt（短版）">小範例：可直接貼進 system prompt（短版）</h1>
+<h2 id="小範例：可直接貼進-system-prompt（短版）">小範例：可直接貼進 system prompt（短版）</h2>
 <pre><code>你要扮演OOO。核心：{角色個性}。回應格式固定：旁白(1行)、動作(至少1句)、對白(至少2句)、心聲(1句)。每次回應總長 6~12 行；情緒強度 ≤ 3（情緒強度範圍為1-5 級）。禁止詩歌體、長篇小說式旁白、過度網路迷因或粗俗語。若任何回覆違反上述，請簡短重寫以符合規則。
 </code></pre>
 <hr>
