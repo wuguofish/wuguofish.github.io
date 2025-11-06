@@ -275,7 +275,12 @@
 <a href="https://stable-diffusion-art.com/models/">https://stable-diffusion-art.com/models/</a><br>
 <a href="https://stable-diffusion-art.com/prompt-guide/">https://stable-diffusion-art.com/prompt-guide/</a><br>
 <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">https://github.com/AUTOMATIC1111/stable-diffusion-webui</a><br>
-<a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20">https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20</a></p>
+<a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20">https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#stable-diffusion-20</a><br>
+SDXL的原始論文：<a href="https://arxiv.org/abs/2307.01952">https://arxiv.org/abs/2307.01952</a></p>
 <h3 id="額外補充">額外補充</h3>
-<p>SDXL的原始論文：<a href="https://arxiv.org/abs/2307.01952">https://arxiv.org/abs/2307.01952</a></p>
+<p>雙人算圖公式（目前僅確定是用大多數Illustrious家族的模型）</p>
+<pre><code> (couple) ,1boy, 1girl, 場景描述, 男生大略特徵描述, 女生大略特徵描述, 畫風, 品質標籤, LoRA觸發詞 
+boy: 男生詳細特徵與動作 
+girl: 女生詳細特徵與動作 
+</code></pre>
 
