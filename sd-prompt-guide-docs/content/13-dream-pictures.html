@@ -1,0 +1,176 @@
+      <h1>夢圖攻略：OC × 角色同框指南</h1>
+<h2>什麼是夢圖？</h2>
+<p>「夢圖」是指將自己的二次元人設（OC, Original Character）和喜歡的角色畫在同一張圖裡的同人創作。</p>
+<h2>常見問題</h2>
+<h3>問題 1：兩個角色的特徵混在一起</h3>
+<p><strong>現象</strong>：</p>
+<ul>
+  <li>我的 OC 是紅髮，角色是藍髮，結果兩個都變成紫髮</li>
+  <li>我的 OC 穿便服，角色穿制服，結果兩個都穿奇怪的混合服裝</li>
+</ul>
+<p><strong>原因</strong>：AI 傾向「平均化」描述，把所有特徵混在一起分配。</p>
+<p><strong>解法</strong>：使用區塊分離語法（見下方公式）</p>
+<h3>問題 2：我喜歡的角色也變成女生了</h3>
+<p><strong>原因</strong>：只寫角色名不夠，模型可能不認識或認錯。</p>
+<p><strong>解法</strong>：在區塊中完整描述角色外觀，不只依賴名字。</p>
+<h3>問題 3：角色認不出來</h3>
+<p><strong>原因</strong>：該角色在訓練集中出現次數太少，模型不認得。</p>
+<p><strong>解法</strong>：</p>
+<ol>
+<li><strong>用 LoRA</strong>：找該角色專用的 LoRA</li>
+<li><strong>詳細描述</strong>：不依賴名字，完整描述角色外觀</li>
+<li><strong>參考官方設定</strong>：把角色的髮型、髮色、服裝、配件都寫出來</li>
+</ol>
+<hr />
+<h2>⭐ 夢圖黃金公式</h2>
+<h3>BG 向夢圖公式（女 OC × 男角色 / 男 OC × 女角色）</h3>
+<pre><code>(couple), 1boy, 1girl, 互動, 場景描述, 男生大略特徵描述, 女生大略特徵描述, 畫風, 品質標籤, LoRA觸發詞
+
+boy: 男生詳細特徵與動作
+girl: 女生詳細特徵與動作
+</code></pre>
+<h3>BL 向夢圖公式（男 OC × 男角色）</h3>
+<pre><code>2boys, yaoi, OC名字 at right, 角色名字 at left, 互動, 場景描述, 畫風, 品質標籤, LoRA觸發詞
+
+right: OC名字, OC詳細特徵與動作
+left: 角色名字, 角色詳細特徵與動作
+</code></pre>
+<h3>公式解說</h3>
+<table>
+<thead>
+<tr>
+<th>區塊</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一行</td>
+<td>整體設定：人數、關係、位置、互動、場景、畫風</td>
+</tr>
+<tr>
+<td><code>boy:</code> / <code>girl:</code></td>
+<td>BG 向：分別描述男女角色</td>
+</tr>
+<tr>
+<td><code>right:</code> / <code>left:</code></td>
+<td>BL 向：分別描述左右角色</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重點</strong>：</p>
+<ul>
+  <li>這種寫法讓模型能清楚區分兩個角色</li>
+  <li>不會把特徵混在一起</li>
+  <li>搭配 LoRA 效果更好</li>
+</ul>
+<hr />
+<h2>範例 prompt</h2>
+<h3>範例 1：BG 向夢圖（女 OC × 男角色）</h3>
+<pre><code>Positive:
+(couple), 1boy, 1girl, holding hands, looking at another, cafe, brown hair, red hair
+
+boy: short hair, brown hair, golden eyes, smile, tall male, white shirt, sitting
+girl: my OC Sakura, long hair, red hair, hair ribbon, green eyes, blush, sundress
+
+Negative:
+yaoi, yuri, multiple boys, multiple girls
+</code></pre>
+<h3>範例 2：BL 向夢圖（男 OC × 男角色）</h3>
+<pre><code>Positive:
+2boys, yaoi, my OC Rei at right, Protagonist at left, hug from behind, bedroom, night
+
+right: Rei, long hair, ponytail, silver hair, red eyes, pale skin, black coat
+left: Protagonist, short hair, black hair, blue eyes, casual clothes, blush
+
+Negative:
+1girl, female, breasts, feminine, hetero
+</code></pre>
+<h3>範例 3：乙女向夢圖（使用角色 LoRA）</h3>
+<pre><code>Positive:
+(couple), 1boy, 1girl, kiss, night sky, starry sky, 角色LoRA觸發詞
+
+boy: 角色名, 角色外觀描述
+girl: my OC, long hair, pink hair, purple eyes, white dress, closed eyes, blush
+
+Negative:
+yaoi, yuri, multiple boys, multiple girls
+</code></pre>
+<p>※ 在 PixAI 介面上選擇對應的 LoRA 並調整權重即可，不需手動輸入 <code>&lt;lora:xxx:0.7&gt;</code> 語法。</p>
+<hr />
+<h2>進階技巧</h2>
+<h3>第一人稱視角（乙女 CG 風格）</h3>
+<p>如果你想畫「從自己的視角看著他」的乙女遊戲 CG 風格圖片，請參考：</p>
+<p>👉 <strong><code>references/female-oriented/03-otome-pov.md</code></strong></p>
+<h3>為什麼區塊語法有效？</h3>
+<p><code>boy:</code> / <code>girl:</code> 和 <code>right:</code> / <code>left:</code> 這種寫法利用了模型訓練時學到的「條件式描述」結構。
+模型會把該區塊後的描述只套用到對應的角色，不會混在一起。</p>
+<h3>使用 LoRA 強化角色辨識度</h3>
+<p>如果目標角色有專用 LoRA：</p>
+<ol>
+<li>在 PixAI 介面上選擇該 LoRA</li>
+<li>在 prompt 中加入 <strong>LoRA 觸發詞</strong></li>
+<li>在介面的 LoRA 控制板調整權重（建議 0.6-0.8）</li>
+</ol>
+<p><strong>寫法範例</strong>：</p>
+<pre><code>(couple), 1boy, 1girl, 互動, 角色LoRA觸發詞
+
+boy: 角色名, 角色特徵
+girl: my OC, OC特徵
+</code></pre>
+<p>※ 不需手動輸入 <code>&lt;lora:xxx:0.7&gt;</code> 語法，PixAI 會自動處理。</p>
+<p>權重太高可能會壓過 OC 的描述，建議從 0.6 開始調整。</p>
+<h3>構圖建議</h3>
+<p><strong>容易成功的構圖</strong>：</p>
+<ul>
+  <li>並肩站立</li>
+  <li>一前一後（不重疊）</li>
+  <li>坐在一起（如咖啡廳對坐）</li>
+  <li>牽手（身體不重疊）</li>
+</ul>
+<p><strong>難度較高的構圖</strong>：</p>
+<ul>
+  <li>擁抱（身體重疊多）</li>
+  <li>接吻（臉部靠近）</li>
+  <li>公主抱（姿勢複雜）</li>
+</ul>
+<p>建議從簡單構圖開始，熟練後再挑戰複雜構圖。</p>
+<h3>當特徵還是會混在一起時</h3>
+<p>如果用了公式還是會混，試試：</p>
+<ol>
+<li><strong>加大外觀差異</strong>：讓髮色完全相反（如黑 vs 白、紅 vs 藍）</li>
+<li><strong>簡化描述</strong>：每個角色只保留 3-4 個最重要的特徵</li>
+<li><strong>分開生成</strong>：先分別生成兩人的單人圖，確認特徵正確，再合圖</li>
+</ol>
+<hr />
+<h2>常見錯誤排除</h2>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>解法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>髮色混在一起</td>
+<td>加大色差（如 <code>dark hair</code> vs <code>white hair</code>）</td>
+</tr>
+<tr>
+<td>服裝混在一起</td>
+<td>用位置詞分離，加強描述具體度</td>
+</tr>
+<tr>
+<td>變成同一個人</td>
+<td>加入 <code>different appearance</code>, <code>distinct features</code></td>
+</tr>
+<tr>
+<td>角色消失只剩一人</td>
+<td>確認有寫 <code>2boys</code> 或 <code>1boy 1girl</code></td>
+</tr>
+<tr>
+<td>莫名出現第三人</td>
+<td>negative 加 <code>multiple boys</code> 或 <code>crowd</code></td>
+</tr>
+</tbody>
+</table>

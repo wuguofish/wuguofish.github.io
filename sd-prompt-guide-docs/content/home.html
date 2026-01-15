@@ -1,0 +1,60 @@
+<h1>PixAI SDXL Prompt 實戰指南</h1>
+<p>Stable Diffusion / Illustrious XL 系列模型的 Prompt 實戰指南</p>
+<a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view" target="_blank" class="canva-link">
+  <strong>📺 圖解版簡報</strong>
+  <span>部分章節內容整理自 PixAI 使用心得分享，想看圖文並茂的說明可以參考原始簡報</span>
+</a>
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 20px 0;">
+  <h3 style="margin: 0 0 10px; color: #166534;">🤖 懶得看？讓 AI 助手幫你</h3>
+  <p style="margin: 0 0 15px; color: #555;">直接問 AI，它會根據這份指南回答你的問題：</p>
+  <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <a href="https://chatgpt.com/g/g-6968988711208191af3a1aa7cebc44d8-pixai-sdxlti-shi-ci-xiao-zhu-shou" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #10a37f; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+      ChatGPT 提示詞小助手
+    </a>
+    <a href="files/sd-prompt-guide.skill" download style="display: inline-flex; align-items: center; gap: 8px; background: #d97706; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+      Claude Skill 下載
+    </a>
+  </div>
+  <p style="margin: 15px 0 0; color: #666; font-size: 0.9rem;">使用 Gemini、Grok 或其他 AI？直接把這個網址貼給它，請它「閱讀這個網頁後回答問題」就可以了！</p>
+</div>
+<h2>這是什麼？</h2>
+<p>這份指南專門解決 AI 繪圖模型的「偏科問題」——模型很會畫可愛女生，但畫其他東西就需要特別技巧。</p>
+<h2>適合誰？</h2>
+<ul>
+  <li>想畫<strong>男性角色</strong>但一直畫成女生的人</li>
+  <li>想畫<strong>純風景/物件</strong>但一直冒出人的人</li>
+  <li>想畫 <strong>BL / 耽美</strong>的創作者</li>
+  <li>想畫<strong>夢圖</strong>（自己的 OC 和喜歡的角色同框）的人</li>
+  <li>想畫<strong>乙女遊戲風 CG</strong>的人</li>
+  <li>想了解 <strong>LoRA、HiRes、Inpaint</strong> 等進階功能的人</li>
+  <li><strong>任何想要使用PixAI上的SDXL模型生圖</strong> ，但是不知道提示詞怎麼寫的人</li>
+</ul>
+<div class="quick-start">
+  <h3>🚀 快速開始</h3>
+  <table>
+    <tr><th>我想要...</th><th>看這篇</th></tr>
+    <tr><td>畫男生</td><td><a href="#02-drawing-males">畫男性角色</a></td></tr>
+    <tr><td>畫風景/物件</td><td><a href="#03-no-humans">純風景/純物件</a></td></tr>
+    <tr><td>畫 BL</td><td><a href="#12-bl-guide">BL / 耽美指南</a></td></tr>
+    <tr><td>畫夢圖</td><td><a href="#13-dream-pictures">夢圖指南</a></td></tr>
+    <tr><td>畫乙女 CG</td><td><a href="#14-otome-pov">第一人稱乙女 CG</a></td></tr>
+    <tr><td>查 Tag 怎麼寫</td><td><a href="#06-tag-lookup">Tag 中英對照</a></td></tr>
+    <tr><td>了解 LoRA</td><td><a href="#08-lora-basics">LoRA 基礎</a></td></tr>
+    <tr><td>加速生圖</td><td><a href="#09-acceleration-lora">加速 LoRA</a></td></tr>
+    <tr><td>放大圖片</td><td><a href="#10-hires-upscale">HiRes 放大</a></td></tr>
+    <tr><td>局部修改</td><td><a href="#11-inpaint-outpaint">Inpaint/Outpaint</a></td></tr>
+  </table>
+</div>
+<h2>重要觀念</h2>
+<h3>Tag 必須存在於資料庫</h3>
+<p>AI 模型是用 Danbooru / e621 的圖片訓練的，所以 <strong>只有資料庫裡有的 tag 才有效</strong>。</p>
+<div class="warning">
+  <strong>常見錯誤：</strong><br>
+  ❌ <code>young man</code> → 不存在（改用 <code>1boy</code> + 具體特徵）<br>
+  ❌ <code>handsome</code> → 不存在（改用 <code>bishounen</code> 或 <code>manly</code>）<br>
+  ❌ <code>narrow eyes</code> → 不存在（正確是 <code>narrowed eyes</code>）
+</div>
+<h3>底線要換成空白</h3>
+<p>資料庫用底線（<code>black_hair</code>），但實際輸入時用空白（<code>black hair</code>）。</p>
+<hr style="margin: 40px 0;">
+<p style="color: #666; font-size: 0.9rem;">最後更新：2025-01</p>

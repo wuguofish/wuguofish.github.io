@@ -1,0 +1,263 @@
+      <h1>純風景 / 純物件生成指南</h1>
+<h2>問題：為什麼一直出現人物？</h2>
+<p>AI 繪圖模型的訓練資料以「角色圖」為主，即使你只想畫風景或物件，模型也會習慣性地加入人物。</p>
+<h2>核心解法：明確告訴 AI「不要人」</h2>
+<h3>萬用公式</h3>
+<pre><code>Positive:
+no humans, [主題描述]
+
+Negative:
+1girl, 1boy, person, people, human, face, 
+figure, character, portrait, body
+</code></pre>
+<hr />
+<h2>純風景範例</h2>
+<h3>自然風景</h3>
+<pre><code>Positive:
+scenery, landscape, no humans,
+mountain, lake, forest, 
+sunrise, sunbeam, sky,
+nature
+
+Negative:
+1girl, 1boy, person, human, figure, 
+character, face, portrait
+</code></pre>
+<h3>都市風景</h3>
+<pre><code>Positive:
+scenery, cityscape, no humans,
+city lights, night sky, buildings,
+neon lights, rain, reflection,
+cyberpunk
+
+Negative:
+1girl, 1boy, person, human, figure,
+character, face, portrait, crowd
+</code></pre>
+<h3>室內場景</h3>
+<pre><code>Positive:
+scenery, indoors, no humans,
+[房間類型如 bedroom, library, cafe],
+window, chair, lamp,
+backlighting
+
+Negative:
+1girl, 1boy, person, human, figure,
+character, face, portrait
+</code></pre>
+<hr />
+<h2>純物件範例</h2>
+<h3>食物</h3>
+<pre><code>Positive:
+food focus, still life, no humans,
+[食物名稱], plate, table,
+simple background
+
+Negative:
+1girl, 1boy, person, human, hand, hands,
+figure, character, face
+</code></pre>
+<h3>花卉</h3>
+<pre><code>Positive:
+flower, still life, no humans,
+[花的種類如 rose, cherry blossoms, sunflower],
+vase, petals, leaf,
+simple background
+
+Negative:
+1girl, 1boy, person, human, figure,
+character, face, portrait
+</code></pre>
+<h3>物品/道具</h3>
+<pre><code>Positive:
+object focus, still life, no humans,
+[物品名稱],
+simple background
+
+Negative:
+1girl, 1boy, person, human, hand, hands,
+figure, character, face
+</code></pre>
+<hr />
+<h2>無人穿戴的服裝/配件</h2>
+<p>想畫「沒有人穿的鞋子」「放在桌上的帽子」等物品？使用 <code>unworn_*</code> 系列 tag：</p>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>Tag</th>
+<th>使用次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沒人穿的鞋子</td>
+<td><code>unworn shoes</code></td>
+<td>11,406</td>
+</tr>
+<tr>
+<td>沒人戴的帽子</td>
+<td><code>unworn hat</code></td>
+<td>25,260</td>
+</tr>
+<tr>
+<td>沒人戴的頭飾</td>
+<td><code>unworn headwear</code></td>
+<td>33,236</td>
+</tr>
+<tr>
+<td>沒人戴的眼鏡</td>
+<td><code>unworn eyewear</code></td>
+<td>14,699</td>
+</tr>
+<tr>
+<td>沒人穿的外套</td>
+<td><code>unworn jacket</code></td>
+<td>6,594</td>
+</tr>
+<tr>
+<td>沒人穿的裙子</td>
+<td><code>unworn skirt</code></td>
+<td>8,475</td>
+</tr>
+<tr>
+<td>沒人戴的面具</td>
+<td><code>unworn mask</code></td>
+<td>6,413</td>
+</tr>
+<tr>
+<td>沒人穿的衣服（通用）</td>
+<td><code>unworn clothes</code></td>
+<td>7,235</td>
+</tr>
+</tbody>
+</table>
+<h3>範例：放在地上的鞋子</h3>
+<pre><code>Positive:
+still life, no humans,
+unworn shoes, sneakers,
+wooden floor, sunbeam,
+simple background
+
+Negative:
+1girl, 1boy, person, human, feet, legs,
+figure, character
+</code></pre>
+<hr />
+<h2>概念圖專用模板</h2>
+<p>（適合設計師快速生成示意圖）</p>
+<h3>Logo 概念</h3>
+<pre><code>Positive:
+logo, simple background, no humans,
+[主題], [顏色],
+monochrome, white background
+
+Negative:
+person, human, character, photo
+</code></pre>
+<h3>海報/Banner 背景</h3>
+<pre><code>Positive:
+simple background, no humans,
+[風格], [顏色],
+gradient background, negative space
+
+Negative:
+1girl, 1boy, person, human, character,
+figure, face
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>加強「無人」效果</h3>
+<p>如果還是一直出現人，試著加重權重：</p>
+<pre><code>(no humans:1.4), scenery
+</code></pre>
+<h3>使用場景專用 tag</h3>
+<p>有些 tag 天生傾向無人構圖：</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>使用次數</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scenery</code></td>
+<td>52,470</td>
+<td>風景</td>
+</tr>
+<tr>
+<td><code>landscape</code></td>
+<td>6,078</td>
+<td>地景</td>
+</tr>
+<tr>
+<td><code>still life</code></td>
+<td>6,813</td>
+<td>靜物</td>
+</tr>
+<tr>
+<td><code>food focus</code></td>
+<td>11,098</td>
+<td>食物特寫</td>
+</tr>
+<tr>
+<td><code>object focus</code></td>
+<td>1,301</td>
+<td>物件特寫</td>
+</tr>
+</tbody>
+</table>
+<h3>避免觸發人物的詞</h3>
+<p>有些詞容易讓 AI 聯想到人物：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 容易出現人</th>
+<th>✅ 改用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cafe</code></td>
+<td><code>cafe, indoors, no humans</code></td>
+</tr>
+<tr>
+<td><code>bedroom</code></td>
+<td><code>bedroom, indoors, no humans</code></td>
+</tr>
+<tr>
+<td><code>street</code></td>
+<td><code>scenery, outdoors, no humans</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>常見問題排除</h2>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>解法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>還是出現人</td>
+<td>加重 <code>(no humans:1.4)</code> 權重</td>
+</tr>
+<tr>
+<td>出現人的影子/剪影</td>
+<td>negative 加 <code>shadow, silhouette</code></td>
+</tr>
+<tr>
+<td>出現手（例如拿著物件）</td>
+<td>negative 加 <code>hand, hands, holding</code></td>
+</tr>
+<tr>
+<td>畫面太空</td>
+<td>加入更多場景細節描述</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,224 @@
+      <h1>BL / 耽美圖完整指南</h1>
+<h2>常見問題</h2>
+<h3>問題：想畫 BL，結果變成 BG（男女）或 GL（女女）</h3>
+<p><strong>原因</strong>：
+1. 模型預設傾向畫女性
+2. <code>2boys</code> 的權重不夠強
+3. 互動描述詞（如 <code>kiss</code>）在訓練集中常與異性戀配對</p>
+<p><strong>解法</strong>：使用區塊分離語法</p>
+<pre><code>✅ Positive（使用 right:/left: 區塊分離）：
+2boys, yaoi, 角色A at right, 角色B at left, 互動, 場景
+
+right: 角色A, 詳細特徵與動作
+left: 角色B, 詳細特徵與動作
+
+❌ Negative（完全排除女性）：
+1girl, female, hetero, yuri, breasts, 
+feminine, woman, girl
+</code></pre>
+<hr />
+<h2>⭐ BL 圖黃金公式</h2>
+<p>這是經過實測最有效的寫法，模型能清楚區分兩個角色：</p>
+<pre><code>2boys, yaoi, 角色1名字 at right, 角色2名字 at left, 互動, 場景描述, 畫風, 品質標籤, LoRA觸發詞
+
+right: 角色1名字, 右邊角色詳細特徵與動作
+left: 角色2名字, 左邊角色詳細特徵與動作
+</code></pre>
+<h3>公式解說</h3>
+<table>
+<thead>
+<tr>
+<th>區塊</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一行</td>
+<td>整體設定：人數、關係、位置、互動、場景</td>
+</tr>
+<tr>
+<td><code>right:</code></td>
+<td>右邊角色的所有細節</td>
+</tr>
+<tr>
+<td><code>left:</code></td>
+<td>左邊角色的所有細節</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重點</strong>：</p>
+<ul>
+  <li>用 <code>at right</code> / <code>at left</code> 預先宣告角色位置</li>
+  <li>用 <code>right:</code> / <code>left:</code> 區塊詳細描述各角色</li>
+  <li>這樣寫模型不會把兩人的特徵混在一起</li>
+</ul>
+<h3>互動類型 tag 對照</h3>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接吻</td>
+<td><code>kiss, kissing, french kiss</code></td>
+<td></td>
+</tr>
+<tr>
+<td>擁抱</td>
+<td><code>hug, hugging, embrace</code></td>
+<td></td>
+</tr>
+<tr>
+<td>牽手</td>
+<td><code>holding hands, hand holding</code></td>
+<td></td>
+</tr>
+<tr>
+<td>對視</td>
+<td><code>eye contact, looking at another</code></td>
+<td></td>
+</tr>
+<tr>
+<td>從背後抱</td>
+<td><code>hug from behind</code></td>
+<td></td>
+</tr>
+<tr>
+<td>壁咚</td>
+<td><code>wall slam, kabedon</code></td>
+<td></td>
+</tr>
+<tr>
+<td>公主抱</td>
+<td><code>princess carry, carrying</code></td>
+<td></td>
+</tr>
+<tr>
+<td>額頭貼額頭</td>
+<td><code>forehead-to-forehead</code></td>
+<td></td>
+</tr>
+<tr>
+<td>靠在肩上</td>
+<td><code>head on another's shoulder, leaning on shoulder</code></td>
+<td></td>
+</tr>
+<tr>
+<td>膝枕</td>
+<td><code>lap pillow</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>身高差/體格差表現</h3>
+<pre><code>✅ 身高差：
+height difference, taller male, shorter male
+
+✅ 體格差：
+muscular male, slim male, 
+larger male, smaller male
+</code></pre>
+<hr />
+<h2>範例 prompt</h2>
+<h3>範例 1：清純系 BL（校園）</h3>
+<pre><code>Positive:
+2boys, yaoi, Hikaru at right, Sora at left, kiss, eye contact, blush, classroom, school uniform, soft lighting, romantic
+
+right: Hikaru, short black hair, blue eyes, gentle smile, slightly taller, hand on cheek
+left: Sora, messy brown hair, green eyes, surprised expression, blushing
+
+Negative:
+1girl, female, hetero, yuri, breasts, feminine
+</code></pre>
+<h3>範例 2：年上攻 × 年下受</h3>
+<pre><code>Positive:
+2boys, yaoi, Ren at right, Yuki at left, hug from behind, height difference, bedroom, night
+
+right: Ren, short hair, black hair, narrowed eyes, tall male, suit, smirk
+left: Yuki, messy hair, brown hair, slim, casual clothes, blush
+
+Negative:
+1girl, female, hetero, yuri, breasts, feminine
+</code></pre>
+<h3>範例 3：對等系</h3>
+<pre><code>Positive:
+2boys, yaoi, Kuro at right, Shiro at left, holding hands, walking, looking at another, city, sunset
+
+right: Kuro, black hair, red eyes, black jacket, smile
+left: Shiro, white hair, blue eyes, white coat, smile
+
+Negative:
+1girl, female, hetero, yuri, breasts, feminine
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>為什麼 <code>right:</code> / <code>left:</code> 語法有效？</h3>
+<p>這種區塊語法利用了模型訓練時學到的「條件式描述」結構。
+當模型看到 <code>right:</code> 開頭的區塊，會把後面的描述只套用到右邊的角色。</p>
+<h3>其他有效的區塊寫法</h3>
+<p>除了 <code>right:</code> / <code>left:</code>，以下寫法也有效：</p>
+<pre><code>✅ 用數字：
+1: 角色A特徵
+2: 角色B特徵
+
+✅ 用名字：
+Hikaru: 角色A特徵
+Sora: 角色B特徵
+</code></pre>
+<h3>避免特徵混在一起的關鍵</h3>
+<ol>
+<li><strong>先用 <code>at right</code> / <code>at left</code> 宣告位置</strong></li>
+<li><strong>再用 <code>right:</code> / <code>left:</code> 區塊詳述</strong></li>
+<li><strong>讓兩人的髮色、髮型差異明顯</strong>（如黑髮 vs 金髮）</li>
+<li><strong>使用對比色眼睛</strong>（如藍眼 vs 紅眼）</li>
+</ol>
+<h3>R18 相關 tag</h3>
+<p>（僅列出常用 tag，請依平台規範使用）</p>
+<pre><code>裸體：nude, naked
+上半身裸：topless, bare chest
+性暗示：suggestive, implied yaoi
+接吻舌頭：tongue kiss, tongue out
+</code></pre>
+<hr />
+<h2>常見錯誤排除</h2>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>可能原因</th>
+<th>解法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>出現女性</td>
+<td>negative 沒排除乾淨</td>
+<td>加強 negative prompt</td>
+</tr>
+<tr>
+<td>兩人長得一樣</td>
+<td>描述不夠具體</td>
+<td>加大外觀差異</td>
+</tr>
+<tr>
+<td>變成三人以上</td>
+<td>沒寫 <code>2boys</code></td>
+<td>明確寫數量</td>
+</tr>
+<tr>
+<td>互動不自然</td>
+<td>構圖太複雜</td>
+<td>先從簡單構圖開始</td>
+</tr>
+<tr>
+<td>一人變女性化</td>
+<td><code>uke</code> 等詞有時會觸發女性特徵</td>
+<td>用 <code>shorter male</code> 替代</td>
+</tr>
+</tbody>
+</table>

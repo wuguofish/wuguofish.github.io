@@ -1,0 +1,163 @@
+      <h1>第一人稱乙女 CG 風格指南</h1>
+<h2>什麼是乙女 CG 風格？</h2>
+<p>乙女遊戲（女性向戀愛遊戲）中常見的 CG 構圖：</p>
+<ul>
+  <li>從女主角（玩家）的視角看著男性角色</li>
+  <li>男性角色看著「鏡頭」＝看著你</li>
+  <li>可能有互動：牽手、摸頭、比愛心等</li>
+</ul>
+<p>這種構圖讓玩家有「他在看著我」的沉浸感。</p>
+<hr />
+<h2>核心 Tag</h2>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>female pov</code></td>
+<td>第一人稱女性視角</td>
+</tr>
+<tr>
+<td><code>1girl out of frame</code></td>
+<td>暗示「我」在畫面外但存在</td>
+</tr>
+<tr>
+<td><code>hetero</code></td>
+<td>強調異性戀互動</td>
+</tr>
+<tr>
+<td><code>looking at viewer</code></td>
+<td>角色看著鏡頭（看著你）</td>
+</tr>
+<tr>
+<td><code>pov hands</code></td>
+<td>畫面中出現「自己的手」</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>⚠️ 重要提醒</h2>
+<p>由於訓練資料的關係，<code>female pov</code> 有時會觸發 NSFW 內容。</p>
+<p><strong>如果想要單純夢幻唯美的畫面，務必在 negative prompt 加上 <code>nsfw</code>。</strong></p>
+<hr />
+<h2>萬用公式</h2>
+<pre><code>Positive:
+1boy, solo, male focus, female pov, 
+1girl out of frame, hetero, looking at viewer,
+[互動], [角色描述], [場景]
+
+Negative:
+nsfw, nude
+</code></pre>
+<hr />
+<h2>範例</h2>
+<h3>範例 1：比愛心（實測成功）</h3>
+<p>使用模型：ChocoMint Mix</p>
+<pre><code>Positive:
+solo focus, male focus, 1boy, 
+bangs, black hair, short hair, brown eyes, glasses,
+manly, masculine, smile, 
+business casual, looking at viewer,
+角色LoRA觸發詞,
+half-heart hands, cowboy shot,
+simple background, white background,
+1girl out of frame, hetero, female pov
+
+Negative:
+nsfw, nude
+</code></pre>
+<p><strong>重點</strong>：</p>
+<ul>
+  <li><code>manly</code> (Danbooru) 和 <code>masculine</code> (e621) 可以組合使用，增強陽剛感</li>
+  <li><code>half-heart hands</code> — 比一半愛心（和畫面外的「我」合成完整愛心）</li>
+  <li><code>1girl out of frame</code> + <code>hetero</code> — 暗示有女生在場但不入鏡</li>
+</ul>
+<h3>範例 2：牽手</h3>
+<pre><code>Positive:
+1boy, solo, male focus, female pov,
+holding hands, pov hands,
+looking at viewer, smile, blush,
+bishounen, black hair, blue eyes,
+outdoors, sunset
+
+Negative:
+nsfw, nude, 1girl, breasts
+</code></pre>
+<h3>範例 3：撫摸臉頰</h3>
+<pre><code>Positive:
+1boy, solo, male focus, female pov,
+hand on another's cheek, pov hands,
+looking at viewer, blush,
+bishounen, white hair, red eyes,
+bedroom, night
+
+Negative:
+nsfw, nude, 1girl, breasts
+</code></pre>
+<h3>範例 4：被摸頭</h3>
+<pre><code>Positive:
+1boy, solo, male focus, female pov,
+hand on another's head, pov hands,
+looking at viewer, closed eyes, smile,
+black hair, school uniform,
+simple background
+
+Negative:
+nsfw, nude, 1girl, breasts
+</code></pre>
+<hr />
+<h2>常用互動 Tag</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>牽手</td>
+<td><code>holding hands</code>, <code>pov hands</code></td>
+</tr>
+<tr>
+<td>比一半愛心</td>
+<td><code>half-heart hands</code></td>
+</tr>
+<tr>
+<td>摸對方的頭</td>
+<td><code>hand on another's head</code></td>
+</tr>
+<tr>
+<td>摸對方的臉</td>
+<td><code>hand on another's cheek</code></td>
+</tr>
+<tr>
+<td>餵食</td>
+<td><code>feeding</code>, <code>pov hands</code></td>
+</tr>
+<tr>
+<td>擦眼淚</td>
+<td><code>wiping tears</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>常見問題</h2>
+<p><strong>Q: 為什麼會出現女生的身體？</strong></p>
+<p>A: <code>female pov</code> 有時會讓模型畫出女性身體部位。加強以下設定：</p>
+<ul>
+  <li>Positive 加 <code>1boy, solo</code></li>
+  <li>Negative 加 <code>1girl, breasts, female</code></li>
+</ul>
+<p><strong>Q: 為什麼畫面變成 NSFW？</strong></p>
+<p>A: 訓練資料中 <code>female pov</code> 常與成人內容連結。Negative 一定要加 <code>nsfw, nude</code>。</p>
+<p><strong>Q: 手的位置不對？</strong></p>
+<p>A: 互動類的構圖本來就難度較高。建議：</p>
+<ul>
+  <li>先從簡單的 <code>looking at viewer</code> 開始</li>
+  <li>再慢慢加入 <code>pov hands</code> 等複雜互動</li>
+</ul>

@@ -1,0 +1,222 @@
+      <h1>HiRes 高解析度放大</h1>
+<blockquote>
+<p>📺 <strong>圖解版</strong>：本章節內容整理自 <a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view">PixAI 使用心得分享簡報（第 26-28 頁）</a></p>
+</blockquote>
+<hr />
+<h2>什麼是 HiRes？</h2>
+<p><strong>HiRes</strong>（High Resolution Diffusion）是一種「先生成小圖，再放大重繪」的技術，讓你獲得更高解析度、更精緻的圖片。</p>
+<h3>為什麼需要 HiRes？</h3>
+<p>直接生成大圖會有問題：</p>
+<table>
+<thead>
+<tr>
+<th>直接生成大圖</th>
+<th>使用 HiRes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>容易出現重複元素（多頭、多手）</td>
+<td>構圖正常</td>
+</tr>
+<tr>
+<td>細節可能糊掉</td>
+<td>細節更精緻</td>
+</tr>
+<tr>
+<td>消耗大量算力</td>
+<td>效率較高</td>
+</tr>
+</tbody>
+</table>
+<h3>HiRes 的運作原理</h3>
+<pre><code>步驟 1：生成小圖（如 768×768）
+    ↓
+步驟 2：將小圖放大（如 1.5 倍 → 1152×1152）
+    ↓
+步驟 3：對放大後的圖進行「重繪」，補上細節
+    ↓
+完成：獲得高解析度成品
+</code></pre>
+<p>這個「重繪」的過程會參考原本的構圖，同時 AI 會補上放大後缺失的細節。</p>
+<hr />
+<h2>關鍵參數：Denoising Strength</h2>
+<p><strong>Denoising Strength</strong>（去噪強度）是 HiRes 最重要的參數，決定了「重繪」時改變原圖的程度。</p>
+<table>
+<thead>
+<tr>
+<th>數值</th>
+<th>效果</th>
+<th>適用情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.1 ~ 0.3</strong></td>
+<td>幾乎不改變，只是單純放大</td>
+<td>只想提升解析度</td>
+</tr>
+<tr>
+<td><strong>0.4 ~ 0.6</strong></td>
+<td>⭐ <strong>推薦範圍</strong>：補細節但保留構圖</td>
+<td>大多數情況</td>
+</tr>
+<tr>
+<td><strong>0.7 ~ 0.8</strong></td>
+<td>會有明顯改變，可能調整細節</td>
+<td>想要一些變化</td>
+</tr>
+<tr>
+<td><strong>0.9 ~ 1.0</strong></td>
+<td>幾乎重新畫一張，構圖可能大變</td>
+<td>基本上不建議</td>
+</tr>
+</tbody>
+</table>
+<h3>⚠️ 重要警告</h3>
+<p><strong>Denoising Strength 設太高（&gt; 0.7）容易讓圖片「走樣」！</strong></p>
+<p>常見的走樣情況：</p>
+<ul>
+  <li>人物表情改變</li>
+  <li>髮型或髮色跑掉</li>
+  <li>服裝細節變化</li>
+  <li>背景元素消失或增加</li>
+  <li>整體構圖偏移</li>
+</ul>
+<p><strong>建議</strong>：從 <strong>0.4 ~ 0.5</strong> 開始測試，覺得細節不夠再慢慢往上調。</p>
+<hr />
+<h2>PixAI 上的 HiRes 設定</h2>
+<h3>基本設定流程</h3>
+<ol>
+<li>生成一張滿意的基礎圖</li>
+<li>開啟 HiRes 選項</li>
+<li>設定放大倍率（通常 1.5x ~ 2x）</li>
+<li>調整 Denoising Strength（建議 0.4 ~ 0.6）</li>
+<li>重新生成</li>
+</ol>
+<h3>推薦設定組合</h3>
+<table>
+<thead>
+<tr>
+<th>目標</th>
+<th>放大倍率</th>
+<th>Denoising</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單純放大</td>
+<td>1.5x</td>
+<td>0.3</td>
+<td>保持原樣，只提升解析度</td>
+</tr>
+<tr>
+<td>標準 HiRes</td>
+<td>1.5x</td>
+<td>0.5</td>
+<td>平衡細節與穩定性</td>
+</tr>
+<tr>
+<td>精修細節</td>
+<td>2x</td>
+<td>0.5</td>
+<td>大幅提升解析度</td>
+</tr>
+<tr>
+<td>風格強化</td>
+<td>1.5x</td>
+<td>0.6</td>
+<td>讓風格更鮮明</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>HiRes 與其他功能的搭配</h2>
+<h3>HiRes + ControlNet</h3>
+<p>如果你用 ControlNet 控制構圖，HiRes 時也會參考：</p>
+<pre><code>原圖（有 ControlNet 約束）
+    ↓ HiRes 放大
+放大圖（繼續維持 ControlNet 的約束）
+</code></pre>
+<p>這樣可以在放大時保持姿勢、構圖的一致性。</p>
+<h3>HiRes + LoRA</h3>
+<p>HiRes 階段仍然會套用 LoRA 效果，所以：</p>
+<ul>
+  <li>角色 LoRA 的特徵會被保留</li>
+  <li>風格 LoRA 的畫風會更明顯</li>
+  <li>加速 LoRA 可以加快 HiRes 的重繪速度</li>
+</ul>
+<hr />
+<h2>常見問題</h2>
+<p><strong>Q：HiRes 後人物變了怎麼辦？</strong></p>
+<p>A：Denoising Strength 太高了，降到 0.4 以下試試。</p>
+<p><strong>Q：HiRes 後細節反而變糊？</strong></p>
+<p>A：可能是 Denoising 太低（&lt; 0.3），AI 沒有足夠空間補細節。</p>
+<p><strong>Q：HiRes 要跑很久怎麼辦？</strong></p>
+<p>A：可以搭配加速 LoRA（如 LCM）減少步數，或降低放大倍率。</p>
+<p><strong>Q：什麼時候不需要 HiRes？</strong></p>
+<p>A：</p>
+<ul>
+  <li>只是快速預覽構圖時</li>
+  <li>圖片用途不需要高解析度（如縮圖、社群貼文）</li>
+  <li>使用加速 LoRA 快速出圖時</li>
+</ul>
+<hr />
+<h2>進階：Upscaler 的選擇</h2>
+<p>有些平台讓你選擇不同的 Upscaler（放大演算法）：</p>
+<table>
+<thead>
+<tr>
+<th>Upscaler</th>
+<th>特點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latent</strong></td>
+<td>標準選項，效果平衡</td>
+</tr>
+<tr>
+<td><strong>Latent (nearest)</strong></td>
+<td>保留更多原始細節</td>
+</tr>
+<tr>
+<td><strong>R-ESRGAN 4x+</strong></td>
+<td>適合動漫風格</td>
+</tr>
+<tr>
+<td><strong>R-ESRGAN 4x+ Anime6B</strong></td>
+<td>專為動漫優化</td>
+</tr>
+</tbody>
+</table>
+<p>PixAI 通常會自動選擇合適的 Upscaler，一般不需要手動調整。</p>
+<hr />
+<h2>小結</h2>
+<table>
+<thead>
+<tr>
+<th>要點</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Denoising Strength</td>
+<td><strong>0.4 ~ 0.6</strong>（別超過 0.7）</td>
+</tr>
+<tr>
+<td>放大倍率</td>
+<td>1.5x ~ 2x</td>
+</tr>
+<tr>
+<td>使用時機</td>
+<td>構圖滿意後再放大</td>
+</tr>
+<tr>
+<td>搭配 ControlNet</td>
+<td>可以維持構圖一致</td>
+</tr>
+</tbody>
+</table>

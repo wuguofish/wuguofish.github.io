@@ -1,0 +1,131 @@
+      <h1>多角色構圖控制指南</h1>
+<h2>常見問題</h2>
+<p>當你想畫兩個以上的角色時，常會遇到：</p>
+<ol>
+<li><strong>特徵混在一起</strong> — A 角色的紅髮跑到 B 角色身上</li>
+<li><strong>變成同一個人</strong> — 兩個角色長得一模一樣</li>
+<li><strong>人數錯誤</strong> — 要兩個人卻出現三個，或只剩一個</li>
+<li><strong>性別錯誤</strong> — 要畫兩個男生卻出現女生</li>
+</ol>
+<h2>解決方案：區塊分離語法</h2>
+<p>經過實測，以下寫法最能讓模型清楚區分不同角色：</p>
+<h3>用位置區分（推薦）</h3>
+<pre><code>2boys, 角色A at right, 角色B at left, 互動, 場景
+
+right: 角色A名字, 右邊角色的詳細特徵
+left: 角色B名字, 左邊角色的詳細特徵
+</code></pre>
+<h3>用性別區分</h3>
+<pre><code>1boy, 1girl, 互動, 場景
+
+boy: 男生詳細特徵
+girl: 女生詳細特徵
+</code></pre>
+<h2>為什麼這樣寫有效？</h2>
+<p><code>right:</code> / <code>left:</code> 和 <code>boy:</code> / <code>girl:</code> 這種區塊語法，利用了模型訓練時學到的「條件式描述」結構。模型會把該區塊後的描述只套用到對應的角色，不會混在一起。</p>
+<hr />
+<h2>範例</h2>
+<h3>範例 1：兩個男性角色</h3>
+<pre><code>Positive:
+2boys, Kuro at right, Shiro at left, standing, talking, cafe
+
+right: Kuro, short hair, black hair, red eyes, tall male, black jacket
+left: Shiro, long hair, white hair, blue eyes, slim, white coat
+
+Negative:
+1girl, female, breasts
+</code></pre>
+<h3>範例 2：一男一女</h3>
+<pre><code>Positive:
+1boy, 1girl, holding hands, walking, street, sunset
+
+boy: short hair, brown hair, tall male, casual clothes
+girl: long hair, blonde hair, sundress, smile
+
+Negative:
+yaoi, yuri
+</code></pre>
+<h3>範例 3：三人以上</h3>
+<p>人數越多越難控制，建議：</p>
+<ul>
+  <li>明確寫出人數（<code>3boys</code>, <code>2boys 1girl</code>）</li>
+  <li>每個角色的特徵差異要大（髮色完全不同）</li>
+  <li>構圖保持簡單（並排站立比複雜互動容易成功）</li>
+</ul>
+<pre><code>Positive:
+3boys, standing, group picture, simple background
+
+leftmost: short hair, black hair, glasses
+center: medium hair, red hair, tall male  
+rightmost: long hair, blonde hair, slim
+
+Negative:
+1girl, female
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>加大特徵差異</h3>
+<p>如果角色還是會混在一起，試著讓差異更明顯：</p>
+<table>
+<thead>
+<tr>
+<th>特徵</th>
+<th>建議做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>髮色</td>
+<td>用對比色：黑 vs 白、紅 vs 藍</td>
+</tr>
+<tr>
+<td>髮長</td>
+<td>短髮 vs 長髮</td>
+</tr>
+<tr>
+<td>體型</td>
+<td>tall male vs slim</td>
+</tr>
+<tr>
+<td>服裝</td>
+<td>完全不同風格</td>
+</tr>
+</tbody>
+</table>
+<h3>控制人數</h3>
+<table>
+<thead>
+<tr>
+<th>你要的</th>
+<th>寫法</th>
+<th>Negative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>剛好 2 人</td>
+<td><code>2boys</code> 或 <code>1boy 1girl</code></td>
+<td><code>multiple boys, crowd, group</code></td>
+</tr>
+<tr>
+<td>剛好 3 人</td>
+<td><code>3boys</code> 或 <code>2boys 1girl</code></td>
+<td><code>4boys, crowd, group</code></td>
+</tr>
+</tbody>
+</table>
+<h3>構圖建議</h3>
+<p><strong>容易成功</strong>：</p>
+<ul>
+  <li>並肩站立</li>
+  <li>坐在一起（不重疊）</li>
+  <li>一前一後</li>
+  <li>對視</li>
+</ul>
+<p><strong>難度較高</strong>：</p>
+<ul>
+  <li>擁抱（身體重疊）</li>
+  <li>接吻（臉部靠近）</li>
+  <li>打鬥（動作複雜）</li>
+</ul>
+<p>建議從簡單構圖開始，熟練後再挑戰複雜構圖。</p>

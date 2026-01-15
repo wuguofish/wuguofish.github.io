@@ -1,0 +1,174 @@
+      <h1>畫男生的正確姿勢</h1>
+<h2>常見問題與解法</h2>
+<h3>問題 1：寫了 <code>1boy</code> 還是出現女生</h3>
+<p><strong>原因</strong>：<code>1boy</code> 的權重不夠強，被其他隱含女性特徵的詞蓋過去了。</p>
+<p><strong>解法</strong>：</p>
+<pre><code>✅ 正確寫法：
+1boy, solo, male focus, manly, short hair, flat chest
+
+❌ Negative prompt 必加：
+1girl, female, breasts, long hair, feminine, girl
+</code></pre>
+<h3>問題 2：想畫成熟男性，結果變阿伯</h3>
+<p><strong>原因</strong>：<code>mature male</code> 這個詞在訓練集裡常和老年人連結。</p>
+<p><strong>解法</strong>：用外觀特徵來暗示年齡，而非直接描述年齡</p>
+<table>
+<thead>
+<tr>
+<th>想要的效果</th>
+<th>建議用詞（都是有效的 Danbooru tag）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>少年感</td>
+<td><code>bishounen</code> + <code>slim</code> + <code>short hair</code></td>
+</tr>
+<tr>
+<td>青年感</td>
+<td><code>tall male</code> + <code>toned male</code> + <code>narrowed eyes</code></td>
+</tr>
+<tr>
+<td>輕熟感</td>
+<td><code>tall male</code> + <code>stubble</code> + <code>muscular male</code></td>
+</tr>
+<tr>
+<td>大叔感</td>
+<td><code>mature male</code> + <code>beard</code> + <code>muscular</code></td>
+</tr>
+<tr>
+<td>老人</td>
+<td><code>old man</code> + <code>grey hair</code> + <code>wrinkles</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避免使用這些「模型不認識」的詞</strong>：</p>
+<ul>
+  <li><code>adult male</code>、<code>young man</code>、<code>young adult</code> — 不是 Danbooru tag</li>
+  <li><code>middle-aged</code>、<code>teen</code>、<code>teenage</code> — 不是 Danbooru tag</li>
+  <li><code>handsome</code>、<code>ikemen</code> — 不是 Danbooru tag</li>
+</ul>
+<p><strong>關鍵</strong>：用具體的外觀特徵（髮型、體格、鬍子）來表達年齡感，而非抽象的年齡詞彙。</p>
+<h3>問題 3：想要美型，結果太陽剛</h3>
+<p><strong>解法</strong>：加入「美型」相關的 Danbooru tag</p>
+<pre><code>✅ 美型少年風格（都是有效 tag）：
+1boy, bishounen, slim, slender, androgynous
+</code></pre>
+<p>⚠️ 注意：<code>pretty boy</code>、<code>delicate features</code>、<code>soft features</code> 不是有效 tag。</p>
+<h3>問題 4：臉型不好看</h3>
+<p><strong>解法</strong>：用有效的 Danbooru tag 描述五官</p>
+<pre><code>✅ 有效的五官 tag：
+narrowed eyes（細長眼）
+half-closed eyes（半閉眼）
+empty eyes（空洞眼神）
+thick eyebrows（粗眉）
+</code></pre>
+<p>⚠️ 注意：<code>sharp jawline</code>、<code>high nose</code>、<code>gentle eyes</code> 不是有效 tag。</p>
+<hr />
+<h2>男性角色萬用模板</h2>
+<h3>基礎模板</h3>
+<pre><code>1boy, solo, male focus, [氣質], [髮型], [髮色], 
+[眼色], [體型], [服裝], [場景]
+</code></pre>
+<h3>範例：清秀少年</h3>
+<pre><code>Positive:
+1boy, solo, male focus, bishounen,
+short hair, black hair, blue eyes, smile,
+slim, school uniform, classroom
+
+Negative:
+1girl, female, breasts, feminine
+</code></pre>
+<h3>範例：帥氣青年</h3>
+<pre><code>Positive:
+1boy, solo, male focus,
+short hair, black hair, narrowed eyes,
+tall male, toned male, suit, office
+
+Negative:
+1girl, female, breasts, feminine
+</code></pre>
+<h3>範例：陰鬱系美少年</h3>
+<pre><code>Positive:
+1boy, solo, male focus, bishounen,
+pale skin, white hair, red eyes, 
+expressionless, slim,
+dark clothes, simple background
+
+Negative:
+1girl, female, breasts, smile
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>視角問題：為什麼男生也被俯視？</h3>
+<p>由於 Danbooru 大多數圖片是「可愛的女性角色」，為了反映女性的嬌小可愛以滿足男性觀眾，很多圖的視角是<strong>從上往下看（俯視）</strong>。</p>
+<p>這導致有些模型即使畫男生，也會習慣性地使用俯視角度，讓男性角色看起來不夠高大。</p>
+<p><strong>解法</strong>：明確指定視角</p>
+<table>
+<thead>
+<tr>
+<th>想要的效果</th>
+<th>使用的 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正面平視（平等感）</td>
+<td><code>straight-on</code></td>
+</tr>
+<tr>
+<td>仰視（高大感）</td>
+<td><code>from below</code></td>
+</tr>
+<tr>
+<td>俯視（如果你要的話）</td>
+<td><code>from above</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>範例</strong>：想畫出高䠷帥氣的男性</p>
+<pre><code>1boy, solo, male focus, tall male,
+from below, looking at viewer,
+...
+</code></pre>
+<h3>權重調整</h3>
+<p>如果某個特徵一直出不來，可以加強權重：</p>
+<pre><code>(male focus:1.3), (1boy:1.2), (flat chest:1.2)
+</code></pre>
+<p>數值建議範圍：1.1 ~ 1.4，太高容易破圖。</p>
+<h3><code>manly</code> 的使用技巧</h3>
+<p><code>manly</code> 是讓男性角色看起來更陽剛的好用 tag，但<strong>效果因模型而異</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模型反應</th>
+<th>建議寫法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型對 manly 反應弱</td>
+<td><code>(manly:1.5)</code> ~ <code>(manly:1.8)</code></td>
+</tr>
+<tr>
+<td>模型對 manly 反應適中</td>
+<td><code>manly</code> 或 <code>(manly:1.2)</code></td>
+</tr>
+<tr>
+<td>模型對 manly 反應過強（變老）</td>
+<td><code>(manly:0.6)</code> ~ <code>(manly:0.8)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>建議做法</strong>：</p>
+<ol>
+  <li>先用預設權重 <code>manly</code> 測試</li>
+  <li>如果不夠陽剛 → 加高權重</li>
+  <li>如果變太老 → 降低權重或移除</li>
+</ol>
+<p><strong>補充</strong>：<code>masculine</code> 這個 tag 在 Danbooru 不存在，但在 e621 存在。如果使用 NoobAI 等同時訓練於兩個資料庫的模型，<code>masculine</code> 可能也有效果，可以嘗試 <code>manly, masculine</code> 組合使用。</p>
+<h3>負面 prompt 的重要性</h3>
+<p>畫男生時，negative prompt 的重要性比畫女生高很多。建議必加：</p>
+<pre><code>1girl, female, breasts, feminine, girl, woman,
+long hair, skirt, dress, makeup, lipstick
+</code></pre>

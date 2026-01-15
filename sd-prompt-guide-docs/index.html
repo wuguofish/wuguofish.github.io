@@ -27,6 +27,7 @@
       border-bottom: 1px solid #e0e0e0;
       color: #7c3aed;
     }
+	.sidebar h1 a { color: inherit; text-decoration: none; font-size: inherit; padding: 0; display: inline; }
     .sidebar nav { padding: 10px 0; }
     .sidebar .section-title {
       font-weight: bold;
@@ -54,7 +55,7 @@
       padding-top: 10px;
     }
     .sidebar .external-links a { color: #666; font-size: 0.8rem; }
-    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .sidebar .external-links a:not([href^="#"])::after { content: " ↗"; font-size: 0.7rem; }
     .main {
       flex: 1;
       margin-left: 300px;
@@ -69,6 +70,7 @@
     }
     .main h2 { color: #333; margin: 30px 0 15px; }
     .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
     .main p { margin: 15px 0; }
     .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
     .main li { margin: 8px 0; }
@@ -82,7 +84,23 @@
       font-family: "SFMono-Regular", Consolas, monospace;
       font-size: 0.9em;
     }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
     .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
     .quick-start { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
     .quick-start h3 { margin-top: 0; }
     .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0; }
@@ -98,110 +116,159 @@
     .canva-link:hover { opacity: 0.9; }
     .canva-link strong { display: block; font-size: 1.1rem; }
     .canva-link span { opacity: 0.9; font-size: 0.9rem; }
+    /* 漢堡選單 */
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .sidebar-header h1 {
+      padding: 0;
+      border-bottom: none;
+      margin: 0;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #7c3aed;
+      padding: 5px;
+    }
+    /* Loading 狀態 */
+    .loading {
+      color: #999;
+      padding: 40px;
+      text-align: center;
+    }
     @media (max-width: 768px) {
       .sidebar { width: 100%; height: auto; position: relative; }
       .main { margin-left: 0; padding: 20px; }
       .container { flex-direction: column; }
+      .menu-toggle { display: block; }
+      .sidebar nav { display: none; }
+      .sidebar.nav-open nav { display: block; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <aside class="sidebar">
-      <h1>📚 PixAI SDXL Prompt 實戰指南</h1>
+      <div class="sidebar-header">
+        <h1><a href="#home" style="color: inherit; text-decoration: none;">📚 PixAI SDXL Prompt 實戰指南</a></h1>
+        <button class="menu-toggle" aria-label="切換選單">☰</button>
+      </div>
       <nav>
-        <a href="index.html" class="active">🏠 首頁</a>
+        <a href="#home">🏠 首頁</a>
         <div class="section-title">📘 基礎篇</div>
-        <a href="pages/01-why-default-girls.html">為什麼預設畫女生？</a>
-        <a href="pages/02-drawing-males.html">畫男性角色</a>
-        <a href="pages/03-no-humans.html">純風景/純物件</a>
-        <a href="pages/04-multi-character.html">多角色構圖</a>
-        <a href="pages/05-recommended-models.html">推薦模型</a>
-        <a href="pages/06-tag-lookup.html">Tag 中英對照</a>
-        <a href="pages/07-male-tags.html">男性 Tag 大全</a>
+        <a href="#01-why-default-girls">為什麼預設畫女生？</a>
+        <a href="#02-drawing-males">畫男性角色</a>
+        <a href="#03-no-humans">純風景/純物件</a>
+        <a href="#04-multi-character">多角色構圖</a>
+        <a href="#05-recommended-models">推薦模型</a>
+        <a href="#06-tag-lookup">Tag 中英對照</a>
+        <a href="#07-male-tags">男性 Tag 大全</a>
         <div class="section-title">🔧 進階技術</div>
-        <a href="pages/08-lora-basics.html">LoRA 基礎</a>
-        <a href="pages/09-acceleration-lora.html">加速 LoRA</a>
-        <a href="pages/10-hires-upscale.html">HiRes 放大</a>
-        <a href="pages/11-inpaint-outpaint.html">Inpaint/Outpaint</a>
+        <a href="#08-lora-basics">LoRA 基礎</a>
+        <a href="#09-acceleration-lora">加速 LoRA</a>
+        <a href="#10-hires-upscale">HiRes 放大</a>
+        <a href="#11-inpaint-outpaint">Inpaint/Outpaint</a>
         <div class="section-title">💜 女性向專區</div>
-        <a href="pages/12-bl-guide.html">BL / 耽美</a>
-        <a href="pages/13-dream-pictures.html">夢圖</a>
-        <a href="pages/14-otome-pov.html">乙女 CG</a>
+        <a href="#12-bl-guide">BL / 耽美</a>
+        <a href="#13-dream-pictures">夢圖</a>
+        <a href="#14-otome-pov">乙女 CG</a>
         <div class="external-links">
           <div class="section-title">🔗 資源連結</div>
-          <a href="pages/15-references.html">📖 參考資料</a>
+          <a href="#15-references">📖 參考資料</a>
           <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tags</a>
           <a href="https://e621.net/tags" target="_blank">e621 Tags</a>
           <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫</a>
-		  <a href="https://www.youtube.com/@PixaiART" target="_blank">PixAI官方教學YouTube頻道</a>		  
-		  <a href="https://discord.com/channels/1041682784856584273/1460577817321279541" target="_blank">貝果大大做的PixAI教學漫畫(PixAI官方DC內)</a>		  
-		  <a href="https://arxiv.org/abs/2307.01952" target="_blank">SDXL的原始論文</a>
+          <a href="https://www.youtube.com/@PixaiART" target="_blank">PixAI官方教學YouTube頻道</a>
+          <a href="https://discord.com/channels/1041682784856584273/1460577817321279541" target="_blank">貝果大大做的PixAI教學漫畫(PixAI官方DC內)</a>
+          <a href="https://arxiv.org/abs/2307.01952" target="_blank">SDXL的原始論文</a>
+          <a href="https://306007.xyz/zh/blog/" target="_blank">Miraji 的技術分享部落格</a>
         </div>
       </nav>
     </aside>
-    <main class="main">
-      <h1>PixAI SDXL Prompt 實戰指南</h1>
-      <p>Stable Diffusion / Illustrious XL 系列模型的 Prompt 實戰指南</p>
-      <a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view" target="_blank" class="canva-link">
-        <strong>📺 圖解版簡報</strong>
-        <span>部分章節內容整理自 PixAI 使用心得分享，想看圖文並茂的說明可以參考原始簡報</span>
-      </a>
-      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 20px 0;">
-        <h3 style="margin: 0 0 10px; color: #166534;">🤖 懶得看？讓 AI 助手幫你</h3>
-        <p style="margin: 0 0 15px; color: #555;">直接問 AI，它會根據這份指南回答你的問題：</p>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-          <a href="https://chatgpt.com/g/g-6968988711208191af3a1aa7cebc44d8-pixai-sdxlti-shi-ci-xiao-zhu-shou" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #10a37f; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">
-            ChatGPT 提示詞小助手
-          </a>
-          <a href="files/sd-prompt-guide.skill" download style="display: inline-flex; align-items: center; gap: 8px; background: #d97706; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">
-            Claude Skill 下載
-          </a>
-        </div>
-        <p style="margin: 15px 0 0; color: #666; font-size: 0.9rem;">使用 Gemini、Grok 或其他 AI？直接把這個網址貼給它，請它「閱讀這個網頁後回答問題」就可以了！</p>
-      </div>
-      <h2>這是什麼？</h2>
-      <p>這份指南專門解決 AI 繪圖模型的「偏科問題」——模型很會畫可愛女生，但畫其他東西就需要特別技巧。</p>
-      <h2>適合誰？</h2>
-      <ul>
-        <li>想畫<strong>男性角色</strong>但一直畫成女生的人</li>
-        <li>想畫<strong>純風景/物件</strong>但一直冒出人的人</li>
-        <li>想畫 <strong>BL / 耽美</strong>的創作者</li>
-        <li>想畫<strong>夢圖</strong>（自己的 OC 和喜歡的角色同框）的人</li>
-        <li>想畫<strong>乙女遊戲風 CG</strong>的人</li>
-        <li>想了解 <strong>LoRA、HiRes、Inpaint</strong> 等進階功能的人</li>
-        <li><strong>任何想要使用PixAI上的SDXL模型生圖</strong> ，但是不知道提示詞怎麼寫的人</li>
-      </ul>
-      <div class="quick-start">
-        <h3>🚀 快速開始</h3>
-        <table>
-          <tr><th>我想要...</th><th>看這篇</th></tr>
-          <tr><td>畫男生</td><td><a href="pages/02-drawing-males.html">畫男性角色</a></td></tr>
-          <tr><td>畫風景/物件</td><td><a href="pages/03-no-humans.html">純風景/純物件</a></td></tr>
-          <tr><td>畫 BL</td><td><a href="pages/12-bl-guide.html">BL / 耽美指南</a></td></tr>
-          <tr><td>畫夢圖</td><td><a href="pages/13-dream-pictures.html">夢圖指南</a></td></tr>
-          <tr><td>畫乙女 CG</td><td><a href="pages/14-otome-pov.html">第一人稱乙女 CG</a></td></tr>
-          <tr><td>查 Tag 怎麼寫</td><td><a href="pages/06-tag-lookup.html">Tag 中英對照</a></td></tr>
-          <tr><td>了解 LoRA</td><td><a href="pages/08-lora-basics.html">LoRA 基礎</a></td></tr>
-          <tr><td>加速生圖</td><td><a href="pages/09-acceleration-lora.html">加速 LoRA</a></td></tr>
-          <tr><td>放大圖片</td><td><a href="pages/10-hires-upscale.html">HiRes 放大</a></td></tr>
-          <tr><td>局部修改</td><td><a href="pages/11-inpaint-outpaint.html">Inpaint/Outpaint</a></td></tr>
-        </table>
-      </div>
-      <h2>重要觀念</h2>
-      <h3>Tag 必須存在於資料庫</h3>
-      <p>AI 模型是用 Danbooru / e621 的圖片訓練的，所以 <strong>只有資料庫裡有的 tag 才有效</strong>。</p>
-      <div class="warning">
-        <strong>常見錯誤：</strong><br>
-        ❌ <code>young man</code> → 不存在（改用 <code>1boy</code> + 具體特徵）<br>
-        ❌ <code>handsome</code> → 不存在（改用 <code>bishounen</code> 或 <code>manly</code>）<br>
-        ❌ <code>narrow eyes</code> → 不存在（正確是 <code>narrowed eyes</code>）
-      </div>
-      <h3>底線要換成空白</h3>
-      <p>資料庫用底線（<code>black_hair</code>），但實際輸入時用空白（<code>black hair</code>）。</p>
-      <hr style="margin: 40px 0;">
-      <p style="color: #666; font-size: 0.9rem;">最後更新：2025-01</p>
+    <main class="main" id="content">
+      <div class="loading">載入中...</div>
     </main>
   </div>
+  <script>
+    // 頁面對應表
+    const pages = {
+      'home': 'content/home.html',
+      '01-why-default-girls': 'content/01-why-default-girls.html',
+      '02-drawing-males': 'content/02-drawing-males.html',
+      '03-no-humans': 'content/03-no-humans.html',
+      '04-multi-character': 'content/04-multi-character.html',
+      '05-recommended-models': 'content/05-recommended-models.html',
+      '06-tag-lookup': 'content/06-tag-lookup.html',
+      '07-male-tags': 'content/07-male-tags.html',
+      '08-lora-basics': 'content/08-lora-basics.html',
+      '09-acceleration-lora': 'content/09-acceleration-lora.html',
+      '10-hires-upscale': 'content/10-hires-upscale.html',
+      '11-inpaint-outpaint': 'content/11-inpaint-outpaint.html',
+      '12-bl-guide': 'content/12-bl-guide.html',
+      '13-dream-pictures': 'content/13-dream-pictures.html',
+      '14-otome-pov': 'content/14-otome-pov.html',
+      '15-references': 'content/15-references.html'
+    };
+
+    // 載入頁面內容
+    async function loadPage(pageId) {
+      const contentEl = document.getElementById('content');
+      const pagePath = pages[pageId];
+
+      if (!pagePath) {
+        contentEl.innerHTML = '<h1>找不到頁面</h1><p>請從側邊欄選擇一個頁面。</p>';
+        return;
+      }
+
+      try {
+        const response = await fetch(pagePath);
+        if (!response.ok) throw new Error('Page not found');
+        const html = await response.text();
+        contentEl.innerHTML = html;
+        // 捲動到頂部
+        window.scrollTo(0, 0);
+      } catch (e) {
+        contentEl.innerHTML = '<h1>載入失敗</h1><p>無法載入頁面內容，請稍後再試。</p>';
+      }
+
+      // 更新 active 狀態
+      document.querySelectorAll('.sidebar nav a[href^="#"]').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + pageId);
+      });
+
+      // 手機版：載入後收起選單
+      if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.remove('nav-open');
+      }
+    }
+
+    // 監聽 hash 變化
+    window.addEventListener('hashchange', () => {
+      const pageId = location.hash.slice(1) || 'home';
+      loadPage(pageId);
+    });
+
+    // 初始載入
+    const initialPage = location.hash.slice(1) || 'home';
+    loadPage(initialPage);
+
+    // 漢堡選單
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('nav-open');
+    });
+
+    // 首頁預設展開選單（手機版）
+    if (window.innerWidth <= 768 && (!location.hash || location.hash === '#home')) {
+      document.querySelector('.sidebar').classList.add('nav-open');
+    }
+  </script>
 </body>
 </html>

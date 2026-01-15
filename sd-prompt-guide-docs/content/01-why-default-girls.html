@@ -1,0 +1,107 @@
+      <h1>為什麼模型預設畫女生？</h1>
+<h2>一句話解釋</h2>
+<p>因為 AI 學畫畫的「課本」裡，女生圖片是男生的 <strong>4 倍以上</strong>。</p>
+<h2>詳細說明</h2>
+<h3>訓練資料來源</h3>
+<p>目前主流的動漫風 AI 繪圖模型（Illustrious XL、NoobAI、Pony 等）主要使用兩個圖庫作為訓練資料：</p>
+<table>
+<thead>
+<tr>
+<th>圖庫</th>
+<th>內容特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Danbooru</strong></td>
+<td>日系動漫圖庫，女性角色佔多數</td>
+</tr>
+<tr>
+<td><strong>e621</strong></td>
+<td>獸人/Furry 圖庫，內容較多元</td>
+</tr>
+</tbody>
+</table>
+<p>Danbooru 是最大的訓練資料來源，而該站收錄的圖片中，女性角色的數量遠多於男性角色。</p>
+<h3>這代表什麼？</h3>
+<p>AI 模型學習的方式是「統計規律」：</p>
+<ul>
+  <li>看過 100 萬張「藍髮 + 女生」的圖 → 看到「藍髮」就傾向畫女生</li>
+  <li>看過 100 萬張「室內場景 + 女生」的圖 → 畫室內就容易冒出女生</li>
+  <li>只看過 5 萬張「男生」的圖 → 畫男生的能力相對弱</li>
+  <li>只看過 3 萬張「純風景」的圖 → 風景圖也容易出現人</li>
+</ul>
+<p><strong>結論：模型不是「不會」畫其他東西，而是需要更明確、更強烈的指示。</strong></p>
+<h3>實際數據</h3>
+<p>以 Danbooru 的 tag 使用次數為例（2024-12-22 資料）：</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>使用次數</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1girl</code></td>
+<td>6,008,644</td>
+<td>單一女性角色</td>
+</tr>
+<tr>
+<td><code>1boy</code></td>
+<td>1,405,457</td>
+<td>單一男性角色</td>
+</tr>
+<tr>
+<td><code>no humans</code></td>
+<td>147,269</td>
+<td>無人類</td>
+</tr>
+</tbody>
+</table>
+<p><strong>關鍵數字</strong>：</p>
+<ul>
+  <li>女性角色圖（<code>1girl</code>）是男性角色圖（<code>1boy</code>）的 <strong>4.3 倍</strong></li>
+  <li>以單人圖來看，約 <strong>81%</strong> 是女性、<strong>19%</strong> 是男性</li>
+  <li>純風景/物件圖（<code>no humans</code>）只佔整體約 <strong>2%</strong></li>
+</ul>
+<h3>這影響了什麼？</h3>
+<table>
+<thead>
+<tr>
+<th>你想畫的</th>
+<th>常見問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>男性角色</td>
+<td>變成女性或女性化</td>
+</tr>
+<tr>
+<td>純風景/物件</td>
+<td>莫名出現人物</td>
+</tr>
+<tr>
+<td>機甲/怪物</td>
+<td>女體化或出現駕駛員</td>
+</tr>
+<tr>
+<td>多角色構圖</td>
+<td>全變成女生</td>
+</tr>
+<tr>
+<td>BL</td>
+<td>變成 BG 或 GL</td>
+</tr>
+</tbody>
+</table>
+<h3>通用解決策略</h3>
+<ol>
+<li><strong>明確說你要什麼</strong> — 不要假設模型知道</li>
+<li><strong>明確說你不要什麼</strong> — Negative prompt 很重要</li>
+<li><strong>選對模型</strong> — 有些模型對特定主題表現較好</li>
+<li><strong>使用 LoRA</strong> — 針對特定風格/角色的微調</li>
+</ol>
+<p>詳細操作請參考各主題的專門章節。</p>
