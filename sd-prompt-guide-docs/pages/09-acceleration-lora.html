@@ -189,7 +189,11 @@
 <li><strong>批量生成</strong>：大量出圖時效率更高</li>
 </ul>
 <hr />
-<h2>四種推薦的加速 LoRA</h2>
+<h2>延伸閱讀</h2>
+<p>想深入了解加速 LoRA 背後的原理和技術比較，推薦閱讀這篇文章：</p>
+<p>📖 <a href="https://306007.xyz/zh/blog/2025_distillation_loras/" target="_blank">你還在用30步算圖？揭秘1步生成的性能奇蹟</a></p>
+<hr />
+<h2>五種推薦的加速 LoRA</h2>
 <p>以下是在 PixAI 上推薦使用的加速 LoRA，點擊連結可直接前往使用：</p>
 <h3>1. LCM（Latent Consistency Model）</h3>
 <p>🔗 <strong>PixAI 連結</strong>：https://pixai.art/model/1687631572599847061</p>
@@ -223,6 +227,15 @@
 - 固定 4 步，設定簡單
 - 與 Illustrious 系模型相容性最佳</p>
 <hr />
+<h3>5. Hyper SDXL</h3>
+<p>🔗 <strong>PixAI 連結</strong>：https://pixai.art/zh/model/1783737893546128417</p>
+<p><strong>原理</strong>：ByteDance 開發的 Hyper-SD 技術，結合 Trajectory Segmented Consistency Distillation（TSCD）與 Human Feedback Learning，實現極低步數生成。</p>
+<p>💡 <strong>小知識</strong>：雖然名稱是「2steps-lora」，技術上確實支援 2 步生成，但 PixAI 上建議使用 8 步以獲得更穩定的畫質。</p>
+<p><strong>特色</strong>：
+- ⭐ 建議 8 步，可更高
+- CFG 需維持低值（1.1-2.0）
+- 採樣器相容性佳（Euler a、DDIM）</p>
+<hr />
 <h2>建議參數表</h2>
 <p>在 PixAI 上使用這些加速 LoRA 時的推薦設定（實際設定值仍需以LoRA介紹頁的建議以及自己需求為主）：</p>
 <table>
@@ -233,6 +246,7 @@
 <th>DMD2</th>
 <th>PCM (NormalCFG)</th>
 <th>WAI-Rectified-4Steps</th>
+<th>Hyper SDXL</th>
 </tr>
 </thead>
 <tbody>
@@ -242,6 +256,7 @@
 <td>4-8</td>
 <td>4-16</td>
 <td>4</td>
+<td>8+</td>
 </tr>
 <tr>
 <td><strong>CFG 範圍</strong></td>
@@ -249,6 +264,7 @@
 <td>1.0-1.6</td>
 <td>2-9</td>
 <td>1.0-2.0</td>
+<td>1.1-2.0</td>
 </tr>
 <tr>
 <td><strong>採樣器</strong></td>
@@ -256,11 +272,13 @@
 <td>LCM</td>
 <td>DDIM / Euler</td>
 <td>Euler</td>
+<td>Euler a / DDIM</td>
 </tr>
 <tr>
 <td><strong>LoRA 權重</strong></td>
 <td>1.0</td>
 <td>0.7-1.0</td>
+<td>1.0</td>
 <td>1.0</td>
 <td>1.0</td>
 </tr>
@@ -383,6 +401,29 @@
 </tr>
 </tbody>
 </table>
+<h3>Hyper SDXL</h3>
+<table>
+<thead>
+<tr>
+<th>優點 ✓</th>
+<th>缺點 ✗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>採樣器相容性佳</td>
+<td>CFG 必須很低（1.1-2.0）</td>
+</tr>
+<tr>
+<td>設定簡單易上手</td>
+<td>高 CFG 會出問題</td>
+</tr>
+<tr>
+<td>畫質穩定</td>
+<td>步數不算最少（8+）</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2>快速選擇指南</h2>
 <table>
@@ -414,6 +455,11 @@
 <td>WAI-Rectified-4Steps</td>
 <td>專為 Illustrious 系列優化，相容性最佳</td>
 </tr>
+<tr>
+<td>🔧 <strong>採樣器彈性</strong></td>
+<td>Hyper SDXL</td>
+<td>Euler a、DDIM 都能用，設定簡單</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -442,6 +488,10 @@
 <tr>
 <td>WAI-Rectified</td>
 <td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Hyper SDXL</td>
+<td>⭐⭐⭐⭐</td>
 </tr>
 </tbody>
 </table>
@@ -489,6 +539,10 @@
 <tr>
 <td>WAI-Rectified-4Steps</td>
 <td>https://pixai.art/zh/model/1857294002524835135</td>
+</tr>
+<tr>
+<td>Hyper SDXL</td>
+<td>https://pixai.art/zh/model/1783737893546128417</td>
 </tr>
 </tbody>
 </table>
