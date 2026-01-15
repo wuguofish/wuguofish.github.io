@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>推薦模型 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" class="active">推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>女性向友善模型推薦</h1>
+<h2>核心觀念</h2>
+<blockquote>
+<p>沒有算不出美少年的 Model，只有不懂 Model 個性的使用者。</p>
+</blockquote>
+<p>每個模型都有自己的「個性」——擅長的風格、預設的畫風、對特定 tag 的反應。選對模型，事半功倍。</p>
+<hr />
+<h2>推薦模型清單</h2>
+<p>以下模型皆可在 PixAI 上使用，且經女性向社群實測對男性角色表現良好。</p>
+<h3>1. Plant Milk</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1840638240479764095</p>
+<p><strong>特色</strong>：
+- 內建 8 個版本，對應不同畫風
+- 出來的人物都偏美型
+- 適合各種風格嘗試</p>
+<p><strong>適合場景</strong>：想要嘗試不同畫風、需要美型角色</p>
+<hr />
+<h3>2. Aüngir</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1825099018174912691</p>
+<p><strong>特色</strong>：
+- 動漫風首選
+- 光影處理漂亮
+- 男性角色偏陽剛帥氣，但不會老氣</p>
+<p><strong>適合場景</strong>：想要帥氣系男角、重視光影效果</p>
+<p><strong>小提醒</strong>：畫美型少年可能需要額外加 <code>bishounen</code> 等詞調整</p>
+<hr />
+<h3>3. One obsession</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1875126058825562303</p>
+<p><strong>特色</strong>：
+- 容易做出言情小說封面的粉彩風格
+- 色調柔和浪漫</p>
+<p><strong>適合場景</strong>：乙女向、言情風、浪漫氛圍</p>
+<hr />
+<h3>4. coco-Illustrious-NoobXL-Style</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1819625090188724117</p>
+<p><strong>特色</strong>：
+- 中規中矩，畫什麼都不會太差
+- 泛用性高</p>
+<p><strong>適合場景</strong>：新手入門、不確定要什麼風格時的安全選擇</p>
+<hr />
+<h3>5. Nova Orange XL v10.0</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1882805156367629767</p>
+<p><strong>特色</strong>：
+- 日系偏寫實動漫風格
+- 人物偏美型
+- 場景偏日式</p>
+<p><strong>適合場景</strong>：想要日系風格、校園/日常場景</p>
+<hr />
+<h3>6. Diving-Illustrious Anime</h3>
+<p><strong>暗色系版本</strong>：https://pixai.art/zh/model/1890273426555336148<br />
+<strong>亮色系版本</strong>：https://pixai.art/zh/model/1932440954135769967</p>
+<p><strong>特色</strong>：
+- 可做出類似 Niji（MidJourney 動漫模式）的風格
+- 兩個版本分別對應暗色系和亮色系畫風</p>
+<p><strong>適合場景</strong>：喜歡 Niji 風格、想要高品質動漫插畫感</p>
+<hr />
+<h3>7. Vete ┃ Dreamhex ILL</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1958202009206907933</p>
+<p><strong>特色</strong>：
+- 陰鬱系美少年首選
+- 適合病嬌、暗黑、頹廢風格</p>
+<p><strong>注意事項</strong>：
+- 容易有眼睛破圖的問題
+- 需要從 prompt 或 LoRA 補救
+- <strong>適合玩一陣子的高手</strong></p>
+<p><strong>適合場景</strong>：陰鬱系、病嬌風、暗黑美學</p>
+<hr />
+<h2>模型選擇快速指南</h2>
+<table>
+<thead>
+<tr>
+<th>我想要的風格</th>
+<th>推薦模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不知道選什麼，先求穩</td>
+<td>coco-Illustrious-NoobXL-Style</td>
+</tr>
+<tr>
+<td>帥氣陽剛男角</td>
+<td>Aüngir</td>
+</tr>
+<tr>
+<td>美型少年</td>
+<td>Plant Milk</td>
+</tr>
+<tr>
+<td>言情小說封面</td>
+<td>One obsession</td>
+</tr>
+<tr>
+<td>日系校園風</td>
+<td>Nova Orange XL</td>
+</tr>
+<tr>
+<td>類 Niji 高品質</td>
+<td>Diving-Illustrious Anime</td>
+</tr>
+<tr>
+<td>陰鬱病嬌系</td>
+<td>Vete ┃ Dreamhex ILL（進階）</td>
+</tr>
+<tr>
+<td>LoRA 控制精準</td>
+<td>ChocoMint Mix（進階）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>進階模型</h2>
+<p>以下模型功能強大，但需要一定經驗才能駕馭。</p>
+<h3>8. ChocoMint Mix</h3>
+<p><strong>連結</strong>：https://pixai.art/zh/model/1874095126418918009</p>
+<p><strong>特色</strong>：
+- 對 LoRA 反應非常良好
+- 偏寫實的動漫風格
+- 對畫風提示詞很敏感，可塑性高</p>
+<p><strong>注意事項</strong>：
+- ⚠️ <strong>不適合新手</strong>：預設容易跑出萌妹子
+- 需要明確的男性特徵描述 + 完整的 negative prompt
+- 適合已經熟悉 prompt 調整的使用者</p>
+<p><strong>適合場景</strong>：想要精準控制 LoRA 效果、需要多變畫風的進階玩家</p>
+<hr />
+<h2>通用建議</h2>
+<ol>
+<li><strong>先用預設設定試跑</strong>：了解模型的「原廠風格」</li>
+<li><strong>記錄有效的 prompt</strong>：每個模型對同樣的詞反應不同，找到適合的組合要記下來</li>
+<li><strong>搭配 LoRA 微調</strong>：模型決定大方向，LoRA 調整細節</li>
+<li><strong>多生幾張挑選</strong>：AI 有隨機性，同樣的 prompt 多跑幾次結果會不同</li>
+</ol>
+    </main>
+  </div>
+</body>
+</html>

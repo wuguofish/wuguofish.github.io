@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>純風景/純物件 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" class="active">純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>純風景 / 純物件生成指南</h1>
+<h2>問題：為什麼一直出現人物？</h2>
+<p>AI 繪圖模型的訓練資料以「角色圖」為主，即使你只想畫風景或物件，模型也會習慣性地加入人物。</p>
+<h2>核心解法：明確告訴 AI「不要人」</h2>
+<h3>萬用公式</h3>
+<pre><code>Positive:
+no humans, [主題描述]
+
+Negative:
+1girl, 1boy, person, people, human, face, 
+figure, character, portrait, body
+</code></pre>
+<hr />
+<h2>純風景範例</h2>
+<h3>自然風景</h3>
+<pre><code>Positive:
+scenery, landscape, no humans,
+mountain, lake, forest, 
+sunrise, sunbeam, sky,
+nature
+
+Negative:
+1girl, 1boy, person, human, figure, 
+character, face, portrait
+</code></pre>
+<h3>都市風景</h3>
+<pre><code>Positive:
+scenery, cityscape, no humans,
+city lights, night sky, buildings,
+neon lights, rain, reflection,
+cyberpunk
+
+Negative:
+1girl, 1boy, person, human, figure,
+character, face, portrait, crowd
+</code></pre>
+<h3>室內場景</h3>
+<pre><code>Positive:
+scenery, indoors, no humans,
+[房間類型如 bedroom, library, cafe],
+window, chair, lamp,
+backlighting
+
+Negative:
+1girl, 1boy, person, human, figure,
+character, face, portrait
+</code></pre>
+<hr />
+<h2>純物件範例</h2>
+<h3>食物</h3>
+<pre><code>Positive:
+food focus, still life, no humans,
+[食物名稱], plate, table,
+simple background
+
+Negative:
+1girl, 1boy, person, human, hand, hands,
+figure, character, face
+</code></pre>
+<h3>花卉</h3>
+<pre><code>Positive:
+flower, still life, no humans,
+[花的種類如 rose, cherry blossoms, sunflower],
+vase, petals, leaf,
+simple background
+
+Negative:
+1girl, 1boy, person, human, figure,
+character, face, portrait
+</code></pre>
+<h3>物品/道具</h3>
+<pre><code>Positive:
+object focus, still life, no humans,
+[物品名稱],
+simple background
+
+Negative:
+1girl, 1boy, person, human, hand, hands,
+figure, character, face
+</code></pre>
+<hr />
+<h2>無人穿戴的服裝/配件</h2>
+<p>想畫「沒有人穿的鞋子」「放在桌上的帽子」等物品？使用 <code>unworn_*</code> 系列 tag：</p>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>Tag</th>
+<th>使用次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沒人穿的鞋子</td>
+<td><code>unworn shoes</code></td>
+<td>11,406</td>
+</tr>
+<tr>
+<td>沒人戴的帽子</td>
+<td><code>unworn hat</code></td>
+<td>25,260</td>
+</tr>
+<tr>
+<td>沒人戴的頭飾</td>
+<td><code>unworn headwear</code></td>
+<td>33,236</td>
+</tr>
+<tr>
+<td>沒人戴的眼鏡</td>
+<td><code>unworn eyewear</code></td>
+<td>14,699</td>
+</tr>
+<tr>
+<td>沒人穿的外套</td>
+<td><code>unworn jacket</code></td>
+<td>6,594</td>
+</tr>
+<tr>
+<td>沒人穿的裙子</td>
+<td><code>unworn skirt</code></td>
+<td>8,475</td>
+</tr>
+<tr>
+<td>沒人戴的面具</td>
+<td><code>unworn mask</code></td>
+<td>6,413</td>
+</tr>
+<tr>
+<td>沒人穿的衣服（通用）</td>
+<td><code>unworn clothes</code></td>
+<td>7,235</td>
+</tr>
+</tbody>
+</table>
+<h3>範例：放在地上的鞋子</h3>
+<pre><code>Positive:
+still life, no humans,
+unworn shoes, sneakers,
+wooden floor, sunbeam,
+simple background
+
+Negative:
+1girl, 1boy, person, human, feet, legs,
+figure, character
+</code></pre>
+<hr />
+<h2>概念圖專用模板</h2>
+<p>（適合設計師快速生成示意圖）</p>
+<h3>Logo 概念</h3>
+<pre><code>Positive:
+logo, simple background, no humans,
+[主題], [顏色],
+monochrome, white background
+
+Negative:
+person, human, character, photo
+</code></pre>
+<h3>海報/Banner 背景</h3>
+<pre><code>Positive:
+simple background, no humans,
+[風格], [顏色],
+gradient background, negative space
+
+Negative:
+1girl, 1boy, person, human, character,
+figure, face
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>加強「無人」效果</h3>
+<p>如果還是一直出現人，試著加重權重：</p>
+<pre><code>(no humans:1.4), scenery
+</code></pre>
+<h3>使用場景專用 tag</h3>
+<p>有些 tag 天生傾向無人構圖：</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>使用次數</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scenery</code></td>
+<td>52,470</td>
+<td>風景</td>
+</tr>
+<tr>
+<td><code>landscape</code></td>
+<td>6,078</td>
+<td>地景</td>
+</tr>
+<tr>
+<td><code>still life</code></td>
+<td>6,813</td>
+<td>靜物</td>
+</tr>
+<tr>
+<td><code>food focus</code></td>
+<td>11,098</td>
+<td>食物特寫</td>
+</tr>
+<tr>
+<td><code>object focus</code></td>
+<td>1,301</td>
+<td>物件特寫</td>
+</tr>
+</tbody>
+</table>
+<h3>避免觸發人物的詞</h3>
+<p>有些詞容易讓 AI 聯想到人物：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 容易出現人</th>
+<th>✅ 改用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cafe</code></td>
+<td><code>cafe, indoors, no humans</code></td>
+</tr>
+<tr>
+<td><code>bedroom</code></td>
+<td><code>bedroom, indoors, no humans</code></td>
+</tr>
+<tr>
+<td><code>street</code></td>
+<td><code>scenery, outdoors, no humans</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>常見問題排除</h2>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>解法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>還是出現人</td>
+<td>加重 <code>(no humans:1.4)</code> 權重</td>
+</tr>
+<tr>
+<td>出現人的影子/剪影</td>
+<td>negative 加 <code>shadow, silhouette</code></td>
+</tr>
+<tr>
+<td>出現手（例如拿著物件）</td>
+<td>negative 加 <code>hand, hands, holding</code></td>
+</tr>
+<tr>
+<td>畫面太空</td>
+<td>加入更多場景細節描述</td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+</body>
+</html>

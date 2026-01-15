@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多角色構圖 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" class="active">多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>多角色構圖控制指南</h1>
+<h2>常見問題</h2>
+<p>當你想畫兩個以上的角色時，常會遇到：</p>
+<ol>
+<li><strong>特徵混在一起</strong> — A 角色的紅髮跑到 B 角色身上</li>
+<li><strong>變成同一個人</strong> — 兩個角色長得一模一樣</li>
+<li><strong>人數錯誤</strong> — 要兩個人卻出現三個，或只剩一個</li>
+<li><strong>性別錯誤</strong> — 要畫兩個男生卻出現女生</li>
+</ol>
+<h2>解決方案：區塊分離語法</h2>
+<p>經過實測，以下寫法最能讓模型清楚區分不同角色：</p>
+<h3>用位置區分（推薦）</h3>
+<pre><code>2boys, 角色A at right, 角色B at left, 互動, 場景
+
+right: 角色A名字, 右邊角色的詳細特徵
+left: 角色B名字, 左邊角色的詳細特徵
+</code></pre>
+<h3>用性別區分</h3>
+<pre><code>1boy, 1girl, 互動, 場景
+
+boy: 男生詳細特徵
+girl: 女生詳細特徵
+</code></pre>
+<h2>為什麼這樣寫有效？</h2>
+<p><code>right:</code> / <code>left:</code> 和 <code>boy:</code> / <code>girl:</code> 這種區塊語法，利用了模型訓練時學到的「條件式描述」結構。模型會把該區塊後的描述只套用到對應的角色，不會混在一起。</p>
+<hr />
+<h2>範例</h2>
+<h3>範例 1：兩個男性角色</h3>
+<pre><code>Positive:
+2boys, Kuro at right, Shiro at left, standing, talking, cafe
+
+right: Kuro, short hair, black hair, red eyes, tall male, black jacket
+left: Shiro, long hair, white hair, blue eyes, slim, white coat
+
+Negative:
+1girl, female, breasts
+</code></pre>
+<h3>範例 2：一男一女</h3>
+<pre><code>Positive:
+1boy, 1girl, holding hands, walking, street, sunset
+
+boy: short hair, brown hair, tall male, casual clothes
+girl: long hair, blonde hair, sundress, smile
+
+Negative:
+yaoi, yuri
+</code></pre>
+<h3>範例 3：三人以上</h3>
+<p>人數越多越難控制，建議：
+- 明確寫出人數（<code>3boys</code>, <code>2boys 1girl</code>）
+- 每個角色的特徵差異要大（髮色完全不同）
+- 構圖保持簡單（並排站立比複雜互動容易成功）</p>
+<pre><code>Positive:
+3boys, standing, group picture, simple background
+
+leftmost: short hair, black hair, glasses
+center: medium hair, red hair, tall male  
+rightmost: long hair, blonde hair, slim
+
+Negative:
+1girl, female
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>加大特徵差異</h3>
+<p>如果角色還是會混在一起，試著讓差異更明顯：</p>
+<table>
+<thead>
+<tr>
+<th>特徵</th>
+<th>建議做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>髮色</td>
+<td>用對比色：黑 vs 白、紅 vs 藍</td>
+</tr>
+<tr>
+<td>髮長</td>
+<td>短髮 vs 長髮</td>
+</tr>
+<tr>
+<td>體型</td>
+<td>tall male vs slim</td>
+</tr>
+<tr>
+<td>服裝</td>
+<td>完全不同風格</td>
+</tr>
+</tbody>
+</table>
+<h3>控制人數</h3>
+<table>
+<thead>
+<tr>
+<th>你要的</th>
+<th>寫法</th>
+<th>Negative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>剛好 2 人</td>
+<td><code>2boys</code> 或 <code>1boy 1girl</code></td>
+<td><code>multiple boys, crowd, group</code></td>
+</tr>
+<tr>
+<td>剛好 3 人</td>
+<td><code>3boys</code> 或 <code>2boys 1girl</code></td>
+<td><code>4boys, crowd, group</code></td>
+</tr>
+</tbody>
+</table>
+<h3>構圖建議</h3>
+<p><strong>容易成功</strong>：
+- 並肩站立
+- 坐在一起（不重疊）
+- 一前一後
+- 對視</p>
+<p><strong>難度較高</strong>：
+- 擁抱（身體重疊）
+- 接吻（臉部靠近）
+- 打鬥（動作複雜）</p>
+<p>建議從簡單構圖開始，熟練後再挑戰複雜構圖。</p>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>畫男性角色 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" class="active">畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>畫男生的正確姿勢</h1>
+<h2>常見問題與解法</h2>
+<h3>問題 1：寫了 <code>1boy</code> 還是出現女生</h3>
+<p><strong>原因</strong>：<code>1boy</code> 的權重不夠強，被其他隱含女性特徵的詞蓋過去了。</p>
+<p><strong>解法</strong>：</p>
+<pre><code>✅ 正確寫法：
+1boy, solo, male focus, manly, short hair, flat chest
+
+❌ Negative prompt 必加：
+1girl, female, breasts, long hair, feminine, girl
+</code></pre>
+<h3>問題 2：想畫成熟男性，結果變阿伯</h3>
+<p><strong>原因</strong>：<code>mature male</code> 這個詞在訓練集裡常和老年人連結。</p>
+<p><strong>解法</strong>：用外觀特徵來暗示年齡，而非直接描述年齡</p>
+<table>
+<thead>
+<tr>
+<th>想要的效果</th>
+<th>建議用詞（都是有效的 Danbooru tag）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>少年感</td>
+<td><code>bishounen</code> + <code>slim</code> + <code>short hair</code></td>
+</tr>
+<tr>
+<td>青年感</td>
+<td><code>tall male</code> + <code>toned male</code> + <code>narrowed eyes</code></td>
+</tr>
+<tr>
+<td>輕熟感</td>
+<td><code>tall male</code> + <code>stubble</code> + <code>muscular male</code></td>
+</tr>
+<tr>
+<td>大叔感</td>
+<td><code>mature male</code> + <code>beard</code> + <code>muscular</code></td>
+</tr>
+<tr>
+<td>老人</td>
+<td><code>old man</code> + <code>grey hair</code> + <code>wrinkles</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避免使用這些「模型不認識」的詞</strong>：
+- <code>adult male</code>、<code>young man</code>、<code>young adult</code> — 不是 Danbooru tag
+- <code>middle-aged</code>、<code>teen</code>、<code>teenage</code> — 不是 Danbooru tag<br />
+- <code>handsome</code>、<code>ikemen</code> — 不是 Danbooru tag</p>
+<p><strong>關鍵</strong>：用具體的外觀特徵（髮型、體格、鬍子）來表達年齡感，而非抽象的年齡詞彙。</p>
+<h3>問題 3：想要美型，結果太陽剛</h3>
+<p><strong>解法</strong>：加入「美型」相關的 Danbooru tag</p>
+<pre><code>✅ 美型少年風格（都是有效 tag）：
+1boy, bishounen, slim, slender, androgynous
+</code></pre>
+<p>⚠️ 注意：<code>pretty boy</code>、<code>delicate features</code>、<code>soft features</code> 不是有效 tag。</p>
+<h3>問題 4：臉型不好看</h3>
+<p><strong>解法</strong>：用有效的 Danbooru tag 描述五官</p>
+<pre><code>✅ 有效的五官 tag：
+narrowed eyes（細長眼）
+half-closed eyes（半閉眼）
+empty eyes（空洞眼神）
+thick eyebrows（粗眉）
+</code></pre>
+<p>⚠️ 注意：<code>sharp jawline</code>、<code>high nose</code>、<code>gentle eyes</code> 不是有效 tag。</p>
+<hr />
+<h2>男性角色萬用模板</h2>
+<h3>基礎模板</h3>
+<pre><code>1boy, solo, male focus, [氣質], [髮型], [髮色], 
+[眼色], [體型], [服裝], [場景]
+</code></pre>
+<h3>範例：清秀少年</h3>
+<pre><code>Positive:
+1boy, solo, male focus, bishounen,
+short hair, black hair, blue eyes, smile,
+slim, school uniform, classroom
+
+Negative:
+1girl, female, breasts, feminine
+</code></pre>
+<h3>範例：帥氣青年</h3>
+<pre><code>Positive:
+1boy, solo, male focus,
+short hair, black hair, narrowed eyes,
+tall male, toned male, suit, office
+
+Negative:
+1girl, female, breasts, feminine
+</code></pre>
+<h3>範例：陰鬱系美少年</h3>
+<pre><code>Positive:
+1boy, solo, male focus, bishounen,
+pale skin, white hair, red eyes, 
+expressionless, slim,
+dark clothes, simple background
+
+Negative:
+1girl, female, breasts, smile
+</code></pre>
+<hr />
+<h2>進階技巧</h2>
+<h3>視角問題：為什麼男生也被俯視？</h3>
+<p>由於 Danbooru 大多數圖片是「可愛的女性角色」，為了反映女性的嬌小可愛以滿足男性觀眾，很多圖的視角是<strong>從上往下看（俯視）</strong>。</p>
+<p>這導致有些模型即使畫男生，也會習慣性地使用俯視角度，讓男性角色看起來不夠高大。</p>
+<p><strong>解法</strong>：明確指定視角</p>
+<table>
+<thead>
+<tr>
+<th>想要的效果</th>
+<th>使用的 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正面平視（平等感）</td>
+<td><code>straight-on</code></td>
+</tr>
+<tr>
+<td>仰視（高大感）</td>
+<td><code>from below</code></td>
+</tr>
+<tr>
+<td>俯視（如果你要的話）</td>
+<td><code>from above</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>範例</strong>：想畫出高䠷帥氣的男性</p>
+<pre><code>1boy, solo, male focus, tall male,
+from below, looking at viewer,
+...
+</code></pre>
+<h3>權重調整</h3>
+<p>如果某個特徵一直出不來，可以加強權重：</p>
+<pre><code>(male focus:1.3), (1boy:1.2), (flat chest:1.2)
+</code></pre>
+<p>數值建議範圍：1.1 ~ 1.4，太高容易破圖。</p>
+<h3><code>manly</code> 的使用技巧</h3>
+<p><code>manly</code> 是讓男性角色看起來更陽剛的好用 tag，但<strong>效果因模型而異</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模型反應</th>
+<th>建議寫法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型對 manly 反應弱</td>
+<td><code>(manly:1.5)</code> ~ <code>(manly:1.8)</code></td>
+</tr>
+<tr>
+<td>模型對 manly 反應適中</td>
+<td><code>manly</code> 或 <code>(manly:1.2)</code></td>
+</tr>
+<tr>
+<td>模型對 manly 反應過強（變老）</td>
+<td><code>(manly:0.6)</code> ~ <code>(manly:0.8)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>建議做法</strong>：
+1. 先用預設權重 <code>manly</code> 測試
+2. 如果不夠陽剛 → 加高權重
+3. 如果變太老 → 降低權重或移除</p>
+<p><strong>補充</strong>：<code>masculine</code> 這個 tag 在 Danbooru 不存在，但在 e621 存在。如果使用 NoobAI 等同時訓練於兩個資料庫的模型，<code>masculine</code> 可能也有效果，可以嘗試 <code>manly, masculine</code> 組合使用。</p>
+<h3>負面 prompt 的重要性</h3>
+<p>畫男生時，negative prompt 的重要性比畫女生高很多。建議必加：</p>
+<pre><code>1girl, female, breasts, feminine, girl, woman,
+long hair, skirt, dress, makeup, lipstick
+</code></pre>
+    </main>
+  </div>
+</body>
+</html>

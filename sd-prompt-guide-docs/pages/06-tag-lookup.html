@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>常用 Tag 中英對照 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" class="active">常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>中英 Prompt 對照速查表</h1>
+<h2>使用說明</h2>
+<p>這份對照表整理自 Danbooru tag 資料庫，收錄女性向創作最常用的 tag。
+括號內的數字代表該 tag 在訓練集中的出現次數，數字越大代表模型越「認得」這個詞。</p>
+<hr />
+<h2>人數與性別</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一個男生</td>
+<td><code>1boy</code></td>
+<td>1,405,457</td>
+</tr>
+<tr>
+<td>兩個男生</td>
+<td><code>2boys</code></td>
+<td>302,206</td>
+</tr>
+<tr>
+<td>三個男生</td>
+<td><code>3boys</code></td>
+<td>74,037</td>
+</tr>
+<tr>
+<td>四個男生</td>
+<td><code>4boys</code></td>
+<td>32,829</td>
+</tr>
+<tr>
+<td>五個男生</td>
+<td><code>5boys</code></td>
+<td>15,455</td>
+</tr>
+<tr>
+<td>六個以上男生</td>
+<td><code>6+boys</code></td>
+<td>31,937</td>
+</tr>
+<tr>
+<td>多個男生</td>
+<td><code>multiple boys</code></td>
+<td>465,055</td>
+</tr>
+<tr>
+<td>男性為主</td>
+<td><code>male focus</code></td>
+<td>709,215</td>
+</tr>
+<tr>
+<td>只有男性</td>
+<td><code>males only</code></td>
+<td>(用 negative 排除女性)</td>
+</tr>
+<tr>
+<td>BL/耽美</td>
+<td><code>yaoi</code></td>
+<td>70,300</td>
+</tr>
+<tr>
+<td>肌肉系</td>
+<td><code>bara</code></td>
+<td>74,832</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>年齡與氣質</h2>
+<p>⚠️ <strong>重要</strong>：Danbooru 沒有「青年」「中年」這類年齡 tag。
+以下只列出<strong>真正有效</strong>的 tag，其他請用外觀特徵組合來表達。</p>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>美少年</td>
+<td><code>bishounen</code></td>
+<td>19,463</td>
+<td>美型少年首選</td>
+</tr>
+<tr>
+<td>成熟男性</td>
+<td><code>mature male</code></td>
+<td>37,456</td>
+<td>注意：容易偏老</td>
+</tr>
+<tr>
+<td>老人</td>
+<td><code>old man</code></td>
+<td>10,318</td>
+<td>明確的老人</td>
+</tr>
+<tr>
+<td>肌肉男</td>
+<td><code>muscular male</code></td>
+<td>99,142</td>
+<td></td>
+</tr>
+<tr>
+<td>精瘦型</td>
+<td><code>toned male</code></td>
+<td>15,182</td>
+<td></td>
+</tr>
+<tr>
+<td>陽剛</td>
+<td><code>manly</code></td>
+<td>9,969</td>
+<td></td>
+</tr>
+<tr>
+<td>深膚色男性</td>
+<td><code>dark-skinned male</code></td>
+<td>90,388</td>
+<td></td>
+</tr>
+<tr>
+<td>鬍渣</td>
+<td><code>stubble</code></td>
+<td>31,679</td>
+<td>輕熟感</td>
+</tr>
+<tr>
+<td>鬍子</td>
+<td><code>beard</code></td>
+<td>50,619</td>
+<td>大叔感</td>
+</tr>
+</tbody>
+</table>
+<h3>❌ 這些不是有效 tag（請勿使用）</h3>
+<table>
+<thead>
+<tr>
+<th>常見誤用</th>
+<th>為什麼無效</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>young man</code>, <code>young adult</code></td>
+<td>不是 Danbooru tag</td>
+</tr>
+<tr>
+<td><code>adult male</code></td>
+<td>不是 Danbooru tag</td>
+</tr>
+<tr>
+<td><code>middle-aged</code></td>
+<td>不是 Danbooru tag</td>
+</tr>
+<tr>
+<td><code>teen</code>, <code>teenage</code></td>
+<td>不是 Danbooru tag</td>
+</tr>
+<tr>
+<td><code>handsome</code>, <code>ikemen</code></td>
+<td>不是 Danbooru tag</td>
+</tr>
+</tbody>
+</table>
+<p><strong>正確做法</strong>：用體格、髮型、鬍子等具體特徵來表達年齡感。</p>
+<hr />
+<h2>髮型</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>短髮</td>
+<td><code>short hair</code></td>
+<td>2,261,608</td>
+</tr>
+<tr>
+<td>長髮</td>
+<td><code>long hair</code></td>
+<td>4,350,743</td>
+</tr>
+<tr>
+<td>中長髮</td>
+<td><code>medium hair</code></td>
+<td>377,425</td>
+</tr>
+<tr>
+<td>非常長髮</td>
+<td><code>very long hair</code></td>
+<td>952,244</td>
+</tr>
+<tr>
+<td>馬尾</td>
+<td><code>ponytail</code></td>
+<td>599,087</td>
+</tr>
+<tr>
+<td>高馬尾</td>
+<td><code>high ponytail</code></td>
+<td>77,666</td>
+</tr>
+<tr>
+<td>低馬尾</td>
+<td><code>low ponytail</code></td>
+<td>51,816</td>
+</tr>
+<tr>
+<td>雙馬尾</td>
+<td><code>twintails</code></td>
+<td>904,712</td>
+</tr>
+<tr>
+<td>辮子</td>
+<td><code>braid</code></td>
+<td>629,860</td>
+</tr>
+<tr>
+<td>亂髮</td>
+<td><code>messy hair</code></td>
+<td>61,768</td>
+</tr>
+<tr>
+<td>刺蝟頭</td>
+<td><code>spiked hair</code></td>
+<td>70,002</td>
+</tr>
+<tr>
+<td>油頭/後梳</td>
+<td><code>slicked back</code></td>
+<td>(需搭配描述)</td>
+</tr>
+<tr>
+<td>遮眼髮型</td>
+<td><code>hair over one eye</code></td>
+<td>245,322</td>
+</tr>
+<tr>
+<td>瀏海</td>
+<td><code>bangs</code></td>
+<td>(多數髮型預設)</td>
+</tr>
+<tr>
+<td>齊瀏海</td>
+<td><code>blunt bangs</code></td>
+<td>289,395</td>
+</tr>
+<tr>
+<td>斜瀏海</td>
+<td><code>swept bangs</code></td>
+<td>119,964</td>
+</tr>
+<tr>
+<td>削邊</td>
+<td><code>undercut</code></td>
+<td>16,131</td>
+</tr>
+<tr>
+<td>光頭</td>
+<td><code>bald</code></td>
+<td>15,675</td>
+</tr>
+<tr>
+<td>平頭</td>
+<td><code>buzz cut</code></td>
+<td>3,440</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>髮色</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>黑髮</td>
+<td><code>black hair</code></td>
+<td>1,504,581</td>
+</tr>
+<tr>
+<td>白髮</td>
+<td><code>white hair</code></td>
+<td>703,094</td>
+</tr>
+<tr>
+<td>灰髮</td>
+<td><code>grey hair</code></td>
+<td>680,558</td>
+</tr>
+<tr>
+<td>金髮</td>
+<td><code>blonde hair</code></td>
+<td>1,537,942</td>
+</tr>
+<tr>
+<td>棕髮</td>
+<td><code>brown hair</code></td>
+<td>1,487,487</td>
+</tr>
+<tr>
+<td>紅髮</td>
+<td><code>red hair</code></td>
+<td>520,146</td>
+</tr>
+<tr>
+<td>藍髮</td>
+<td><code>blue hair</code></td>
+<td>855,605</td>
+</tr>
+<tr>
+<td>綠髮</td>
+<td><code>green hair</code></td>
+<td>417,225</td>
+</tr>
+<tr>
+<td>紫髮</td>
+<td><code>purple hair</code></td>
+<td>645,942</td>
+</tr>
+<tr>
+<td>粉髮</td>
+<td><code>pink hair</code></td>
+<td>691,036</td>
+</tr>
+<tr>
+<td>橘髮</td>
+<td><code>orange hair</code></td>
+<td>237,718</td>
+</tr>
+<tr>
+<td>漸層/多色髮</td>
+<td><code>multicolored hair</code></td>
+<td>690,107</td>
+</tr>
+<tr>
+<td>雙色髮</td>
+<td><code>two-tone hair</code></td>
+<td>238,891</td>
+</tr>
+<tr>
+<td>挑染</td>
+<td><code>streaked hair</code></td>
+<td>245,773</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>眼睛</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>藍眼</td>
+<td><code>blue eyes</code></td>
+<td>1,762,765</td>
+</tr>
+<tr>
+<td>紅眼</td>
+<td><code>red eyes</code></td>
+<td>1,275,540</td>
+</tr>
+<tr>
+<td>綠眼</td>
+<td><code>green eyes</code></td>
+<td>848,856</td>
+</tr>
+<tr>
+<td>棕眼</td>
+<td><code>brown eyes</code></td>
+<td>846,196</td>
+</tr>
+<tr>
+<td>紫眼</td>
+<td><code>purple eyes</code></td>
+<td>808,160</td>
+</tr>
+<tr>
+<td>黃眼/琥珀眼</td>
+<td><code>yellow eyes</code></td>
+<td>692,125</td>
+</tr>
+<tr>
+<td>灰眼/銀眼</td>
+<td><code>grey eyes</code></td>
+<td>181,866</td>
+</tr>
+<tr>
+<td>異色瞳</td>
+<td><code>heterochromia</code></td>
+<td>114,685</td>
+</tr>
+<tr>
+<td>細長眼</td>
+<td><code>narrowed eyes</code></td>
+<td>(需描述)</td>
+</tr>
+<tr>
+<td>銳利眼神</td>
+<td><code>sharp eyes</code></td>
+<td>(需描述)</td>
+</tr>
+<tr>
+<td>閉眼</td>
+<td><code>closed eyes</code></td>
+<td>706,552</td>
+</tr>
+<tr>
+<td>半閉眼</td>
+<td><code>half-closed eyes</code></td>
+<td>94,517</td>
+</tr>
+<tr>
+<td>空洞眼神</td>
+<td><code>empty eyes</code></td>
+<td>33,336</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表情</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微笑</td>
+<td><code>smile</code></td>
+<td>2,873,890</td>
+</tr>
+<tr>
+<td>臉紅</td>
+<td><code>blush</code></td>
+<td>2,942,792</td>
+</tr>
+<tr>
+<td>露齒笑</td>
+<td><code>grin</code></td>
+<td>233,048</td>
+</tr>
+<tr>
+<td>皺眉</td>
+<td><code>frown</code></td>
+<td>107,762</td>
+</tr>
+<tr>
+<td>無表情</td>
+<td><code>expressionless</code></td>
+<td>119,191</td>
+</tr>
+<tr>
+<td>認真</td>
+<td><code>serious</code></td>
+<td>28,727</td>
+</tr>
+<tr>
+<td>生氣</td>
+<td><code>angry</code></td>
+<td>44,161</td>
+</tr>
+<tr>
+<td>悲傷</td>
+<td><code>sad</code></td>
+<td>12,031</td>
+</tr>
+<tr>
+<td>哭泣</td>
+<td><code>crying</code></td>
+<td>76,783</td>
+</tr>
+<tr>
+<td>流淚</td>
+<td><code>tears</code></td>
+<td>235,779</td>
+</tr>
+<tr>
+<td>害羞</td>
+<td><code>shy</code></td>
+<td>9,385</td>
+</tr>
+<tr>
+<td>尷尬</td>
+<td><code>embarrassed</code></td>
+<td>97,268</td>
+</tr>
+<tr>
+<td>驚訝</td>
+<td><code>surprised</code></td>
+<td>53,084</td>
+</tr>
+<tr>
+<td>壞笑</td>
+<td><code>smirk</code></td>
+<td>27,031</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>構圖與視角</h2>
+<p>⚠️ <strong>注意</strong>：由於訓練集偏向「俯視可愛女角」，模型畫男生時也容易預設俯視。
+想要高大感，請明確加上 <code>straight-on</code> 或 <code>from below</code>。</p>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>看向觀眾</td>
+<td><code>looking at viewer</code></td>
+<td>3,315,722</td>
+<td></td>
+</tr>
+<tr>
+<td>全身</td>
+<td><code>full body</code></td>
+<td>805,933</td>
+<td></td>
+</tr>
+<tr>
+<td>上半身</td>
+<td><code>upper body</code></td>
+<td>772,446</td>
+<td></td>
+</tr>
+<tr>
+<td>牛仔鏡頭（腰上）</td>
+<td><code>cowboy shot</code></td>
+<td>556,396</td>
+<td></td>
+</tr>
+<tr>
+<td>肖像/頭像</td>
+<td><code>portrait</code></td>
+<td>82,065</td>
+<td></td>
+</tr>
+<tr>
+<td>特寫</td>
+<td><code>close-up</code></td>
+<td>46,497</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>正面平視</strong></td>
+<td><code>straight-on</code></td>
+<td>—</td>
+<td>⭐ 畫男生建議加</td>
+</tr>
+<tr>
+<td>俯視</td>
+<td><code>from above</code></td>
+<td>98,806</td>
+<td>預設常出現</td>
+</tr>
+<tr>
+<td><strong>仰視</strong></td>
+<td><code>from below</code></td>
+<td>82,958</td>
+<td>⭐ 想要高大感</td>
+</tr>
+<tr>
+<td>從背後</td>
+<td><code>from behind</code></td>
+<td>232,537</td>
+<td></td>
+</tr>
+<tr>
+<td>側面</td>
+<td><code>from side</code></td>
+<td>222,299</td>
+<td></td>
+</tr>
+<tr>
+<td>側臉</td>
+<td><code>profile</code></td>
+<td>129,076</td>
+<td></td>
+</tr>
+<tr>
+<td>斜角</td>
+<td><code>dutch angle</code></td>
+<td>119,425</td>
+<td></td>
+</tr>
+<tr>
+<td>回頭看</td>
+<td><code>looking back</code></td>
+<td>281,064</td>
+<td></td>
+</tr>
+<tr>
+<td>向下看</td>
+<td><code>looking down</code></td>
+<td>96,175</td>
+<td></td>
+</tr>
+<tr>
+<td>向上看</td>
+<td><code>looking up</code></td>
+<td>71,434</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>姿勢與動作</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>出現次數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>站立</td>
+<td><code>standing</code></td>
+<td>901,688</td>
+</tr>
+<tr>
+<td>坐著</td>
+<td><code>sitting</code></td>
+<td>939,842</td>
+</tr>
+<tr>
+<td>躺著</td>
+<td><code>lying</code></td>
+<td>446,035</td>
+</tr>
+<tr>
+<td>跪著</td>
+<td><code>kneeling</code></td>
+<td>118,116</td>
+</tr>
+<tr>
+<td>走路</td>
+<td><code>walking</code></td>
+<td>37,739</td>
+</tr>
+<tr>
+<td>跑步</td>
+<td><code>running</code></td>
+<td>31,166</td>
+</tr>
+<tr>
+<td>跳躍</td>
+<td><code>jumping</code></td>
+<td>24,755</td>
+</tr>
+<tr>
+<td>抱著（物品）</td>
+<td><code>holding</code></td>
+<td>1,354,000</td>
+</tr>
+<tr>
+<td>牽手</td>
+<td><code>holding hands</code></td>
+<td>101,732</td>
+</tr>
+<tr>
+<td>雙手交叉</td>
+<td><code>crossed arms</code></td>
+<td>84,820</td>
+</tr>
+<tr>
+<td>手插口袋</td>
+<td><code>hands in pockets</code></td>
+<td>24,611</td>
+</tr>
+<tr>
+<td>舉手</td>
+<td><code>arm up</code></td>
+<td>208,569</td>
+</tr>
+<tr>
+<td>伸手</td>
+<td><code>reaching</code></td>
+<td>29,748</td>
+</tr>
+<tr>
+<td>指向</td>
+<td><code>pointing</code></td>
+<td>65,269</td>
+</tr>
+<tr>
+<td>前傾</td>
+<td><code>leaning forward</code></td>
+<td>115,911</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>互動（BL/CP 向）</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接吻</td>
+<td><code>kiss</code>, <code>kissing</code></td>
+</tr>
+<tr>
+<td>擁抱</td>
+<td><code>hug</code>, <code>hugging</code>, <code>embrace</code></td>
+</tr>
+<tr>
+<td>牽手</td>
+<td><code>holding hands</code></td>
+</tr>
+<tr>
+<td>對視</td>
+<td><code>eye contact</code></td>
+</tr>
+<tr>
+<td>從背後抱</td>
+<td><code>hug from behind</code></td>
+</tr>
+<tr>
+<td>壁咚</td>
+<td><code>wall slam</code>, <code>kabedon</code></td>
+</tr>
+<tr>
+<td>公主抱</td>
+<td><code>princess carry</code>, <code>carrying</code></td>
+</tr>
+<tr>
+<td>膝枕</td>
+<td><code>lap pillow</code></td>
+</tr>
+<tr>
+<td>頭靠肩</td>
+<td><code>head on another's shoulder</code></td>
+</tr>
+<tr>
+<td>身高差</td>
+<td><code>height difference</code></td>
+</tr>
+<tr>
+<td>男生在上</td>
+<td><code>boy on top</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>第一人稱視角（乙女 CG 風格）</h2>
+<p>用於畫出「從自己視角看他」的乙女遊戲 CG 風格圖片。</p>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一人稱女性視角</td>
+<td><code>female pov</code></td>
+<td>⚠️ 可能觸發 NSFW，記得加負面詞</td>
+</tr>
+<tr>
+<td>「我」在畫面外</td>
+<td><code>1girl out of frame</code></td>
+<td>暗示女性存在但不入鏡</td>
+</tr>
+<tr>
+<td>異性戀互動</td>
+<td><code>hetero</code></td>
+<td>強調男女互動</td>
+</tr>
+<tr>
+<td>第一人稱的手</td>
+<td><code>pov hands</code></td>
+<td>畫面中出現「自己的手」</td>
+</tr>
+<tr>
+<td>比一半愛心</td>
+<td><code>half-heart hands</code></td>
+<td>和畫面外的人合成愛心</td>
+</tr>
+<tr>
+<td>摸對方的頭</td>
+<td><code>hand on another's head</code></td>
+<td></td>
+</tr>
+<tr>
+<td>摸對方的臉</td>
+<td><code>hand on another's cheek</code></td>
+<td></td>
+</tr>
+<tr>
+<td>牽手</td>
+<td><code>holding hands</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>實測成功的組合</strong>：</p>
+<pre><code>Positive: 1boy, male focus, female pov, 1girl out of frame, hetero, looking at viewer, [互動], [角色描述]
+Negative: nsfw, nude
+</code></pre>
+<hr />
+<h2>服裝（男性常用）</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>制服</td>
+<td><code>uniform</code>, <code>school uniform</code></td>
+</tr>
+<tr>
+<td>西裝</td>
+<td><code>suit</code>, <code>formal</code></td>
+</tr>
+<tr>
+<td>軍裝</td>
+<td><code>military uniform</code></td>
+</tr>
+<tr>
+<td>和服</td>
+<td><code>kimono</code>, <code>japanese clothes</code></td>
+</tr>
+<tr>
+<td>外套</td>
+<td><code>jacket</code>, <code>coat</code></td>
+</tr>
+<tr>
+<td>連帽衫</td>
+<td><code>hoodie</code></td>
+</tr>
+<tr>
+<td>襯衫</td>
+<td><code>shirt</code>, <code>dress shirt</code></td>
+</tr>
+<tr>
+<td>T恤</td>
+<td><code>t-shirt</code></td>
+</tr>
+<tr>
+<td>無袖</td>
+<td><code>sleeveless</code></td>
+</tr>
+<tr>
+<td>裸上身</td>
+<td><code>topless male</code>, <code>shirtless</code></td>
+</tr>
+<tr>
+<td>領帶</td>
+<td><code>necktie</code></td>
+</tr>
+<tr>
+<td>手套</td>
+<td><code>gloves</code></td>
+</tr>
+<tr>
+<td>眼鏡</td>
+<td><code>glasses</code></td>
+</tr>
+<tr>
+<td>墨鏡</td>
+<td><code>sunglasses</code></td>
+</tr>
+<tr>
+<td>耳環</td>
+<td><code>earrings</code></td>
+</tr>
+<tr>
+<td>項鍊</td>
+<td><code>necklace</code></td>
+</tr>
+<tr>
+<td>圍巾</td>
+<td><code>scarf</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>場景與背景</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>簡單背景</td>
+<td><code>simple background</code></td>
+</tr>
+<tr>
+<td>白色背景</td>
+<td><code>white background</code></td>
+</tr>
+<tr>
+<td>黑色背景</td>
+<td><code>black background</code></td>
+</tr>
+<tr>
+<td>戶外</td>
+<td><code>outdoors</code></td>
+</tr>
+<tr>
+<td>室內</td>
+<td><code>indoors</code></td>
+</tr>
+<tr>
+<td>學校</td>
+<td><code>school</code>, <code>classroom</code></td>
+</tr>
+<tr>
+<td>辦公室</td>
+<td><code>office</code></td>
+</tr>
+<tr>
+<td>臥室</td>
+<td><code>bedroom</code></td>
+</tr>
+<tr>
+<td>咖啡廳</td>
+<td><code>cafe</code></td>
+</tr>
+<tr>
+<td>城市</td>
+<td><code>city</code>, <code>cityscape</code></td>
+</tr>
+<tr>
+<td>街道</td>
+<td><code>street</code></td>
+</tr>
+<tr>
+<td>夜晚</td>
+<td><code>night</code>, <code>night sky</code></td>
+</tr>
+<tr>
+<td>夕陽</td>
+<td><code>sunset</code></td>
+</tr>
+<tr>
+<td>下雨</td>
+<td><code>rain</code></td>
+</tr>
+<tr>
+<td>雪</td>
+<td><code>snow</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>無人場景專用</h2>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>無人</td>
+<td><code>no humans</code>, <code>nobody</code></td>
+</tr>
+<tr>
+<td>風景</td>
+<td><code>scenery</code>, <code>landscape</code></td>
+</tr>
+<tr>
+<td>靜物</td>
+<td><code>still life</code></td>
+</tr>
+<tr>
+<td>食物特寫</td>
+<td><code>food focus</code></td>
+</tr>
+<tr>
+<td>物件特寫</td>
+<td><code>object focus</code></td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+</body>
+</html>

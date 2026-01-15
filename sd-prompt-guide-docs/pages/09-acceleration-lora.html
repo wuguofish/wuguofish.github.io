@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>加速 LoRA - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" class="active">加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>加速 LoRA 介紹</h1>
+<h2>什麼是加速 LoRA？</h2>
+<p>一般的圖像生成需要 20-50 步才能完成，<strong>加速 LoRA</strong> 能讓你用 <strong>4-8 步</strong>就得到差不多的結果。</p>
+<h3>白話解釋「蒸餾」</h3>
+<p>你可能會看到「知識蒸餾（Knowledge Distillation）」這個詞，聽起來很像化學實驗，但其實概念很簡單：</p>
+<blockquote>
+<p><strong>讓小模型「抄捷徑」學會大模型的生成技巧</strong></p>
+</blockquote>
+<p>想像一下：
+- <strong>老師模型</strong>：很厲害但跑很慢，需要 50 步才能畫出好圖
+- <strong>學生模型</strong>：小而快的模型</p>
+<p>傳統訓練是讓學生從零開始學（看大量原始圖片），但「蒸餾」的做法是：</p>
+<blockquote>
+<p>讓學生<strong>直接模仿老師的作答過程和答案</strong>，而不是重新學習所有原理</p>
+</blockquote>
+<p>就像學生不用把整本微積分課本讀完，只要老師說「遇到這種題型，答案長這樣」，學生就能用捷徑得到差不多的結果。</p>
+<h3>為什麼需要加速 LoRA？</h3>
+<ul>
+<li><strong>節省時間</strong>：快 3-10 倍</li>
+<li><strong>節省點數/算力</strong>：步數少 = 消耗少</li>
+<li><strong>快速預覽</strong>：構圖、配色滿意再用正常步數精修</li>
+<li><strong>批量生成</strong>：大量出圖時效率更高</li>
+</ul>
+<hr />
+<h2>四種推薦的加速 LoRA</h2>
+<p>以下是在 PixAI 上推薦使用的加速 LoRA，點擊連結可直接前往使用：</p>
+<h3>1. LCM（Latent Consistency Model）</h3>
+<p>🔗 <strong>PixAI 連結</strong>：https://pixai.art/model/1687631572599847061</p>
+<p><strong>原理</strong>：將擴散模型蒸餾成「一致性模型」，讓模型學會「一步到位」生成圖像。</p>
+<p><strong>特色</strong>：
+- ⭐ 最普及，社群資源最多
+- 設定簡單，新手友善
+- PixAI 上最常見</p>
+<hr />
+<h3>2. DMD2（Distribution Matching Distillation 2）</h3>
+<p>🔗 <strong>PixAI 連結</strong>：https://pixai.art/zh/model/1897811443252033347</p>
+<p><strong>原理</strong>：透過「分佈匹配蒸餾」，學生模型快速學會老師模型的輸出分佈。</p>
+<p><strong>特色</strong>：
+- ⭐ 畫質比 LCM 更好
+- 寫實風格表現特別出色
+- 支援極低步數（1-4 步）</p>
+<hr />
+<h3>3. PCM（Phased Consistency Model）- NormalCFG 版</h3>
+<p>🔗 <strong>PixAI 連結</strong>：https://pixai.art/zh/model/1810142527271081205</p>
+<p><strong>原理</strong>：LCM 的改良版，將生成軌跡分段處理，減少誤差累積。</p>
+<p><strong>特色</strong>：
+- ⭐ CFG 彈性最高（可用 2-9）
+- 負面提示詞真的有效
+- 有 NormalCFG 和 SmallCFG 兩種版本</p>
+<hr />
+<h3>4. WAI-illustrious-Rectified-4Steps</h3>
+<p>🔗 <strong>PixAI 連結</strong>：https://pixai.art/zh/model/1857294002524835135</p>
+<p><strong>原理</strong>：基於 Rectified Flow 技術，專為 Illustrious 系列模型優化的 4 步加速 LoRA。</p>
+<p><strong>特色</strong>：
+- ⭐ 專為 Illustrious 系列優化
+- 固定 4 步，設定簡單
+- 與 Illustrious 系模型相容性最佳</p>
+<hr />
+<h2>建議參數表</h2>
+<p>在 PixAI 上使用這些加速 LoRA 時的推薦設定：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>LCM</th>
+<th>DMD2</th>
+<th>PCM (NormalCFG)</th>
+<th>WAI-Rectified-4Steps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>建議步數</strong></td>
+<td>3-8</td>
+<td>4-8</td>
+<td>4-16</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>CFG 範圍</strong></td>
+<td>1.0-2.0</td>
+<td>1.4-1.8</td>
+<td>2-9</td>
+<td>1.0-2.0</td>
+</tr>
+<tr>
+<td><strong>採樣器</strong></td>
+<td>LCM</td>
+<td>LCM</td>
+<td>DDIM / Euler</td>
+<td>Euler</td>
+</tr>
+<tr>
+<td><strong>調度器</strong></td>
+<td>sgm_uniform</td>
+<td>normal</td>
+<td>trailing</td>
+<td>SGM Uniform</td>
+</tr>
+<tr>
+<td><strong>LoRA 權重</strong></td>
+<td>1.0</td>
+<td>0.7-1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h3>PCM 版本說明</h3>
+<p>PCM 有兩種版本，差別在於 CFG 範圍：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>CFG 範圍</th>
+<th>適用情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NormalCFG</strong></td>
+<td>2-9</td>
+<td>需要負面提示詞發揮作用時</td>
+</tr>
+<tr>
+<td><strong>SmallCFG</strong></td>
+<td>1-2</td>
+<td>類似 LCM 的使用方式</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>優缺點比較</h2>
+<h3>LCM</h3>
+<table>
+<thead>
+<tr>
+<th>優點 ✓</th>
+<th>缺點 ✗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最普及、社群資源多</td>
+<td>CFG 只能用 1-2</td>
+</tr>
+<tr>
+<td>相容性好</td>
+<td>負面提示詞效果差</td>
+</tr>
+<tr>
+<td>設定簡單易上手</td>
+<td>步數變化結果不一致</td>
+</tr>
+</tbody>
+</table>
+<h3>DMD2</h3>
+<table>
+<thead>
+<tr>
+<th>優點 ✓</th>
+<th>缺點 ✗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>畫質比 LCM 更好</td>
+<td>可能出現泛白/褪色</td>
+</tr>
+<tr>
+<td>支援極低步數（1-4）</td>
+<td>需調整 CFG 補償</td>
+</tr>
+<tr>
+<td>寫實風格表現佳</td>
+<td>社群資源較少</td>
+</tr>
+</tbody>
+</table>
+<h3>PCM</h3>
+<table>
+<thead>
+<tr>
+<th>優點 ✓</th>
+<th>缺點 ✗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CFG 彈性高（2-9）</td>
+<td>檔案較大</td>
+</tr>
+<tr>
+<td>負面提示詞有效</td>
+<td>需選對版本（Normal/Small）</td>
+</tr>
+<tr>
+<td>不同步數結果穩定</td>
+<td>步數要匹配 LoRA 版本</td>
+</tr>
+</tbody>
+</table>
+<h3>WAI-illustrious-Rectified-4Steps</h3>
+<table>
+<thead>
+<tr>
+<th>優點 ✓</th>
+<th>缺點 ✗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>專為 Illustrious 優化</td>
+<td>僅適用 Illustrious 系列</td>
+</tr>
+<tr>
+<td>固定 4 步，設定簡單</td>
+<td>步數固定，彈性較低</td>
+</tr>
+<tr>
+<td>相容性佳</td>
+<td>其他模型效果可能不佳</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>快速選擇指南</h2>
+<table>
+<thead>
+<tr>
+<th>你的需求</th>
+<th>推薦選擇</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🆕 <strong>新手入門</strong></td>
+<td>LCM</td>
+<td>設定最簡單，CFG 1.5、步數 4-6 就能用</td>
+</tr>
+<tr>
+<td>🎨 <strong>追求畫質</strong></td>
+<td>DMD2</td>
+<td>4-8 步就有不錯效果，寫實風格特別出色</td>
+</tr>
+<tr>
+<td>🚫 <strong>需要負面提示詞</strong></td>
+<td>PCM (NormalCFG)</td>
+<td>支援 CFG 2-9，負面提示詞真的有用</td>
+</tr>
+<tr>
+<td>🎯 <strong>用 Illustrious 模型</strong></td>
+<td>WAI-Rectified-4Steps</td>
+<td>專為 Illustrious 系列優化，相容性最佳</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>PixAI 上的使用率參考</h2>
+<p>根據社群使用情況：</p>
+<table>
+<thead>
+<tr>
+<th>加速 LoRA</th>
+<th>普及度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCM</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>DMD2</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>PCM</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>WAI-Rectified</td>
+<td>⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>實用建議</h2>
+<h3>1. 先用加速 LoRA 預覽，再用正常步數精修</h3>
+<p>加速 LoRA 最適合用來快速確認構圖和配色，滿意後再關掉加速 LoRA，用 20-30 步精修細節。</p>
+<h3>2. 加速 LoRA 可以和其他 LoRA 疊加</h3>
+<p>你可以同時使用：
+- 加速 LoRA（如 LCM）
+- 風格 LoRA
+- 角色 LoRA</p>
+<p>只要注意總權重不要太高，避免互相干擾。</p>
+<h3>3. 不同加速 LoRA 不要混用</h3>
+<p>一次只用一種加速 LoRA，混用會導致結果混亂。</p>
+<h3>4. 注意版本匹配</h3>
+<ul>
+<li><strong>SDXL 模型</strong>用 SDXL 版的加速 LoRA</li>
+<li><strong>SD 1.5 模型</strong>用 SD 1.5 版的加速 LoRA</li>
+<li><strong>Illustrious 系列</strong>優先考慮 WAI-Rectified-4Steps</li>
+<li>版本不對會完全沒效果或出錯</li>
+</ul>
+<hr />
+<h2>快速連結總覽</h2>
+<table>
+<thead>
+<tr>
+<th>加速 LoRA</th>
+<th>PixAI 連結</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCM</td>
+<td>https://pixai.art/model/1687631572599847061</td>
+</tr>
+<tr>
+<td>DMD2</td>
+<td>https://pixai.art/zh/model/1897811443252033347</td>
+</tr>
+<tr>
+<td>PCM (NormalCFG)</td>
+<td>https://pixai.art/zh/model/1810142527271081205</td>
+</tr>
+<tr>
+<td>WAI-Rectified-4Steps</td>
+<td>https://pixai.art/zh/model/1857294002524835135</td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+</body>
+</html>

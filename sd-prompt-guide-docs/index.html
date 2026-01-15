@@ -5,26 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SD Prompt 實戰指南</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       line-height: 1.6;
       color: #333;
     }
-    
-    .container {
-      display: flex;
-      min-height: 100vh;
-    }
-    
-    /* 側邊欄 */
+    .container { display: flex; min-height: 100vh; }
     .sidebar {
-      width: 280px;
+      width: 300px;
       background: #f8f9fa;
       border-right: 1px solid #e0e0e0;
       padding: 20px 0;
@@ -32,106 +21,60 @@
       height: 100vh;
       overflow-y: auto;
     }
-    
     .sidebar h1 {
-      font-size: 1.2rem;
-      padding: 0 20px 20px;
+      font-size: 1.1rem;
+      padding: 0 15px 15px;
       border-bottom: 1px solid #e0e0e0;
       color: #7c3aed;
     }
-    
-    .sidebar nav {
-      padding: 10px 0;
-    }
-    
+    .sidebar nav { padding: 10px 0; }
     .sidebar .section-title {
       font-weight: bold;
-      padding: 15px 20px 8px;
+      padding: 12px 15px 6px;
       color: #555;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
-    
     .sidebar a {
       display: block;
-      padding: 8px 20px 8px 30px;
+      padding: 6px 15px 6px 25px;
       color: #333;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: background 0.2s;
     }
-    
-    .sidebar a:hover {
-      background: #e9ecef;
-      color: #7c3aed;
-    }
-    
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
     .sidebar a.active {
       background: #e9ecef;
       color: #7c3aed;
       border-right: 3px solid #7c3aed;
     }
-    
     .sidebar .external-links {
       border-top: 1px solid #e0e0e0;
-      margin-top: 20px;
+      margin-top: 15px;
       padding-top: 10px;
     }
-    
-    .sidebar .external-links a {
-      color: #666;
-      font-size: 0.85rem;
-    }
-    
-    .sidebar .external-links a::after {
-      content: " ↗";
-      font-size: 0.7rem;
-    }
-    
-    /* 主要內容區 */
+    .sidebar .external-links a { color: #666; font-size: 0.8rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
     .main {
       flex: 1;
-      margin-left: 280px;
+      margin-left: 300px;
       padding: 40px 60px;
-      max-width: 900px;
+      max-width: 1000px;
     }
-    
     .main h1 {
       color: #7c3aed;
       margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 2px solid #7c3aed;
     }
-    
-    .main h2 {
-      color: #333;
-      margin: 30px 0 15px;
-    }
-    
-    .main h3 {
-      color: #555;
-      margin: 25px 0 10px;
-    }
-    
-    .main p {
-      margin: 15px 0;
-    }
-    
-    .main table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    
-    .main th, .main td {
-      border: 1px solid #ddd;
-      padding: 10px 12px;
-      text-align: left;
-    }
-    
-    .main th {
-      background: #f8f9fa;
-    }
-    
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .main th, .main td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; }
+    .main th { background: #f8f9fa; }
     .main code {
       background: #f3f4f6;
       padding: 2px 6px;
@@ -139,72 +82,26 @@
       font-family: "SFMono-Regular", Consolas, monospace;
       font-size: 0.9em;
     }
-    
-    .main pre {
-      background: #1e1e1e;
-      color: #d4d4d4;
-      padding: 20px;
-      border-radius: 8px;
-      overflow-x: auto;
-      margin: 20px 0;
-    }
-    
-    .main pre code {
-      background: none;
-      padding: 0;
-      color: inherit;
-    }
-    
-    .main a {
-      color: #7c3aed;
-    }
-    
-    .quick-start {
-      background: #f8f9fa;
-      padding: 20px;
+    .main a { color: #7c3aed; }
+    .quick-start { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    .quick-start h3 { margin-top: 0; }
+    .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0; }
+    .canva-link {
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+      color: white !important;
+      padding: 15px 20px;
       border-radius: 8px;
       margin: 20px 0;
+      display: block;
+      text-decoration: none;
     }
-    
-    .quick-start h3 {
-      margin-top: 0;
-    }
-    
-    .note {
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 15px;
-      margin: 20px 0;
-    }
-    
-    .warning {
-      background: #f8d7da;
-      border-left: 4px solid #dc3545;
-      padding: 15px;
-      margin: 20px 0;
-    }
-    
-    /* iframe 內容區 */
-    #content-frame {
-      width: 100%;
-      height: calc(100vh - 80px);
-      border: none;
-    }
-    
-    /* RWD */
+    .canva-link:hover { opacity: 0.9; }
+    .canva-link strong { display: block; font-size: 1.1rem; }
+    .canva-link span { opacity: 0.9; font-size: 0.9rem; }
     @media (max-width: 768px) {
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-      }
-      .main {
-        margin-left: 0;
-        padding: 20px;
-      }
-      .container {
-        flex-direction: column;
-      }
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
     }
   </style>
 </head>
@@ -214,37 +111,40 @@
       <h1>📚 SD Prompt 實戰指南</h1>
       <nav>
         <a href="index.html" class="active">🏠 首頁</a>
-        
         <div class="section-title">📘 基礎篇</div>
-        <a href="pages/01-why-default-girls.html">為什麼模型預設畫女生？</a>
+        <a href="pages/01-why-default-girls.html">為什麼預設畫女生？</a>
         <a href="pages/02-drawing-males.html">畫男性角色</a>
         <a href="pages/03-no-humans.html">純風景/純物件</a>
         <a href="pages/04-multi-character.html">多角色構圖</a>
         <a href="pages/05-recommended-models.html">推薦模型</a>
-        <a href="pages/06-tag-lookup.html">常用 Tag 中英對照</a>
+        <a href="pages/06-tag-lookup.html">Tag 中英對照</a>
         <a href="pages/07-male-tags.html">男性 Tag 大全</a>
-        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="pages/08-lora-basics.html">LoRA 基礎</a>
+        <a href="pages/09-acceleration-lora.html">加速 LoRA</a>
+        <a href="pages/10-hires-upscale.html">HiRes 放大</a>
+        <a href="pages/11-inpaint-outpaint.html">Inpaint/Outpaint</a>
         <div class="section-title">💜 女性向專區</div>
-        <a href="pages/08-bl-guide.html">BL / 耽美指南</a>
-        <a href="pages/09-dream-pictures.html">夢圖（OC × 角色）</a>
-        <a href="pages/10-otome-pov.html">第一人稱乙女 CG</a>
-        
+        <a href="pages/12-bl-guide.html">BL / 耽美</a>
+        <a href="pages/13-dream-pictures.html">夢圖</a>
+        <a href="pages/14-otome-pov.html">乙女 CG</a>
         <div class="external-links">
           <div class="section-title">🔗 資源連結</div>
-          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
-          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
-          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tags</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tags</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫</a>
         </div>
       </nav>
     </aside>
-    
     <main class="main">
       <h1>SD Prompt 實戰指南</h1>
       <p>Stable Diffusion / Illustrious XL 系列模型的 Prompt 實戰指南</p>
-      
+      <a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view" target="_blank" class="canva-link">
+        <strong>📺 圖解版簡報</strong>
+        <span>部分章節內容整理自 PixAI 使用心得分享，想看圖文並茂的說明可以參考原始簡報</span>
+      </a>
       <h2>這是什麼？</h2>
       <p>這份指南專門解決 AI 繪圖模型的「偏科問題」——模型很會畫可愛女生，但畫其他東西就需要特別技巧。</p>
-      
       <h2>適合誰？</h2>
       <ul>
         <li>想畫<strong>男性角色</strong>但一直畫成女生的人</li>
@@ -252,43 +152,41 @@
         <li>想畫 <strong>BL / 耽美</strong>的創作者</li>
         <li>想畫<strong>夢圖</strong>（自己的 OC 和喜歡的角色同框）的人</li>
         <li>想畫<strong>乙女遊戲風 CG</strong>的人</li>
+        <li>想了解 <strong>LoRA、HiRes、Inpaint</strong> 等進階功能的人</li>
       </ul>
-      
       <div class="quick-start">
         <h3>🚀 快速開始</h3>
         <table>
           <tr><th>我想要...</th><th>看這篇</th></tr>
           <tr><td>畫男生</td><td><a href="pages/02-drawing-males.html">畫男性角色</a></td></tr>
           <tr><td>畫風景/物件</td><td><a href="pages/03-no-humans.html">純風景/純物件</a></td></tr>
-          <tr><td>畫 BL</td><td><a href="pages/08-bl-guide.html">BL / 耽美指南</a></td></tr>
-          <tr><td>畫夢圖</td><td><a href="pages/09-dream-pictures.html">夢圖指南</a></td></tr>
-          <tr><td>畫乙女 CG</td><td><a href="pages/10-otome-pov.html">第一人稱乙女 CG</a></td></tr>
-          <tr><td>查 Tag 怎麼寫</td><td><a href="pages/06-tag-lookup.html">常用 Tag 中英對照</a></td></tr>
+          <tr><td>畫 BL</td><td><a href="pages/12-bl-guide.html">BL / 耽美指南</a></td></tr>
+          <tr><td>畫夢圖</td><td><a href="pages/13-dream-pictures.html">夢圖指南</a></td></tr>
+          <tr><td>畫乙女 CG</td><td><a href="pages/14-otome-pov.html">第一人稱乙女 CG</a></td></tr>
+          <tr><td>查 Tag 怎麼寫</td><td><a href="pages/06-tag-lookup.html">Tag 中英對照</a></td></tr>
+          <tr><td>了解 LoRA</td><td><a href="pages/08-lora-basics.html">LoRA 基礎</a></td></tr>
+          <tr><td>加速生圖</td><td><a href="pages/09-acceleration-lora.html">加速 LoRA</a></td></tr>
+          <tr><td>放大圖片</td><td><a href="pages/10-hires-upscale.html">HiRes 放大</a></td></tr>
+          <tr><td>局部修改</td><td><a href="pages/11-inpaint-outpaint.html">Inpaint/Outpaint</a></td></tr>
         </table>
       </div>
-      
       <h2>重要觀念</h2>
-      
       <h3>Tag 必須存在於資料庫</h3>
       <p>AI 模型是用 Danbooru / e621 的圖片訓練的，所以 <strong>只有資料庫裡有的 tag 才有效</strong>。</p>
-      
       <div class="warning">
         <strong>常見錯誤：</strong><br>
         ❌ <code>young man</code> → 不存在（改用 <code>1boy</code> + 具體特徵）<br>
         ❌ <code>handsome</code> → 不存在（改用 <code>bishounen</code> 或 <code>manly</code>）<br>
         ❌ <code>narrow eyes</code> → 不存在（正確是 <code>narrowed eyes</code>）
       </div>
-      
       <h3>底線要換成空白</h3>
       <p>資料庫用底線（<code>black_hair</code>），但實際輸入時用空白（<code>black hair</code>）。</p>
-      
       <h2>給 AI 助理使用者</h2>
       <p>如果你使用 ChatGPT、Gemini 或其他 AI 助理，可以：</p>
       <ol>
         <li>把這個網站的網址貼給 AI，請它「閱讀這個網頁」</li>
         <li>或直接複製需要的章節內容給 AI 參考</li>
       </ol>
-      
       <hr style="margin: 40px 0;">
       <p style="color: #666; font-size: 0.9rem;">最後更新：2025-01</p>
     </main>

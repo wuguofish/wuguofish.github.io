@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HiRes 高解析度放大 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" class="active">HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" >Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>HiRes 高解析度放大</h1>
+<blockquote>
+<p>📺 <strong>圖解版</strong>：本章節內容整理自 <a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view">PixAI 使用心得分享簡報（第 26-28 頁）</a></p>
+</blockquote>
+<hr />
+<h2>什麼是 HiRes？</h2>
+<p><strong>HiRes</strong>（High Resolution Diffusion）是一種「先生成小圖，再放大重繪」的技術，讓你獲得更高解析度、更精緻的圖片。</p>
+<h3>為什麼需要 HiRes？</h3>
+<p>直接生成大圖會有問題：</p>
+<table>
+<thead>
+<tr>
+<th>直接生成大圖</th>
+<th>使用 HiRes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>容易出現重複元素（多頭、多手）</td>
+<td>構圖正常</td>
+</tr>
+<tr>
+<td>細節可能糊掉</td>
+<td>細節更精緻</td>
+</tr>
+<tr>
+<td>消耗大量算力</td>
+<td>效率較高</td>
+</tr>
+</tbody>
+</table>
+<h3>HiRes 的運作原理</h3>
+<pre><code>步驟 1：生成小圖（如 768×768）
+    ↓
+步驟 2：將小圖放大（如 1.5 倍 → 1152×1152）
+    ↓
+步驟 3：對放大後的圖進行「重繪」，補上細節
+    ↓
+完成：獲得高解析度成品
+</code></pre>
+<p>這個「重繪」的過程會參考原本的構圖，同時 AI 會補上放大後缺失的細節。</p>
+<hr />
+<h2>關鍵參數：Denoising Strength</h2>
+<p><strong>Denoising Strength</strong>（去噪強度）是 HiRes 最重要的參數，決定了「重繪」時改變原圖的程度。</p>
+<table>
+<thead>
+<tr>
+<th>數值</th>
+<th>效果</th>
+<th>適用情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.1 ~ 0.3</strong></td>
+<td>幾乎不改變，只是單純放大</td>
+<td>只想提升解析度</td>
+</tr>
+<tr>
+<td><strong>0.4 ~ 0.6</strong></td>
+<td>⭐ <strong>推薦範圍</strong>：補細節但保留構圖</td>
+<td>大多數情況</td>
+</tr>
+<tr>
+<td><strong>0.7 ~ 0.8</strong></td>
+<td>會有明顯改變，可能調整細節</td>
+<td>想要一些變化</td>
+</tr>
+<tr>
+<td><strong>0.9 ~ 1.0</strong></td>
+<td>幾乎重新畫一張，構圖可能大變</td>
+<td>基本上不建議</td>
+</tr>
+</tbody>
+</table>
+<h3>⚠️ 重要警告</h3>
+<p><strong>Denoising Strength 設太高（&gt; 0.7）容易讓圖片「走樣」！</strong></p>
+<p>常見的走樣情況：
+- 人物表情改變
+- 髮型或髮色跑掉
+- 服裝細節變化
+- 背景元素消失或增加
+- 整體構圖偏移</p>
+<p><strong>建議</strong>：從 <strong>0.4 ~ 0.5</strong> 開始測試，覺得細節不夠再慢慢往上調。</p>
+<hr />
+<h2>PixAI 上的 HiRes 設定</h2>
+<h3>基本設定流程</h3>
+<ol>
+<li>生成一張滿意的基礎圖</li>
+<li>開啟 HiRes 選項</li>
+<li>設定放大倍率（通常 1.5x ~ 2x）</li>
+<li>調整 Denoising Strength（建議 0.4 ~ 0.6）</li>
+<li>重新生成</li>
+</ol>
+<h3>推薦設定組合</h3>
+<table>
+<thead>
+<tr>
+<th>目標</th>
+<th>放大倍率</th>
+<th>Denoising</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單純放大</td>
+<td>1.5x</td>
+<td>0.3</td>
+<td>保持原樣，只提升解析度</td>
+</tr>
+<tr>
+<td>標準 HiRes</td>
+<td>1.5x</td>
+<td>0.5</td>
+<td>平衡細節與穩定性</td>
+</tr>
+<tr>
+<td>精修細節</td>
+<td>2x</td>
+<td>0.5</td>
+<td>大幅提升解析度</td>
+</tr>
+<tr>
+<td>風格強化</td>
+<td>1.5x</td>
+<td>0.6</td>
+<td>讓風格更鮮明</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>HiRes 與其他功能的搭配</h2>
+<h3>HiRes + ControlNet</h3>
+<p>如果你用 ControlNet 控制構圖，HiRes 時也會參考：</p>
+<pre><code>原圖（有 ControlNet 約束）
+    ↓ HiRes 放大
+放大圖（繼續維持 ControlNet 的約束）
+</code></pre>
+<p>這樣可以在放大時保持姿勢、構圖的一致性。</p>
+<h3>HiRes + LoRA</h3>
+<p>HiRes 階段仍然會套用 LoRA 效果，所以：
+- 角色 LoRA 的特徵會被保留
+- 風格 LoRA 的畫風會更明顯
+- 加速 LoRA 可以加快 HiRes 的重繪速度</p>
+<hr />
+<h2>常見問題</h2>
+<p><strong>Q：HiRes 後人物變了怎麼辦？</strong></p>
+<p>A：Denoising Strength 太高了，降到 0.4 以下試試。</p>
+<p><strong>Q：HiRes 後細節反而變糊？</strong></p>
+<p>A：可能是 Denoising 太低（&lt; 0.3），AI 沒有足夠空間補細節。</p>
+<p><strong>Q：HiRes 要跑很久怎麼辦？</strong></p>
+<p>A：可以搭配加速 LoRA（如 LCM）減少步數，或降低放大倍率。</p>
+<p><strong>Q：什麼時候不需要 HiRes？</strong></p>
+<p>A：
+- 只是快速預覽構圖時
+- 圖片用途不需要高解析度（如縮圖、社群貼文）
+- 使用加速 LoRA 快速出圖時</p>
+<hr />
+<h2>進階：Upscaler 的選擇</h2>
+<p>有些平台讓你選擇不同的 Upscaler（放大演算法）：</p>
+<table>
+<thead>
+<tr>
+<th>Upscaler</th>
+<th>特點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latent</strong></td>
+<td>標準選項，效果平衡</td>
+</tr>
+<tr>
+<td><strong>Latent (nearest)</strong></td>
+<td>保留更多原始細節</td>
+</tr>
+<tr>
+<td><strong>R-ESRGAN 4x+</strong></td>
+<td>適合動漫風格</td>
+</tr>
+<tr>
+<td><strong>R-ESRGAN 4x+ Anime6B</strong></td>
+<td>專為動漫優化</td>
+</tr>
+</tbody>
+</table>
+<p>PixAI 通常會自動選擇合適的 Upscaler，一般不需要手動調整。</p>
+<hr />
+<h2>小結</h2>
+<table>
+<thead>
+<tr>
+<th>要點</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Denoising Strength</td>
+<td><strong>0.4 ~ 0.6</strong>（別超過 0.7）</td>
+</tr>
+<tr>
+<td>放大倍率</td>
+<td>1.5x ~ 2x</td>
+</tr>
+<tr>
+<td>使用時機</td>
+<td>構圖滿意後再放大</td>
+</tr>
+<tr>
+<td>搭配 ControlNet</td>
+<td>可以維持構圖一致</td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+</body>
+</html>

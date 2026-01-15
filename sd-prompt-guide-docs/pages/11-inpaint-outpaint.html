@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inpaint/Outpaint 局部編輯 - SD Prompt 實戰指南</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px;
+      background: #f8f9fa;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #7c3aed;
+    }
+    .sidebar h1 a { color: inherit; text-decoration: none; }
+    .sidebar nav { padding: 10px 0; }
+    .sidebar .section-title {
+      font-weight: bold;
+      padding: 15px 20px 8px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 20px 8px 30px;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover { background: #e9ecef; color: #7c3aed; }
+    .sidebar a.active {
+      background: #e9ecef;
+      color: #7c3aed;
+      border-right: 3px solid #7c3aed;
+    }
+    .sidebar .external-links {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .sidebar .external-links a { color: #666; font-size: 0.85rem; }
+    .sidebar .external-links a::after { content: " ↗"; font-size: 0.7rem; }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 60px;
+      max-width: 1000px;
+    }
+    .main h1 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #7c3aed;
+    }
+    .main h2 { color: #333; margin: 30px 0 15px; }
+    .main h3 { color: #555; margin: 25px 0 10px; }
+    .main h4 { color: #666; margin: 20px 0 10px; }
+    .main p { margin: 15px 0; }
+    .main ul, .main ol { margin: 15px 0; padding-left: 30px; }
+    .main li { margin: 8px 0; }
+    .main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .main th, .main td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .main th { background: #f8f9fa; }
+    .main code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    .main pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .main pre code { background: none; padding: 0; color: inherit; }
+    .main a { color: #7c3aed; }
+    .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
+    .main blockquote {
+      border-left: 4px solid #7c3aed;
+      padding-left: 20px;
+      margin: 20px 0;
+      color: #555;
+    }
+    .back-link {
+      margin-bottom: 20px;
+    }
+    .back-link a {
+      color: #666;
+      text-decoration: none;
+    }
+    .back-link a:hover { color: #7c3aed; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h1><a href="../index.html">📚 SD Prompt 實戰指南</a></h1>
+      <nav>
+        <a href="../index.html">🏠 首頁</a>
+        
+        <div class="section-title">📘 基礎篇</div>
+        <a href="01-why-default-girls.html" >為什麼模型預設畫女生？</a>
+        <a href="02-drawing-males.html" >畫男性角色</a>
+        <a href="03-no-humans.html" >純風景/純物件</a>
+        <a href="04-multi-character.html" >多角色構圖</a>
+        <a href="05-recommended-models.html" >推薦模型</a>
+        <a href="06-tag-lookup.html" >常用 Tag 中英對照</a>
+        <a href="07-male-tags.html" >男性 Tag 大全</a>
+        
+        <div class="section-title">🔧 進階技術</div>
+        <a href="08-lora-basics.html" >LoRA 基礎介紹</a>
+        <a href="09-acceleration-lora.html" >加速 LoRA</a>
+        <a href="10-hires-upscale.html" >HiRes 高解析度放大</a>
+        <a href="11-inpaint-outpaint.html" class="active">Inpaint/Outpaint</a>
+        
+        <div class="section-title">💜 女性向專區</div>
+        <a href="12-bl-guide.html" >BL / 耽美指南</a>
+        <a href="13-dream-pictures.html" >夢圖（OC × 角色）</a>
+        <a href="14-otome-pov.html" >第一人稱乙女 CG</a>
+        
+        <div class="external-links">
+          <div class="section-title">🔗 資源連結</div>
+          <a href="https://danbooru.donmai.us/tags" target="_blank">Danbooru Tag 搜尋</a>
+          <a href="https://e621.net/tags" target="_blank">e621 Tag 搜尋</a>
+          <a href="https://github.com/DraconicDragon/dbr-e621-lists-archive" target="_blank">Tag 資料庫 GitHub</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main">
+      <h1>Inpaint 與 Outpaint 局部編輯</h1>
+<blockquote>
+<p>📺 <strong>圖解版</strong>：本章節內容整理自 <a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view">PixAI 使用心得分享簡報（第 37-38 頁）</a></p>
+<p>🎬 <strong>官方教學影片</strong>：<a href="https://www.youtube.com/watch?v=T7thxTmZEOc">PixAI Inpaint/Outpaint Tutorial</a></p>
+</blockquote>
+<hr />
+<h2>概述</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>用途</th>
+<th>白話說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inpaint</strong></td>
+<td>局部重繪</td>
+<td>「把這個區域擦掉，重新畫」</td>
+</tr>
+<tr>
+<td><strong>Outpaint</strong></td>
+<td>向外擴展</td>
+<td>「把畫布變大，AI 幫你補上延伸的部分」</td>
+</tr>
+</tbody>
+</table>
+<p>這兩個功能都是在既有圖片的基礎上，讓 AI「部分重新生成」。</p>
+<hr />
+<h2>Inpaint 局部重繪</h2>
+<h3>什麼是 Inpaint？</h3>
+<p>Inpaint 讓你用「遮罩」（mask）標記想要修改的區域，AI 會只重畫那個部分，其他地方保持不變。</p>
+<h3>常見應用場景</h3>
+<table>
+<thead>
+<tr>
+<th>場景</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🖐️ 修復手部崩壞</strong></td>
+<td>AI 畫的手常常有問題，用 Inpaint 局部重畫</td>
+</tr>
+<tr>
+<td><strong>👁️ 修復臉部問題</strong></td>
+<td>眼睛歪斜、表情怪異時局部修正</td>
+</tr>
+<tr>
+<td><strong>🚫 移除不想要的元素</strong></td>
+<td>背景多出的人、奇怪的物件</td>
+</tr>
+<tr>
+<td><strong>👗 更換服裝</strong></td>
+<td>只重畫服裝區域，換一套衣服</td>
+</tr>
+<tr>
+<td><strong>🎨 修改配色</strong></td>
+<td>只改頭髮顏色、眼睛顏色等</td>
+</tr>
+<tr>
+<td><strong>➕ 添加元素</strong></td>
+<td>在空白處加上飾品、道具</td>
+</tr>
+</tbody>
+</table>
+<h3>使用步驟</h3>
+<pre><code>1. 上傳或選擇要修改的圖片
+2. 用筆刷標記要重繪的區域（遮罩）
+3. 輸入 prompt 描述你想要的結果
+4. 調整 Denoising Strength
+5. 點擊生成
+</code></pre>
+<h3>Inpaint 的 Denoising Strength</h3>
+<p>和 HiRes 類似，Denoising 決定「改變程度」：</p>
+<table>
+<thead>
+<tr>
+<th>數值</th>
+<th>效果</th>
+<th>適用情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.3 ~ 0.5</strong></td>
+<td>輕微調整，保留大部分原樣</td>
+<td>微調顏色、修復小瑕疵</td>
+</tr>
+<tr>
+<td><strong>0.5 ~ 0.7</strong></td>
+<td>中度改變，會重新詮釋</td>
+<td>修復手部、換表情</td>
+</tr>
+<tr>
+<td><strong>0.7 ~ 1.0</strong></td>
+<td>大幅改變，幾乎重畫</td>
+<td>完全替換元素</td>
+</tr>
+</tbody>
+</table>
+<h3>修手小技巧</h3>
+<p>手部崩壞是 AI 繪圖最常見的問題，Inpaint 修手流程：</p>
+<pre><code>1. 把崩壞的手部區域塗滿遮罩（畫大一點，包含手腕）
+2. Prompt 加上手部描述，例如：
+   - &quot;beautiful detailed hands&quot;
+   - &quot;correct hand anatomy&quot;
+   - &quot;five fingers&quot;
+3. Denoising 設 0.6 ~ 0.8
+4. 多生成幾次，挑最好的
+</code></pre>
+<hr />
+<h2>Outpaint 向外擴展</h2>
+<h3>什麼是 Outpaint？</h3>
+<p>Outpaint 讓你「擴大畫布」，AI 會根據現有圖片的內容，自動補上延伸的部分。</p>
+<h3>常見應用場景</h3>
+<table>
+<thead>
+<tr>
+<th>場景</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>📐 改變構圖比例</strong></td>
+<td>把正方形圖變成橫幅或直幅</td>
+</tr>
+<tr>
+<td><strong>🖼️ 擴展背景</strong></td>
+<td>讓風景延伸、增加環境空間</td>
+</tr>
+<tr>
+<td><strong>👤 顯示更多身體</strong></td>
+<td>半身像擴展成全身像</td>
+</tr>
+<tr>
+<td><strong>📱 適配不同尺寸</strong></td>
+<td>把圖片調整成適合手機/電腦桌布的比例</td>
+</tr>
+</tbody>
+</table>
+<h3>使用步驟</h3>
+<pre><code>1. 上傳或選擇要擴展的圖片
+2. 選擇擴展方向（上/下/左/右）
+3. 設定擴展的大小
+4. 輸入 prompt 描述延伸區域的內容（可選）
+5. 點擊生成
+</code></pre>
+<h3>Outpaint 注意事項</h3>
+<ul>
+<li><strong>風格一致性</strong>：AI 會嘗試維持原圖的風格，但不一定 100% 完美</li>
+<li><strong>邊緣接合</strong>：有時候接合處會有明顯的痕跡，可以用 Inpaint 修補</li>
+<li><strong>多次嘗試</strong>：Outpaint 的結果變化比較大，多生成幾次挑選</li>
+</ul>
+<hr />
+<h2>Inpaint vs Outpaint 比較</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Inpaint</th>
+<th>Outpaint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>作用範圍</strong></td>
+<td>圖片內部</td>
+<td>圖片外部</td>
+</tr>
+<tr>
+<td><strong>畫布大小</strong></td>
+<td>不變</td>
+<td>變大</td>
+</tr>
+<tr>
+<td><strong>主要用途</strong></td>
+<td>修復、替換</td>
+<td>擴展、延伸</td>
+</tr>
+<tr>
+<td><strong>需要遮罩</strong></td>
+<td>是</td>
+<td>否（選擇方向即可）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>實戰範例</h2>
+<h3>範例 1：修復六指手</h3>
+<pre><code>問題：AI 畫出了六根手指
+解法：
+1. Inpaint 遮罩塗滿整隻手
+2. Prompt: &quot;1girl, beautiful hand, five fingers, detailed fingers&quot;
+3. Negative: &quot;extra fingers, mutated hands, bad anatomy&quot;
+4. Denoising: 0.7
+5. 生成 4-8 張，挑最好的
+</code></pre>
+<h3>範例 2：移除背景路人</h3>
+<pre><code>問題：背景出現不想要的人物
+解法：
+1. Inpaint 遮罩塗滿那個人物
+2. Prompt: 描述你想要的背景（如 &quot;empty street, no people&quot;）
+3. Denoising: 0.8 ~ 1.0（需要完全替換）
+4. 生成並檢查
+</code></pre>
+<h3>範例 3：把半身像變全身像</h3>
+<pre><code>問題：只有上半身，想看到全身
+解法：
+1. Outpaint 向下擴展
+2. Prompt: &quot;full body, standing, legs, feet, [服裝描述]&quot;
+3. 可能需要多次嘗試
+4. 接合處不自然的話，用 Inpaint 修補
+</code></pre>
+<hr />
+<h2>常見問題</h2>
+<p><strong>Q：Inpaint 後遮罩區域和周圍格格不入？</strong></p>
+<p>A：
+- Denoising 調低一點，讓 AI 更參考周圍
+- 遮罩畫大一點，包含一些周圍區域
+- 在 prompt 中描述周圍的特徵</p>
+<p><strong>Q：Outpaint 的延伸部分風格不一致？</strong></p>
+<p>A：
+- 在 prompt 中強調原圖的風格特徵
+- 使用相同的模型和 LoRA 設定
+- 嘗試不同的 seed</p>
+<p><strong>Q：修手總是修不好？</strong></p>
+<p>A：
+- 遮罩要畫夠大，包含整個手掌和手腕
+- Prompt 要明確描述手的狀態（握拳、張開、比 V 等）
+- 試試加上 "realistic hands", "anatomically correct"
+- 有時候用 ControlNet 的 depth 或 openpose 可以幫助</p>
+<hr />
+<h2>延伸資源</h2>
+<ul>
+<li>🎬 <strong>PixAI 官方教學</strong>：<a href="https://www.youtube.com/watch?v=T7thxTmZEOc">Inpaint/Outpaint Tutorial</a></li>
+<li>更多進階技巧可以在 PixAI 社群和 Discord 找到</li>
+</ul>
+    </main>
+  </div>
+</body>
+</html>
