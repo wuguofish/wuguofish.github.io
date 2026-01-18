@@ -1,0 +1,452 @@
+<h1>常見實用小技巧</h1>
+<p>本章整理 Prompt 撰寫的基礎技巧，適合剛接觸 PixAI 的新手快速上手。</p>
+<hr />
+
+<h2>PixAI 基本功能說明</h2>
+
+<h3>提示詞相關</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>提示詞助手</strong></td>
+<td>PixAI 內建的小 LLM，開啟後算圖前會把提示詞重新改寫成能算出東西的內容。打開就可以用中文寫提示。</td>
+</tr>
+<tr>
+<td><strong>自動補全</strong></td>
+<td>輸入任一字元，自動帶出可能的提示詞。</td>
+</tr>
+<tr>
+<td><strong>負面提示詞</strong></td>
+<td>不希望畫面出現的東西放在這裡。負面的優先權高於正面。</td>
+</tr>
+<tr>
+<td><strong>品質標籤</strong></td>
+<td>可以當作常用的提示詞存放簿。</td>
+</tr>
+</tbody>
+</table>
+
+<h3>生成參數</h3>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>取樣步數</strong></td>
+<td>越多步越精細，也越貴（消耗更多點數）。</td>
+</tr>
+<tr>
+<td><strong>CFG Scale</strong></td>
+<td>越高越聽話（嚴格遵守提示詞），但太高會崩圖。一般建議 5~7。</td>
+</tr>
+<tr>
+<td><strong>Seed</strong></td>
+<td>決定算圖的初始雜訊。Seed 一樣時，提示詞接近的情況下，會出現幾乎一致的結果。很適合用來微調。</td>
+</tr>
+<tr>
+<td><strong>尺寸</strong></td>
+<td>成品的長寬比例。不同比例適合不同構圖。</td>
+</tr>
+<tr>
+<td><strong>生成數量</strong></td>
+<td>一次生幾張圖。多張可以挑選最滿意的。</td>
+</tr>
+</tbody>
+</table>
+
+<h3>進階功能</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>面部修復</strong></td>
+<td>針對人臉做修復，可以避免臉糊掉。</td>
+<td>舊模型可能出現奇怪方框</td>
+</tr>
+<tr>
+<td><strong>HiRes</strong></td>
+<td>修復畫質和擴圖用。</td>
+<td>詳見 <a href="#10-hires-upscale">HiRes 放大</a></td>
+</tr>
+<tr>
+<td><strong>參考圖片</strong></td>
+<td>讓 AI 參考整體畫面構圖。數值越低越接近原圖。</td>
+<td>0 = 完全一致，1 = 完全不參考</td>
+</tr>
+<tr>
+<td><strong>角色參考</strong></td>
+<td>讓 AI 參考角色外觀。</td>
+<td>實測效果因模型而異</td>
+</tr>
+<tr>
+<td><strong>ControlNet</strong></td>
+<td>控制構圖畫面用（姿勢、線稿等）。</td>
+<td>進階功能</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2>提示詞撰寫的重要觀念</h2>
+
+<h3>Tag 必須存在於資料庫</h3>
+<p>PixAI上目前大多數受歡迎的 SDXL 模型是用 Danbooru / e621 的圖片訓練的，<br />
+  所以用這兩個圖片分享網站 <strong>資料庫裡有的 tag 效果最穩定可靠</strong>。</p>
+<p style="color: #666; font-size: 0.95rem;">
+  💡 不在資料庫的詞有時也能用（如 <code>red chess piece</code>），因為模型的 text encoder（CLIP）有基礎的英文理解能力，會嘗試組合近似概念。但效果不如正式 tag 穩定，建議優先使用資料庫內的 tag。
+</p>
+<details style="margin-top: 10px;">
+  <summary style="cursor: pointer; color: #2563eb;">📚 延伸閱讀：為什麼 CLIP 能理解自然語言？</summary>
+  <div style="padding: 10px 0 0 10px; font-size: 0.9rem;">
+    <p><strong>中文資源：</strong></p>
+    <ul>
+      <li><a href="https://youtu.be/oLSpkO619FM" target="_blank">[Stable Diffusion雜談] Stable Diffusion 與 CLIP 的基本原理</a>（工gin師）</li>
+      <li><a href="https://vocus.cc/article/69084b3efd89780001af5fa7" target="_blank">一次掌握CLIP：AI跨模態理解的關鍵技術</a>（Josh的沙龍）</li>
+      <li><a href="https://ithelp.ithome.com.tw/articles/10339667" target="_blank">[Day29] SD XL：SD的限界突破</a>（Nick・iT邦鐵人賽）</li>
+    </ul>
+    <p><strong>英文資源：</strong></p>
+    <ul>
+      <li><a href="https://openai.com/index/clip/" target="_blank">CLIP: Connecting text and images</a>（OpenAI 官方）</li>
+      <li><a href="https://www.lightly.ai/blog/clip-openai" target="_blank">OpenAI CLIP Model Explained</a>（Lightly）</li>
+      <li><a href="https://mybyways.com/blog/two-text-prompts-text-encoders-in-sdxl-1-0" target="_blank">Two Text Encoders in SDXL 1.0</a>（myByways）</li>
+      <li><a href="https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0" target="_blank">SDXL 官方文檔</a>（Hugging Face）</li>
+    </ul>
+  </div>
+</details>
+<div class="warning">
+  <strong>常見錯誤：</strong><br>
+  ❌ <code>young man</code> → 不存在（改用 <code>1boy</code> + 具體特徵）<br>
+  ❌ <code>handsome</code> → 不存在（改用 <code>bishounen</code> 或 <code>manly</code>）<br>
+  ❌ <code>narrow eyes</code> → 不存在（正確是 <code>narrowed eyes</code>）
+</div>
+
+<h3>底線要換成空白</h3>
+<p>Danbooru、e621的Tag 資料庫在某些介面下會用底線（<code>black_hair</code>），但實際輸入時用空白（<code>black hair</code>）。</p>
+
+<h3>實用工具：PixAI Tagger</h3>
+<p>不知道一張圖該用什麼 tag？可以用 PixAI 官方的 Tagger 工具來分析：</p>
+<p><a href="https://huggingface.co/spaces/pixai-labs/pixai-tagger-demo" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: #000; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/63047b40bad6ce7fc0249261/q_wXWEc5Fatvd9hQI56yN.jpeg" alt="PixAI Tagger" style="width: 24px; height: 24px; border-radius: 4px;"> PixAI Tagger Demo ➚</a></p>
+<p style="color: #666; font-size: 0.95rem;">上傳圖片後，工具會自動辨識圖片中的元素並列出對應的 tag。很適合用來學習「這種畫面要用什麼 tag 描述」。</p>
+
+<hr />
+
+<h2>提示詞排序建議</h2>
+<p>提示詞的順序會影響生成結果。建議依照以下順序撰寫：</p>
+<pre><code>畫面主元素, 畫面細節元素, 鏡頭, 畫風, 品質標籤</code></pre>
+
+<p><strong>範例</strong>：</p>
+<pre><code>1boy, black hair, short hair, blue eyes,
+upper body,
+anime style,
+masterpiece, best quality</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>順序</th>
+<th>類型</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>畫面主元素</td>
+<td><code>1boy</code>, <code>1girl</code>, <code>scenery</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>畫面細節元素</td>
+<td><code>black hair</code>, <code>blue eyes</code>, <code>smile</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>鏡頭</td>
+<td><code>upper body</code>, <code>close-up</code>, <code>from below</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>畫風</td>
+<td><code>anime style</code>, <code>illustration</code>, <code>realistic</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>品質標籤</td>
+<td><code>masterpiece</code>, <code>best quality</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>💡 <strong>小提醒</strong>：每個元素用逗號分隔，提示詞可分行，但運算時分行會被忽略。</p>
+
+<hr />
+
+<h2>權重符號</h2>
+<p>權重符號可以控制 AI 對某個詞彙的重視程度。</p>
+
+<h3>直接指定權重（推薦）</h3>
+<p>使用 <code>(關鍵字:權重)</code> 的格式，數值範圍約 0.1 ~ 2.0：</p>
+<ul>
+  <li><strong>小於 1</strong>：減弱效果</li>
+  <li><strong>大於 1</strong>：增強效果</li>
+</ul>
+
+<pre><code>(black hair:1.2)    # 稍微加強
+(blue eyes:1.4)     # 明顯加強
+(smile:0.8)         # 稍微減弱</code></pre>
+
+<p>⚠️ <strong>注意</strong>：權重建議不要超過 1.5，太高容易導致畫面崩壞。</p>
+
+<h3>括號權重（進階）</h3>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>範例</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(關鍵字)</code></td>
+<td><code>((black hair))</code></td>
+<td>每層括號 ×1.1，雙層 = 1.21</td>
+</tr>
+<tr>
+<td><code>{關鍵字}</code></td>
+<td><code>{{black hair}}</code></td>
+<td>每層括號 ×1.05，雙層 = 1.1025</td>
+</tr>
+<tr>
+<td><code>[關鍵字]</code></td>
+<td><code>[[black hair]]</code></td>
+<td>每層括號 ÷1.05，雙層 ≈ 0.907</td>
+</tr>
+</tbody>
+</table>
+
+<p>💡 <strong>建議</strong>：直接用 <code>(關鍵字:權重)</code> 的寫法比較直觀好控制。</p>
+
+<h3>跳脫字元</h3>
+<p>如果你的提示詞本身就需要括號（例如角色名稱），使用反斜線跳脫：</p>
+<pre><code>\(特殊符號\)</code></pre>
+<p>但一般情況下很少需要這樣做。</p>
+
+<hr />
+
+<h2>運算符號（實驗性功能）</h2>
+<p>⚠️ <strong>重要提醒</strong>：以下符號並非 PixAI 官方支援的功能，而是某些模型在訓練時可能有學習到的語法。<strong>效果因模型而異，請以實際測試為準</strong>。</p>
+
+<table>
+<thead>
+<tr>
+<th>符號</th>
+<th>範例</th>
+<th>可能的效果</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AND</code></td>
+<td><code>a cat AND a dog</code></td>
+<td>同時滿足兩個條件</td>
+<td>必須大寫</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td><code>a cat + a dog</code></td>
+<td>同時滿足兩個條件</td>
+<td>與 AND 類似</td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td><code>red|blue hair</code></td>
+<td>隨機選擇其中一個</td>
+<td>或運算</td>
+</tr>
+<tr>
+<td><code>_</code></td>
+<td><code>coffee_cake</code></td>
+<td>連接成單一概念</td>
+<td>較少使用</td>
+</tr>
+</tbody>
+</table>
+
+<p>💡 <strong>實用建議</strong>：如果你發現這些符號沒有效果，可能是你使用的模型不支援。這時候建議用一般的逗號分隔寫法就好。</p>
+
+<hr />
+
+<h2>畫風 Tag 參考</h2>
+<p>常用的畫風標籤，可依照想要的風格選擇：</p>
+
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 tag</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插畫風</td>
+<td><code>illustration</code></td>
+<td>精緻的插畫風格</td>
+</tr>
+<tr>
+<td>繪畫風</td>
+<td><code>painting</code></td>
+<td>傳統繪畫質感</td>
+</tr>
+<tr>
+<td>動漫風</td>
+<td><code>anime</code></td>
+<td>日式動漫風格</td>
+</tr>
+<tr>
+<td>漫畫風</td>
+<td><code>comic</code></td>
+<td>漫畫風格</td>
+</tr>
+<tr>
+<td>數位繪</td>
+<td><code>digital art</code></td>
+<td>數位繪圖風格</td>
+</tr>
+<tr>
+<td>遊戲 CG</td>
+<td><code>game CG</code></td>
+<td>遊戲 CG 風格</td>
+</tr>
+<tr>
+<td>半寫實</td>
+<td><code>semi-realistic</code></td>
+<td>介於動漫與寫實之間</td>
+</tr>
+<tr>
+<td>2.5D</td>
+<td><code>2.5D</code></td>
+<td>有立體感的 2D 風格</td>
+</tr>
+<tr>
+<td>寫實風</td>
+<td><code>realistic</code></td>
+<td>接近真實的風格</td>
+</tr>
+<tr>
+<td>照片風</td>
+<td><code>photograph</code></td>
+<td>如同照片的效果</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2>畫質 Tag 參考</h2>
+<p>提升畫質的常用標籤：</p>
+
+<h3>通用畫質標籤</h3>
+<pre><code>masterpiece, best quality, ultra-detailed, 8k</code></pre>
+
+<h3>依風格選用</h3>
+<table>
+<thead>
+<tr>
+<th>適用風格</th>
+<th>建議標籤</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般動漫</td>
+<td><code>masterpiece, best quality</code></td>
+</tr>
+<tr>
+<td>精緻細節</td>
+<td><code>ultra-detailed, extremely detailed</code></td>
+</tr>
+<tr>
+<td>寫實風格</td>
+<td><code>photorealistic, extremely detailed, 8k</code></td>
+</tr>
+<tr>
+<td>3D 建模風</td>
+<td><code>unreal engine rendered, 3D rendered</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>💡 <strong>小提醒</strong>：品質標籤不是越多越好，通常 2~3 個就夠了。過多可能反而讓畫面過度銳化。</p>
+
+<hr />
+
+<h2>Negative Prompt 基礎</h2>
+<p>Negative prompt（負面提示詞）用來告訴 AI「不要畫什麼」。</p>
+
+<h3>常用負面提示詞</h3>
+<pre><code>lowres, bad anatomy, bad hands, text, error,
+missing fingers, extra digit, fewer digits,
+cropped, worst quality, low quality,
+normal quality, jpeg artifacts, signature,
+watermark, username, blurry</code></pre>
+
+<h3>畫男生時必加</h3>
+<pre><code>1girl, female, breasts</code></pre>
+
+<h3>畫風景時必加</h3>
+<pre><code>1girl, 1boy, person, human, figure, character</code></pre>
+
+<p>更多細節請參考各主題的專門章節。</p>
+
+<hr />
+
+<h2>快速入門範例</h2>
+
+<h3>範例 1：基本男性角色</h3>
+<p>Positive:</p>
+<pre><code>1boy, solo, male focus,
+short hair, black hair, blue eyes, smile,
+upper body, looking at viewer,
+simple background,
+masterpiece, best quality</code></pre>
+<p>Negative:</p>
+<pre><code>1girl, female, breasts, lowres, bad anatomy</code></pre>
+
+<h3>範例 2：風景圖</h3>
+<p>Positive:</p>
+<pre><code>scenery, no humans,
+mountain, lake, forest, sunrise,
+landscape, nature,
+masterpiece, best quality</code></pre>
+<p>Negative:</p>
+<pre><code>1girl, 1boy, person, human, figure, character</code></pre>
+
+<hr />
+
+<h2>下一步</h2>
+<p>掌握這些基礎後，可以根據你想畫的內容，參考對應的章節：</p>
+<ul>
+  <li>想畫男生 → <a href="#02-drawing-males">畫男性角色</a></li>
+  <li>想畫風景/物件 → <a href="#03-no-humans">純風景/純物件</a></li>
+  <li>想查 Tag 怎麼寫 → <a href="#06-tag-lookup">Tag 中英對照</a></li>
+</ul>

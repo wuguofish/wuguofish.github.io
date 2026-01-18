@@ -1,9 +1,5 @@
 <h1>PixAI SDXL Prompt 實戰指南</h1>
 <p>Stable Diffusion / Illustrious XL 系列模型的 Prompt 實戰指南</p>
-<a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view" target="_blank" class="canva-link">
-  <strong>📺 圖解版簡報</strong>
-  <span>部分章節內容整理自 PixAI 使用心得分享，想看圖文並茂的說明可以參考原始簡報</span>
-</a>
 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 20px 0;">
   <h3 style="margin: 0 0 10px; color: #166534;">🤖 懶得看？讓 AI 助手幫你</h3>
   <p style="margin: 0 0 15px; color: #555;">直接問 AI，它會根據這份指南回答你的問題：</p>
@@ -17,22 +13,45 @@
   </div>
   <p style="margin: 15px 0 0; color: #666; font-size: 0.9rem;">使用 Gemini、Grok 或其他 AI？直接把這個網址貼給它，請它「閱讀這個網頁後回答問題」就可以了！</p>
 </div>
+
 <h2>這是什麼？</h2>
-<p>這份指南專門解決 AI 繪圖模型的「偏科問題」——模型很會畫可愛女生，但畫其他東西就需要特別技巧。</p>
-<h2>適合誰？</h2>
+<p>這是一份專為 <strong>PixAI 使用者</strong>撰寫的 SDXL 提示詞指南。</p>
+<p>主要解決 AI 繪圖模型的「偏科問題」——模型很會畫可愛女生，但畫男生、風景、多人構圖等就需要特別技巧。這份指南整理了各種情境的實戰經驗和解法。</p>
+
+<h3>什麼是 PixAI？</h3>
+<p>PixAI 是一個 AI 繪圖平台，背後使用的算圖技術主要有三種：</p>
 <ul>
-  <li>想畫<strong>男性角色</strong>但一直畫成女生的人</li>
-  <li>想畫<strong>純風景/物件</strong>但一直冒出人的人</li>
-  <li>想畫 <strong>BL / 耽美</strong>的創作者</li>
-  <li>想畫<strong>夢圖</strong>（自己的 OC 和喜歡的角色同框）的人</li>
-  <li>想畫<strong>乙女遊戲風 CG</strong>的人</li>
-  <li>想了解 <strong>LoRA、HiRes、Inpaint</strong> 等進階功能的人</li>
-  <li><strong>任何想要使用PixAI上的SDXL模型生圖</strong> ，但是不知道提示詞怎麼寫的人</li>
+  <li><strong>DiT</strong>（Diffusion Transformer）— 最新的架構</li>
+  <li><strong>SDXL</strong>（Stable Diffusion XL）— 本指南主要針對的技術</li>
+  <li><strong>SD1.5</strong>（Stable Diffusion 1.5）— 較舊但仍有人使用</li>
 </ul>
+<p><a href="https://github.com/Stability-AI/stablediffusion" target="_blank">Stable Diffusion</a> 是一個開源的文字到圖像生成模型，原始碼可以在 GitHub 和 Hugging Face 上取得，也可以在自己的電腦上跑。</p>
+<p><strong>PixAI 的價值</strong>：幫你省去自己購置硬體和架設軟體的成本，直接在網頁上就能使用各種模型生圖。</p>
+
+<h2>適合誰？</h2>
+<h3>🌱 完全新手</h3>
+<p>如果你剛開始用 PixAI，對提示詞完全沒概念，建議先從 <a href="#00-quick-tips"><strong>第 0 章：常見實用小技巧</strong></a> 開始。那裡有 PixAI 介面說明、基本參數介紹、以及提示詞的基礎寫法。<br />
+<i style="color: #666; font-size: 0.9rem;">💜 老手想要溫故知新<del>或是抓筆者BUG</del>也歡迎閱讀。</i></p>
+
+<h3>🎯 用了一陣子，碰到瓶頸的人</h3>
+<p>如果你已經會基本操作，但遇到以下問題，這份指南就是為你寫的：</p>
+<ul>
+  <li>想畫<strong>男性角色</strong>但一直畫成女生</li>
+  <li>想畫<strong>純風景/物件</strong>但一直冒出人</li>
+  <li>想畫 <strong>BL / 耽美</strong>但角色特徵會混在一起</li>
+  <li>想畫<strong>夢圖</strong>（自己的 OC 和喜歡的角色同框）</li>
+  <li>想畫<strong>乙女遊戲風 CG</strong>（第一人稱視角）</li>
+  <li>想了解 <strong>LoRA、HiRes、Inpaint</strong> 等進階功能</li>
+</ul>
+<a href="https://www.canva.com/design/DAG3-sZjTHQ/Mqk015B--mLh5hR-x6t5nA/view" target="_blank" class="canva-link">
+  <strong>📺 圖解版簡報</strong>
+  <span>本網站部分章節內容整理自 PixAI 使用心得分享，想看圖文並茂的說明可以參考原始簡報</span>
+</a>
 <div class="quick-start">
   <h3>🚀 快速開始</h3>
   <table>
     <tr><th>我想要...</th><th>看這篇</th></tr>
+    <tr><td>從零開始學</td><td><a href="#00-quick-tips">常見實用小技巧</a></td></tr>
     <tr><td>畫男生</td><td><a href="#02-drawing-males">畫男性角色</a></td></tr>
     <tr><td>畫風景/物件</td><td><a href="#03-no-humans">純風景/純物件</a></td></tr>
     <tr><td>畫 BL</td><td><a href="#12-bl-guide">BL / 耽美指南</a></td></tr>
@@ -45,37 +64,6 @@
     <tr><td>局部修改</td><td><a href="#11-inpaint-outpaint">Inpaint/Outpaint</a></td></tr>
   </table>
 </div>
-<h2>重要觀念</h2>
-<h3>Tag 必須存在於資料庫</h3>
-<p>AI 模型是用 Danbooru / e621 的圖片訓練的，所以 <strong>資料庫裡有的 tag 效果最穩定可靠</strong>。</p>
-<p style="color: #666; font-size: 0.95rem;">
-  💡 不在資料庫的詞有時也能用（如 <code>red chess piece</code>），因為模型的 text encoder（CLIP）有基礎的英文理解能力，會嘗試組合近似概念。但效果不如正式 tag 穩定，建議優先使用資料庫內的 tag。
-</p>
-<details style="margin-top: 10px;">
-  <summary style="cursor: pointer; color: #2563eb;">📚 延伸閱讀：為什麼 CLIP 能理解自然語言？</summary>
-  <div style="padding: 10px 0 0 10px; font-size: 0.9rem;">
-    <p><strong>中文資源：</strong></p>
-    <ul>
-      <li><a href="https://youtu.be/oLSpkO619FM" target="_blank">[Stable Diffusion雜談] Stable Diffusion 與 CLIP 的基本原理</a>（工gin師）</li>
-      <li><a href="https://vocus.cc/article/69084b3efd89780001af5fa7" target="_blank">一次掌握CLIP：AI跨模態理解的關鍵技術</a>（Josh的沙龍）</li>
-      <li><a href="https://ithelp.ithome.com.tw/articles/10339667" target="_blank">[Day29] SD XL：SD的限界突破</a>（Nick・iT邦鐵人賽）</li>
-    </ul>
-    <p><strong>英文資源：</strong></p>
-    <ul>
-      <li><a href="https://openai.com/index/clip/" target="_blank">CLIP: Connecting text and images</a>（OpenAI 官方）</li>
-      <li><a href="https://www.lightly.ai/blog/clip-openai" target="_blank">OpenAI CLIP Model Explained</a>（Lightly）</li>
-      <li><a href="https://mybyways.com/blog/two-text-prompts-text-encoders-in-sdxl-1-0" target="_blank">Two Text Encoders in SDXL 1.0</a>（myByways）</li>
-      <li><a href="https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0" target="_blank">SDXL 官方文檔</a>（Hugging Face）</li>
-    </ul>
-  </div>
-</details>
-<div class="warning">
-  <strong>常見錯誤：</strong><br>
-  ❌ <code>young man</code> → 不存在（改用 <code>1boy</code> + 具體特徵）<br>
-  ❌ <code>handsome</code> → 不存在（改用 <code>bishounen</code> 或 <code>manly</code>）<br>
-  ❌ <code>narrow eyes</code> → 不存在（正確是 <code>narrowed eyes</code>）
-</div>
-<h3>底線要換成空白</h3>
-<p>資料庫用底線（<code>black_hair</code>），但實際輸入時用空白（<code>black hair</code>）。</p>
+
 <hr style="margin: 40px 0;">
 <p style="color: #666; font-size: 0.9rem;">最後更新：2025-01</p>

@@ -1,6 +1,7 @@
 - [首頁](/)
 
 - **📘 基礎篇**
+  - [常見實用小技巧](basics/00-quick-tips.md)
   - [為什麼模型預設畫女生？](basics/01-why-default-girls.md)
   - [畫男性角色](basics/02-drawing-males.md)
   - [純風景/純物件](basics/03-no-humans.md)
