@@ -1,44 +1,58 @@
-      <h1>畫男生的正確姿勢</h1>
+<h1>畫男生的正確姿勢</h1>
 <h2>常見問題與解法</h2>
+<p>⚠️ 注意：本章節中的所有實際生成效果僅供參考，實際成果仍會因模型不同而略有差異。</p>
 <h3>問題 1：寫了 <code>1boy</code> 還是出現女生</h3>
 <p><strong>原因</strong>：<code>1boy</code> 的權重不夠強，被其他隱含女性特徵的詞蓋過去了。</p>
 <p><strong>解法</strong>：</p>
-<pre><code>✅ 正確寫法：
-1boy, solo, male focus, manly, short hair, flat chest
+✅ 正確寫法：
+<pre><code>1boy, solo, male focus, short hair</code></pre>
 
 ❌ Negative prompt 必加：
-1girl, female, breasts, long hair, feminine, girl
+<pre><code>1girl, breasts
 </code></pre>
+<p>🖼️ 實際生成效果：<a href="https://pixai.art/artwork/1969510792091976598" target="_blank">範例圖</a></p>
+
 <h3>問題 2：想畫成熟男性，結果變阿伯</h3>
 <p><strong>原因</strong>：<code>mature male</code> 這個詞在訓練集裡常和老年人連結。</p>
 <p><strong>解法</strong>：用外觀特徵來暗示年齡，而非直接描述年齡</p>
 <table>
 <thead>
 <tr>
-<th>想要的效果</th>
-<th>建議用詞（都是有效的 Danbooru tag）</th>
+  <th>想要的效果</th>
+  <th>建議用詞（都是有效的 Danbooru tag）</th>
+  <th>範例圖（PixAI）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>少年感</td>
-<td><code>bishounen</code> + <code>slim</code> + <code>short hair</code></td>
+  <td>少年感</td>
+  <td><code>bishounen</code></td>
+  <td><a href="https://pixai.art/artwork/1969540234820798124" target="_blank">🖼️ 實際生成效果</a></td>
 </tr>
 <tr>
-<td>青年感</td>
-<td><code>tall male</code> + <code>toned male</code> + <code>narrowed eyes</code></td>
+  <td>青年感(1)</td>
+  <td><code>manly</code></td>
+  <td><a href="https://pixai.art/artwork/1969511546958035792" target="_blank">🖼️ 實際生成效果</a></td>
 </tr>
 <tr>
-<td>輕熟感</td>
-<td><code>tall male</code> + <code>stubble</code> + <code>muscular male</code></td>
+  <td>青年感(2)</td>
+  <td><code>tall male</code>, <code>toned male</code>, <code>narrowed eyes</code></td>
+  <td><a href="https://pixai.art/artwork/1969512043666331691" target="_blank">🖼️ 實際生成效果</a></td>
 </tr>
 <tr>
-<td>大叔感</td>
-<td><code>mature male</code> + <code>beard</code> + <code>muscular</code></td>
+  <td>輕熟感</td>
+  <td><code>tall male</code>, <code>stubble</code>, <code>muscular male</code></td>
+  <td><a href="https://pixai.art/artwork/1969539218394127846" target="_blank">🖼️ 實際生成效果</a></td>
 </tr>
 <tr>
-<td>老人</td>
-<td><code>old man</code> + <code>grey hair</code> + <code>wrinkles</code></td>
+  <td>大叔感</td>
+  <td><code>mature male</code>, <code>beard</code>, <code>muscular male</code></td>
+  <td><a href="https://pixai.art/artwork/1969539360340877425" target="_blank">🖼️ 實際生成效果</a></td>
+</tr>
+<tr>
+  <td>老人</td>
+  <td><code>old man</code>, <code>grey hair</code>, <code>wrinkles</code></td>
+  <td><a href="https://pixai.art/artwork/1969539540603234330" target="_blank">🖼️ 實際生成效果</a></td>
 </tr>
 </tbody>
 </table>
@@ -51,54 +65,85 @@
 <p><strong>關鍵</strong>：用具體的外觀特徵（髮型、體格、鬍子）來表達年齡感，而非抽象的年齡詞彙。</p>
 <h3>問題 3：想要美型，結果太陽剛</h3>
 <p><strong>解法</strong>：加入「美型」相關的 Danbooru tag</p>
-<pre><code>✅ 美型少年風格（都是有效 tag）：
-1boy, bishounen, slim, slender, androgynous
+✅ 美型少年風格（都是有效 tag）：
+<pre><code>1boy, bishounen, androgynous
 </code></pre>
 <p>⚠️ 注意：<code>pretty boy</code>、<code>delicate features</code>、<code>soft features</code> 不是有效 tag。</p>
+<p>💡 補充：<code>slim</code>、<code>slender</code> 在 Danbooru 已棄用，但 e621 系模型（如 NoobAI-XL）可使用 <code>slim_male</code>。</p>
+<p>🖼️ 實際生成效果：<a href="https://pixai.art/artwork/1969504032097544233" target="_blank">範例圖</a></p>
 <h3>問題 4：臉型不好看</h3>
 <p><strong>解法</strong>：用有效的 Danbooru tag 描述五官</p>
-<pre><code>✅ 有效的五官 tag：
-narrowed eyes（細長眼）
+✅ 有效的五官 tag：
+<pre><code>narrowed eyes（細長眼）
 half-closed eyes（半閉眼）
 empty eyes（空洞眼神）
 thick eyebrows（粗眉）
 </code></pre>
 <p>⚠️ 注意：<code>sharp jawline</code>、<code>high nose</code>、<code>gentle eyes</code> 不是有效 tag。</p>
+<p>🖼️ 實際生成效果：</p>
+<table>
+  <tr>
+    <th>narrowed eyes</th>
+    <th>half-closed eyes</th>
+    <th>empty eyes</th>
+    <th>thick eyebrows</th>
+  </tr>
+  <tr>
+    <td><a href="https://pixai.art/artwork/1969542505303551693" target="_blank"><img src="https://images-ng.pixai.art/gi/orig/c54a6078-153e-4e94-ab62-0bc271b19365" alt="narrowed eyes" style="max-width: 18vw;"></a></td>
+    <td><a href="https://pixai.art/artwork/1969542583299331470" target="_blank"><img src="https://images-ng.pixai.art/gi/orig/9c2ecb30-37c0-44c9-83e2-bb02ddd660bc" alt="half-closed eyes" style="max-width: 18vw;"></a></td>
+    <td><a href="https://pixai.art/artwork/1969542719345245388" target="_blank"><img src="https://images-ng.pixai.art/gi/orig/25f4a1a2-3535-476e-856c-fde2ba074366" alt="empty eyes" style="max-width: 18vw;"></a></td>
+    <td><a href="https://pixai.art/artwork/1969542850996724704" target="_blank"><img src="https://images-ng.pixai.art/gi/orig/f9820670-a2c1-46b5-bfad-4fc9b904662c" alt="thick eyebrows" style="max-width: 18vw;"></a></td>
+  </tr>
+
+</table>
 <hr />
 <h2>男性角色萬用模板</h2>
 <h3>基礎模板</h3>
 <pre><code>1boy, solo, male focus, [氣質], [髮型], [髮色], 
 [眼色], [體型], [服裝], [場景]
 </code></pre>
-<h3>範例：清秀少年</h3>
-<pre><code>Positive:
-1boy, solo, male focus, bishounen,
-short hair, black hair, blue eyes, smile,
-slim, school uniform, classroom
 
-Negative:
-1girl, female, breasts, feminine
+<h3>範例：清秀少年</h3>
+<p>
+  🖼️ 實際生成效果：<a href="https://pixai.art/artwork/1969546758144778701" target="_blank">範例圖</a>
+  </p>
+Positive:
+<pre><code>1boy, solo, male focus, bishounen,
+short hair, black hair, blue eyes, smile,
+school uniform, classroom
 </code></pre>
+Negative:
+<pre><code>1girl, female, breasts
+</code></pre>
+
 <h3>範例：帥氣青年</h3>
-<pre><code>Positive:
-1boy, solo, male focus,
+<p>
+  🖼️ 實際生成效果：<a href="https://pixai.art/artwork/1969546938723573302" target="_blank">範例圖</a>
+  </p>
+Positive:
+<pre><code>1boy, solo, male focus,
 short hair, black hair, narrowed eyes,
 tall male, toned male, suit, office
-
-Negative:
-1girl, female, breasts, feminine
 </code></pre>
+Negative:
+<pre><code>1girl, female, breasts
+</code></pre>
+
 <h3>範例：陰鬱系美少年</h3>
-<pre><code>Positive:
-1boy, solo, male focus, bishounen,
-pale skin, white hair, red eyes, 
-expressionless, slim,
-dark clothes, simple background
-
-Negative:
-1girl, female, breasts, smile
+<p> 
+  🖼️ 實際生成效果：<a href="https://pixai.art/artwork/1969548058845340243" target="_blank">範例圖</a>
+  </p>
+Positive:
+<pre><code>1boy, solo, male focus, bishounen,
+pale skin, white hair, red eyes,
+expressionless, black shirt, simple background
 </code></pre>
+Negative:
+<pre><code>1girl, female, breasts, smile
+</code></pre>
+
 <hr />
+
 <h2>進階技巧</h2>
 <h3>視角問題：為什麼男生也被俯視？</h3>
 <p>由於 Danbooru 大多數圖片是「可愛的女性角色」，為了反映女性的嬌小可愛以滿足男性觀眾，很多圖的視角是<strong>從上往下看（俯視）</strong>。</p>
@@ -109,28 +154,34 @@ Negative:
 <tr>
 <th>想要的效果</th>
 <th>使用的 tag</th>
+<th>實際生成效果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>正面平視（平等感）</td>
-<td><code>straight-on</code></td>
+<td><pre>straight-on</pre></td>
+<td><img src="https://images-ng.pixai.art/gi/orig/27c816a8-0075-4e28-b324-87d880b517a3" style="max-width: 15vw;" alt="straight-on"></td>
 </tr>
 <tr>
 <td>仰視（高大感）</td>
-<td><code>from below</code></td>
+<td><pre>from below</pre></td>
+<td><img src="https://images-ng.pixai.art/gi/orig/892947e4-7add-441c-ba84-611c8267b913" style="max-width: 15vw;" alt="from below"></td>
 </tr>
 <tr>
 <td>俯視（如果你要的話）</td>
-<td><code>from above</code></td>
+<td><pre>from above</pre></td>
+<td><img src="https://images-ng.pixai.art/gi/orig/a9b81b82-8801-41cd-9325-6e18724072c7" style="max-width: 15vw;" alt="from above"></td>
 </tr>
 </tbody>
 </table>
+
 <p><strong>範例</strong>：想畫出高䠷帥氣的男性</p>
 <pre><code>1boy, solo, male focus, tall male,
 from below, looking at viewer,
 ...
 </code></pre>
+
 <h3>權重調整</h3>
 <p>如果某個特徵一直出不來，可以加強權重：</p>
 <pre><code>(male focus:1.3), (1boy:1.2), (flat chest:1.2)
@@ -169,6 +220,6 @@ from below, looking at viewer,
 <p><strong>補充</strong>：<code>masculine</code> 這個 tag 在 Danbooru 不存在，但在 e621 存在。如果使用 NoobAI 等同時訓練於兩個資料庫的模型，<code>masculine</code> 可能也有效果，可以嘗試 <code>manly, masculine</code> 組合使用。</p>
 <h3>負面 prompt 的重要性</h3>
 <p>畫男生時，negative prompt 的重要性比畫女生高很多。建議必加：</p>
-<pre><code>1girl, female, breasts, feminine, girl, woman,
-long hair, skirt, dress, makeup, lipstick
+<pre><code>1girl, female, breasts, girl, woman, skirt, dress, makeup, lipstick
 </code></pre>
+<p>💡 補充：<code>feminine</code> 在 Danbooru 已棄用，放在 negative prompt 中效果可能不穩定，因此從建議中移除。</p>

@@ -91,8 +91,24 @@
       border-radius: 8px;
       overflow-x: auto;
       margin: 20px 0;
+      position: relative;
     }
     .main pre code { background: none; padding: 0; color: inherit; }
+    .copy-btn {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: #666; }
+    .copy-btn.copied { background: #22c55e; }
+    .copy-btn.failed { background: #dc3545; }
     .main a { color: #7c3aed; }
     .main hr { margin: 30px 0; border: none; border-top: 1px solid #e0e0e0; }
     .main blockquote {
@@ -235,6 +251,8 @@
         contentEl.innerHTML = html;
         // 捲動到頂部
         window.scrollTo(0, 0);
+        // 為所有 pre 加上複製按鈕
+        addCopyButtons();
       } catch (e) {
         contentEl.innerHTML = '<h1>載入失敗</h1><p>無法載入頁面內容，請稍後再試。</p>';
       }
@@ -268,6 +286,39 @@
     // 首頁預設展開選單（手機版）
     if (window.innerWidth <= 768 && (!location.hash || location.hash === '#home')) {
       document.querySelector('.sidebar').classList.add('nav-open');
+    }
+
+    // 複製按鈕功能
+    function addCopyButtons() {
+      document.querySelectorAll('.main pre').forEach(pre => {
+        // 避免重複加按鈕
+        if (pre.querySelector('.copy-btn')) return;
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = '❐ 複製';
+        btn.addEventListener('click', async () => {
+          const code = pre.querySelector('code');
+          const text = code ? code.textContent : pre.textContent;
+          try {
+            await navigator.clipboard.writeText(text);
+            btn.textContent = '✔ 已複製';
+            btn.classList.add('copied');
+            setTimeout(() => {
+              btn.textContent = '❐ 複製';
+              btn.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            btn.textContent = '✘ 複製失敗';
+            btn.classList.add('failed');
+            setTimeout(() => {
+              btn.textContent = '❐ 複製';
+              btn.classList.remove('failed');
+            }, 2000);
+          }
+        });
+        pre.appendChild(btn);
+      });
     }
   </script>
 </body>

@@ -3,69 +3,64 @@
 <p>AI 繪圖模型的訓練資料以「角色圖」為主，即使你只想畫風景或物件，模型也會習慣性地加入人物。</p>
 <h2>核心解法：明確告訴 AI「不要人」</h2>
 <h3>萬用公式</h3>
-<pre><code>Positive:
-no humans, [主題描述]
-
+Positive:
+<pre><code>no humans, [主題描述]
+</code></pre>
 Negative:
-1girl, 1boy, person, people, human, face, 
+<pre><code>1girl, 1boy, person, people, human, face,
 figure, character, portrait, body
 </code></pre>
 <hr />
 <h2>純風景範例</h2>
 <h3>自然風景</h3>
-<pre><code>Positive:
-scenery, landscape, no humans,
-mountain, lake, forest, 
-sunrise, sunbeam, sky,
-nature
-
+Positive:
+<pre><code>scenery, landscape, no humans,
+mountain, lake, forest,
+sunrise, sunbeam, sky, nature
+</code></pre>
 Negative:
-1girl, 1boy, person, human, figure, 
+<pre><code>1girl, 1boy, person, human, figure,
 character, face, portrait
 </code></pre>
 <h3>都市風景</h3>
-<pre><code>Positive:
-scenery, cityscape, no humans,
+Positive:
+<pre><code>scenery, cityscape, no humans,
 city lights, night sky, buildings,
-neon lights, rain, reflection,
-cyberpunk
-
+neon lights, rain, reflection, cyberpunk
+</code></pre>
 Negative:
-1girl, 1boy, person, human, figure,
+<pre><code>1girl, 1boy, person, human, figure,
 character, face, portrait, crowd
 </code></pre>
 <h3>室內場景</h3>
-<pre><code>Positive:
-scenery, indoors, no humans,
+Positive:
+<pre><code>scenery, indoors, no humans,
 [房間類型如 bedroom, library, cafe],
-window, chair, lamp,
-backlighting
-
+window, chair, lamp, backlighting
+</code></pre>
 Negative:
-1girl, 1boy, person, human, figure,
+<pre><code>1girl, 1boy, person, human, figure,
 character, face, portrait
 </code></pre>
 <hr />
 <h2>純物件範例</h2>
 <h3>食物</h3>
-<pre><code>Positive:
-food focus, still life, no humans,
-[食物名稱], plate, table,
-simple background
-
+Positive:
+<pre><code>food focus, still life, no humans,
+[食物名稱], plate, table, simple background
+</code></pre>
 Negative:
-1girl, 1boy, person, human, hand, hands,
+<pre><code>1girl, 1boy, person, human, hand, hands,
 figure, character, face
 </code></pre>
 <h3>花卉</h3>
-<pre><code>Positive:
-flower, still life, no humans,
+Positive:
+<pre><code>flower, still life, no humans,
 [花的種類如 rose, cherry blossoms, sunflower],
-vase, petals, leaf,
-simple background
-
+vase, petals, leaf, simple background
+</code></pre>
 Negative:
-1girl, 1boy, person, human, figure,
+<pre><code>1girl, 1boy, person, human, figure,
 character, face, portrait
 </code></pre>
 <h3>物品/道具</h3>
