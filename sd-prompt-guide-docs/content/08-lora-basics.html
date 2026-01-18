@@ -161,15 +161,17 @@
 <ul>
 <li><strong>看 LoRA 說明</strong>：很多 LoRA 作者會提供建議權重和觸發詞（trigger word）</li>
 <li><strong>觸發詞</strong>：有些 LoRA 需要在 prompt 中加入特定詞彙才能啟動效果</li>
-<li><strong>版本相容</strong>：確認 LoRA 是給 SDXL 還是 SD1.5 用的，版本要對</li>
+<li><strong>基礎模型相容</strong>：LoRA 是針對特定基礎模型訓練的。例如用 Illustrious XL 訓練的 LoRA，用在 Pony 家族模型上可能效果不如預期</li>
 </ul>
 <hr />
 <h2>常見問題</h2>
 <p><strong>Q：LoRA 效果不明顯怎麼辦？</strong></p>
-<p>A：檢查以下幾點：
-1. 權重是否太低？試著調高到 1.0 或以上
-2. 有沒有加觸發詞？查看 LoRA 說明
-3. 模型版本對不對？SDXL 的 LoRA 不能用在 SD1.5 模型上</p>
+<p>A：檢查以下幾點：</p>
+<ol>
+  <li>權重是否太低？試著調高到 1.0 或以上</li>
+  <li>有沒有加觸發詞？查看 LoRA 說明</li>
+  <li>基礎模型對不對？用 Illustrious XL 訓練的 LoRA 用在 Pony 模型上效果可能會打折</li>
+</ol>
 <p><strong>Q：LoRA 讓圖片崩壞了怎麼辦？</strong></p>
 <p>A：通常是權重太高，試著：
 1. 降低權重到 0.6~0.8

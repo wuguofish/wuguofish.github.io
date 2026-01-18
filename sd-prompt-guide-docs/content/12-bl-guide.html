@@ -6,17 +6,19 @@
 2. <code>2boys</code> 的權重不夠強
 3. 互動描述詞（如 <code>kiss</code>）在訓練集中常與異性戀配對</p>
 <p><strong>解法</strong>：使用區塊分離語法</p>
-<pre><code>✅ Positive（使用 right:/left: 區塊分離）：
-2boys, yaoi, 角色A at right, 角色B at left, 互動, 場景
+✅ Positive（使用 right:/left: 區塊分離）：
+<pre><code>2boys, yaoi, 角色A at right, 角色B at left, 互動, 場景
 
 right: 角色A, 詳細特徵與動作
 left: 角色B, 詳細特徵與動作
-
+</code></pre>
 ❌ Negative（完全排除女性）：
-1girl, female, hetero, yuri, breasts, 
+<pre><code>1girl, female, hetero, yuri, breasts, 
 feminine, woman, girl
 </code></pre>
+
 <hr />
+
 <h2>⭐ BL 圖黃金公式</h2>
 <p>這是經過實測最有效的寫法，模型能清楚區分兩個角色：</p>
 <pre><code>2boys, yaoi, 角色1名字 at right, 角色2名字 at left, 互動, 場景描述, 畫風, 品質標籤, LoRA觸發詞
@@ -70,12 +72,12 @@ left: 角色2名字, 左邊角色詳細特徵與動作
 </tr>
 <tr>
 <td>擁抱</td>
-<td><code>hug, hugging, embrace</code></td>
+<td><code>hug, hugging</code></td>
 <td></td>
 </tr>
 <tr>
 <td>牽手</td>
-<td><code>holding hands, hand holding</code></td>
+<td><code>holding hands</code></td>
 <td></td>
 </tr>
 <tr>
@@ -90,7 +92,7 @@ left: 角色2名字, 左邊角色詳細特徵與動作
 </tr>
 <tr>
 <td>壁咚</td>
-<td><code>wall slam, kabedon</code></td>
+<td><code>kabedon</code></td>
 <td></td>
 </tr>
 <tr>
@@ -105,7 +107,7 @@ left: 角色2名字, 左邊角色詳細特徵與動作
 </tr>
 <tr>
 <td>靠在肩上</td>
-<td><code>head on another's shoulder, leaning on shoulder</code></td>
+<td><code>head on another's shoulder</code></td>
 <td></td>
 </tr>
 <tr>
@@ -116,44 +118,47 @@ left: 角色2名字, 左邊角色詳細特徵與動作
 </tbody>
 </table>
 <h3>身高差/體格差表現</h3>
-<pre><code>✅ 身高差：
-height difference, taller male, shorter male
+✅ 身高差：
+<pre><code>height difference, tall male
+</code></pre>
 
 ✅ 體格差：
-muscular male, slim male, 
-larger male, smaller male
+<pre><code>muscular male, large male
 </code></pre>
+<p style="color: #666; font-size: 0.95rem;">💡 <code>taller male</code>、<code>shorter male</code>、<code>slim male</code> 不是有效的 Danbooru tag。用 <code>tall male</code> 搭配具體描述來表達差異。</p>
 <hr />
 <h2>範例 prompt</h2>
 <h3>範例 1：清純系 BL（校園）</h3>
-<pre><code>Positive:
-2boys, yaoi, Hikaru at right, Sora at left, kiss, eye contact, blush, classroom, school uniform, soft lighting, romantic
+Positive:
+<pre><code>2boys, yaoi, Hikaru at right, Sora at left, kiss, eye contact, blush, classroom, school uniform, soft lighting
 
 right: Hikaru, short black hair, blue eyes, gentle smile, slightly taller, hand on cheek
 left: Sora, messy brown hair, green eyes, surprised expression, blushing
+</code></pre>
 
 Negative:
-1girl, female, hetero, yuri, breasts, feminine
+<pre><code>1girl, female, hetero, yuri, breasts, feminine
 </code></pre>
 <h3>範例 2：年上攻 × 年下受</h3>
-<pre><code>Positive:
-2boys, yaoi, Ren at right, Yuki at left, hug from behind, height difference, bedroom, night
+Positive:
+<pre><code>2boys, yaoi, Ren at right, Yuki at left, hug from behind, height difference, bedroom, night
 
 right: Ren, short hair, black hair, narrowed eyes, tall male, suit, smirk
 left: Yuki, messy hair, brown hair, slim, casual clothes, blush
+</code></pre>
 
 Negative:
-1girl, female, hetero, yuri, breasts, feminine
+<pre><code>1girl, female, hetero, yuri, breasts, feminine
 </code></pre>
 <h3>範例 3：對等系</h3>
-<pre><code>Positive:
-2boys, yaoi, Kuro at right, Shiro at left, holding hands, walking, looking at another, city, sunset
+Positive:
+<pre><code>2boys, yaoi, Kuro at right, Shiro at left, holding hands, walking, looking at another, city, sunset
 
 right: Kuro, black hair, red eyes, black jacket, smile
 left: Shiro, white hair, blue eyes, white coat, smile
-
+</code></pre>
 Negative:
-1girl, female, hetero, yuri, breasts, feminine
+<pre><code>1girl, female, hetero, yuri, breasts, feminine
 </code></pre>
 <hr />
 <h2>進階技巧</h2>
@@ -162,12 +167,12 @@ Negative:
 當模型看到 <code>right:</code> 開頭的區塊，會把後面的描述只套用到右邊的角色。</p>
 <h3>其他有效的區塊寫法</h3>
 <p>除了 <code>right:</code> / <code>left:</code>，以下寫法也有效：</p>
-<pre><code>✅ 用數字：
-1: 角色A特徵
+✅ 用數字：
+<pre><code>1: 角色A特徵
 2: 角色B特徵
-
+</code></pre>
 ✅ 用名字：
-Hikaru: 角色A特徵
+<pre><code>Hikaru: 角色A特徵
 Sora: 角色B特徵
 </code></pre>
 <h3>避免特徵混在一起的關鍵</h3>
@@ -180,8 +185,8 @@ Sora: 角色B特徵
 <h3>R18 相關 tag</h3>
 <p>（僅列出常用 tag，請依平台規範使用）</p>
 <pre><code>裸體：nude, naked
-上半身裸：topless, bare chest
-性暗示：suggestive, implied yaoi
+上半身裸：topless male, bare chest
+性暗示：suggestive
 接吻舌頭：tongue kiss, tongue out
 </code></pre>
 <hr />
@@ -218,7 +223,7 @@ Sora: 角色B特徵
 <tr>
 <td>一人變女性化</td>
 <td><code>uke</code> 等詞有時會觸發女性特徵</td>
-<td>用 <code>shorter male</code> 替代</td>
+<td>用具體外觀特徵描述（如 <code>short hair</code>、<code>blush</code>）</td>
 </tr>
 </tbody>
 </table>

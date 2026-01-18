@@ -1,139 +1,56 @@
-      <h1>男性角色 Tag 大全</h1>
-<p>本文件整理所有與男性角色相關的 tag，按使用情境分類。</p>
+<h1>男性角色 Tag 速查表</h1>
+<p>本頁整理男性角色相關的 Danbooru tag，方便快速查詢。基礎觀念請參考 <a href="#02-drawing-males">畫男性角色</a>。</p>
 <hr />
-<h2>基礎必備 Tag</h2>
-<p>畫男性角色時，這些 tag 幾乎每次都要用：</p>
-<pre><code>1boy                 # 一個男生（必備）
-solo                 # 單人（避免多人）
-male focus           # 男性為焦點（強化用）
-</code></pre>
-<p><strong>Negative prompt 必加</strong>：</p>
-<pre><code>1girl, female, breasts, feminine, woman, girl
-</code></pre>
-<hr />
-<h2>年齡與氣質分類</h2>
-<h3>⚠️ 重要觀念</h3>
-<p>Danbooru <strong>沒有</strong>「青年」「中年」這類年齡 tag。
-模型不認識 <code>young man</code>、<code>adult male</code>、<code>middle-aged</code> 這些詞。</p>
-<p><strong>正確做法</strong>：用外觀特徵來暗示年齡感。</p>
-<h3>有效的 Danbooru Tag</h3>
+
+<h2>體型分類</h2>
 <table>
 <thead>
 <tr>
-<th>Tag</th>
-<th>使用次數</th>
 <th>效果</th>
+<th>Tag</th>
+<th>備註</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>bishounen</code></td>
-<td>19,463</td>
-<td>美型少年，纖細優雅</td>
-</tr>
-<tr>
-<td><code>manly</code></td>
-<td>9,969</td>
-<td>陽剛感，⚠️ 效果因模型而異</td>
-</tr>
-<tr>
-<td><code>mature male</code></td>
-<td>37,456</td>
-<td>成熟男性，但容易偏老</td>
-</tr>
-<tr>
-<td><code>old man</code></td>
-<td>10,318</td>
-<td>明確的老人</td>
-</tr>
-<tr>
-<td><code>muscular male</code></td>
-<td>99,142</td>
-<td>肌肉男</td>
-</tr>
-<tr>
-<td><code>toned male</code></td>
-<td>15,182</td>
 <td>精瘦有線條</td>
+<td><code>toned male</code></td>
+<td>15,182 筆</td>
+</tr>
+<tr>
+<td>肌肉男</td>
+<td><code>muscular male</code></td>
+<td>99,142 筆</td>
+</tr>
+<tr>
+<td>壯漢型</td>
+<td><code>bara</code></td>
+<td>搭配 <code>large male</code></td>
+</tr>
+<tr>
+<td>高個子</td>
+<td><code>tall male</code></td>
+<td>常用於青年感</td>
 </tr>
 </tbody>
 </table>
-<h3>⚠️ <code>manly</code> 使用須知</h3>
-<p><code>manly</code> 是讓角色更陽剛的好用 tag，但效果因模型差異很大：</p>
-<pre><code>模型反應弱 → (manly:1.5) ~ (manly:1.8)
-模型反應適中 → manly 或 (manly:1.2)
-模型反應過強（變老）→ (manly:0.6) ~ (manly:0.8)
-</code></pre>
-<p><strong>建議</strong>：每換一個模型都要重新測試 <code>manly</code> 的最佳權重。</p>
-<h3>用外觀組合表達年齡感</h3>
-<p><strong>少年感（清秀、年輕）</strong></p>
-<pre><code>bishounen, slim, short hair, soft features
-</code></pre>
-<p><strong>青年感（帥氣、有精神）</strong></p>
-<pre><code>tall male, toned male, narrowed eyes, short hair
-</code></pre>
-<p><strong>輕熟感（性感、可靠）</strong></p>
-<pre><code>tall male, muscular male, stubble, narrowed eyes
-</code></pre>
-<p><strong>大叔感（穩重、成熟）</strong></p>
-<pre><code>mature male, beard, muscular, facial hair
-</code></pre>
-<h3>❌ 不要用這些詞（模型不認識）</h3>
-<pre><code>young man, young adult, adult male
-middle-aged, teen, teenage
-handsome, ikemen
-</code></pre>
-<p>這些不是 Danbooru tag，寫了模型也看不懂。</p>
+<p style="color: #666; font-size: 0.95rem;">💡 <code>slim</code>、<code>slender</code> 在 Danbooru 已棄用。NoobAI 等 e621 系模型可嘗試 <code>slim_male</code>。</p>
+
 <hr />
-<h2>體型分類</h2>
-<h3>纖細型</h3>
-<pre><code>slim, slender, thin, skinny,
-narrow waist, delicate frame
-</code></pre>
-<h3>普通型</h3>
-<pre><code>average build, medium build
-（通常不需特別標註）
-</code></pre>
-<h3>精瘦型（有肌肉線條）</h3>
-<pre><code>toned male, athletic,
-lean muscle, fit
-</code></pre>
-<h3>肌肉型</h3>
-<pre><code>muscular male, muscular,
-abs, pectorals, biceps,
-broad shoulders
-</code></pre>
-<h3>壯漢型（Bara）</h3>
-<pre><code>bara, very muscular,
-large male, bulky,
-hairy, chest hair (可選)
-</code></pre>
-<hr />
+
 <h2>五官特徵</h2>
-<h3>眼睛形狀</h3>
+<h3>眼睛</h3>
 <table>
 <thead>
 <tr>
 <th>效果</th>
-<th>tag</th>
+<th>Tag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>細長眼</td>
 <td><code>narrowed eyes</code></td>
-</tr>
-<tr>
-<td>銳利眼神</td>
-<td><code>sharp eyes</code></td>
-</tr>
-<tr>
-<td>溫柔眼神</td>
-<td><code>gentle eyes</code>, <code>soft eyes</code></td>
-</tr>
-<tr>
-<td>下垂眼</td>
-<td><code>droopy eyes</code></td>
 </tr>
 <tr>
 <td>半閉眼</td>
@@ -143,14 +60,19 @@ hairy, chest hair (可選)
 <td>空洞眼神</td>
 <td><code>empty eyes</code></td>
 </tr>
+<tr>
+<td>下垂眼</td>
+<td><code>droopy eyes</code></td>
+</tr>
 </tbody>
 </table>
+
 <h3>眉毛</h3>
 <table>
 <thead>
 <tr>
 <th>效果</th>
-<th>tag</th>
+<th>Tag</th>
 </tr>
 </thead>
 <tbody>
@@ -164,23 +86,16 @@ hairy, chest hair (可選)
 </tr>
 </tbody>
 </table>
-<h3>臉部特徵</h3>
+
+<h3>臉部毛髮</h3>
 <table>
 <thead>
 <tr>
 <th>效果</th>
-<th>tag</th>
+<th>Tag</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>銳利下顎</td>
-<td><code>sharp jawline</code></td>
-</tr>
-<tr>
-<td>高挺鼻子</td>
-<td><code>high nose</code></td>
-</tr>
 <tr>
 <td>鬍渣</td>
 <td><code>stubble</code></td>
@@ -193,6 +108,18 @@ hairy, chest hair (可選)
 <td>落腮鬍</td>
 <td><code>facial hair</code></td>
 </tr>
+</tbody>
+</table>
+
+<h3>其他臉部特徵</h3>
+<table>
+<thead>
+<tr>
+<th>效果</th>
+<th>Tag</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>傷疤</td>
 <td><code>scar</code>, <code>scar on face</code></td>
@@ -203,13 +130,20 @@ hairy, chest hair (可選)
 </tr>
 </tbody>
 </table>
+
+<div class="warning">
+<strong>⚠️ 這些不是有效的 Danbooru tag：</strong><br>
+<code>sharp eyes</code>、<code>gentle eyes</code>、<code>soft eyes</code>、<code>sharp jawline</code>、<code>high nose</code>
+</div>
+
 <hr />
-<h2>獸耳/幻想種族</h2>
+
+<h2>獸耳 / 幻想種族</h2>
 <table>
 <thead>
 <tr>
 <th>效果</th>
-<th>tag</th>
+<th>Tag</th>
 </tr>
 </thead>
 <tbody>
@@ -251,48 +185,58 @@ hairy, chest hair (可選)
 </tr>
 </tbody>
 </table>
+
 <hr />
-<h2>服裝快速參考</h2>
-<h3>日常服裝</h3>
-<pre><code>casual clothes, shirt, t-shirt, 
+
+<h2>服裝速查</h2>
+<h3>日常</h3>
+<pre><code>casual clothes, shirt, t-shirt,
 jeans, pants, shorts,
 hoodie, jacket, sweater
 </code></pre>
-<h3>正式服裝</h3>
+
+<h3>正式</h3>
 <pre><code>suit, formal, dress shirt,
 necktie, vest, blazer
 </code></pre>
-<h3>制服類</h3>
+
+<h3>制服</h3>
 <pre><code>school uniform, military uniform,
 police uniform, butler
 </code></pre>
+
 <h3>和風</h3>
 <pre><code>kimono, yukata, japanese clothes,
 hakama, haori
 </code></pre>
-<h3>運動/休閒</h3>
+
+<h3>運動 / 休閒</h3>
 <pre><code>sportswear, jersey, tank top,
 shorts, sneakers
 </code></pre>
-<h3>性感/裸露</h3>
+
+<h3>裸露 / 性感</h3>
 <pre><code>topless male, shirtless,
 bare chest, open shirt,
 unbuttoned, wet clothes
 </code></pre>
+
 <hr />
-<h2>萬用模板庫</h2>
-<h3>模板 A：清秀美少年</h3>
+
+<h2>萬用模板</h2>
+<p>以下模板可直接複製修改使用。詳細說明請參考 <a href="#02-drawing-males">畫男性角色</a>。</p>
+
+<h3>清秀美少年</h3>
 <pre><code>Positive:
 1boy, solo, male focus, bishounen,
 [髮色] hair, [髮型], [眼色] eyes,
-slim, 
 [服裝], [場景]
 
 Negative:
-1girl, female, breasts, feminine, 
-muscular, old man, wrinkles
+1girl, female, breasts, muscular
 </code></pre>
-<h3>模板 B：帥氣青年</h3>
+
+<h3>帥氣青年</h3>
 <pre><code>Positive:
 1boy, solo, male focus,
 [髮色] hair, short hair, [眼色] eyes,
@@ -300,10 +244,10 @@ narrowed eyes, tall male, toned male,
 [服裝], [場景]
 
 Negative:
-1girl, female, breasts, feminine,
-bishounen, old man
+1girl, female, breasts
 </code></pre>
-<h3>模板 C：陽剛型男</h3>
+
+<h3>陽剛型男</h3>
 <pre><code>Positive:
 1boy, solo, male focus, manly,
 [髮色] hair, short hair, [眼色] eyes,
@@ -311,21 +255,21 @@ muscular male, stubble,
 [服裝], [場景]
 
 Negative:
-1girl, female, breasts, feminine,
-bishounen, slim
+1girl, female, breasts, bishounen
 </code></pre>
-<h3>模板 D：陰鬱美少年</h3>
+
+<h3>陰鬱美少年</h3>
 <pre><code>Positive:
 1boy, solo, male focus, bishounen,
 pale skin, [髮色] hair, [眼色] eyes,
-slim, empty eyes, expressionless,
+empty eyes, expressionless,
 dark clothes, simple background
 
 Negative:
-1girl, female, breasts, feminine,
-smile, muscular
+1girl, female, breasts, smile
 </code></pre>
-<h3>模板 E：Bara 系</h3>
+
+<h3>Bara 系</h3>
 <pre><code>Positive:
 1boy, solo, male focus, bara,
 muscular, large male,
@@ -334,23 +278,5 @@ facial hair,
 [服裝], [場景]
 
 Negative:
-1girl, female, slim,
-bishounen, feminine
+1girl, female, bishounen
 </code></pre>
-<hr />
-<h2>常見問題 Q&amp;A</h2>
-<p><strong>Q: 為什麼加了 <code>1boy</code> 還是出女生？</strong></p>
-<p>A: <code>1boy</code> 權重不夠，需要加上 <code>male focus</code>, <code>solo</code>，並在 negative 加入 <code>1girl, female, breasts</code>。</p>
-<p><strong>Q: <code>mature male</code> 為什麼變阿伯？</strong></p>
-<p>A: 這個詞在訓練集常與老年人連結。想要輕熟男請用 <code>tall male</code> + <code>stubble</code> + 具體外觀描述，不要用年齡相關的詞。</p>
-<p><strong>Q: 怎麼畫出美型但不女性化的男生？</strong></p>
-<p>A: 用 <code>bishounen</code> + <code>male focus</code>，並加入一些男性特徵如 <code>flat chest</code>, <code>narrow waist</code> 但避免 <code>feminine</code>。</p>
-<p><strong>Q: <code>muscular</code> 和 <code>muscular male</code> 有什麼差別？</strong></p>
-<p>A: <code>muscular male</code> 更明確指向男性，建議優先使用。<code>muscular</code> 可能會讓模型聯想到肌肉女。</p>
-<p><strong>Q: 怎麼畫出「攻」和「受」的差異？</strong></p>
-<p>A:</p>
-<ul>
-  <li>攻：<code>taller male</code>, <code>muscular</code>, <code>sharp eyes</code>, <code>smirk</code></li>
-  <li>受：<code>shorter male</code>, <code>slim</code>, <code>soft features</code>, <code>blush</code></li>
-  <li>避免用 <code>uke</code>, <code>seme</code> 等詞，效果不穩定</li>
-</ul>

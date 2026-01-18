@@ -67,41 +67,44 @@ left: 角色名字, 角色詳細特徵與動作
 <hr />
 <h2>範例 prompt</h2>
 <h3>範例 1：BG 向夢圖（女 OC × 男角色）</h3>
-<pre><code>Positive:
-(couple), 1boy, 1girl, holding hands, looking at another, cafe, brown hair, red hair
+Positive:
+<pre><code>(couple), 1boy, 1girl, holding hands, looking at another, cafe, brown hair, red hair
 
 boy: short hair, brown hair, golden eyes, smile, tall male, white shirt, sitting
 girl: my OC Sakura, long hair, red hair, hair ribbon, green eyes, blush, sundress
+</code></pre>
 
 Negative:
-yaoi, yuri, multiple boys, multiple girls
+<pre><code>yaoi, yuri, multiple boys, multiple girls
 </code></pre>
 <h3>範例 2：BL 向夢圖（男 OC × 男角色）</h3>
-<pre><code>Positive:
-2boys, yaoi, my OC Rei at right, Protagonist at left, hug from behind, bedroom, night
+Positive:
+<pre><code>2boys, yaoi, my OC Rei at right, Protagonist at left, hug from behind, bedroom, night
 
 right: Rei, long hair, ponytail, silver hair, red eyes, pale skin, black coat
 left: Protagonist, short hair, black hair, blue eyes, casual clothes, blush
+</code></pre>
 
 Negative:
-1girl, female, breasts, feminine, hetero
+<pre><code>1girl, female, breasts, feminine, hetero
 </code></pre>
 <h3>範例 3：乙女向夢圖（使用角色 LoRA）</h3>
-<pre><code>Positive:
-(couple), 1boy, 1girl, kiss, night sky, starry sky, 角色LoRA觸發詞
+Positive:
+<pre><code>(couple), 1boy, 1girl, kiss, night sky, starry sky, 角色LoRA觸發詞
 
 boy: 角色名, 角色外觀描述
 girl: my OC, long hair, pink hair, purple eyes, white dress, closed eyes, blush
+</code></pre>
 
 Negative:
-yaoi, yuri, multiple boys, multiple girls
+<pre><code>yaoi, yuri, multiple boys, multiple girls
 </code></pre>
 <p>※ 在 PixAI 介面上選擇對應的 LoRA 並調整權重即可，不需手動輸入 <code>&lt;lora:xxx:0.7&gt;</code> 語法。</p>
 <hr />
 <h2>進階技巧</h2>
 <h3>第一人稱視角（乙女 CG 風格）</h3>
 <p>如果你想畫「從自己的視角看著他」的乙女遊戲 CG 風格圖片，請參考：</p>
-<p>👉 <strong><code>references/female-oriented/03-otome-pov.md</code></strong></p>
+<p>👉 <a href="#14-otome-pov"><strong>第一人稱乙女 CG 指南</strong></a></p>
 <h3>為什麼區塊語法有效？</h3>
 <p><code>boy:</code> / <code>girl:</code> 和 <code>right:</code> / <code>left:</code> 這種寫法利用了模型訓練時學到的「條件式描述」結構。
 模型會把該區塊後的描述只套用到對應的角色，不會混在一起。</p>
@@ -162,7 +165,7 @@ girl: my OC, OC特徵
 </tr>
 <tr>
 <td>變成同一個人</td>
-<td>加入 <code>different appearance</code>, <code>distinct features</code></td>
+<td>加大外觀差異（髮色、髮型、服裝完全不同）</td>
 </tr>
 <tr>
 <td>角色消失只剩一人</td>

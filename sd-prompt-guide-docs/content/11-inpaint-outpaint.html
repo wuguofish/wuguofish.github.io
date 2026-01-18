@@ -70,11 +70,11 @@
 <pre><code>1. 上傳或選擇要修改的圖片
 2. 用筆刷標記要重繪的區域（遮罩）
 3. 輸入 prompt 描述你想要的結果
-4. 調整 Denoising Strength
+4. 調整 Feathering 參數
 5. 點擊生成
 </code></pre>
-<h3>Inpaint 的 Denoising Strength</h3>
-<p>和 HiRes 類似，Denoising 決定「改變程度」：</p>
+<h3>Feathering 參數</h3>
+<p>Feathering 控制遮罩邊緣的「羽化程度」，影響重繪區域與周圍的融合效果：</p>
 <table>
 <thead>
 <tr>
@@ -85,31 +85,56 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>0.3 ~ 0.5</strong></td>
-<td>輕微調整，保留大部分原樣</td>
-<td>微調顏色、修復小瑕疵</td>
+<td><strong>較低</strong></td>
+<td>邊緣清晰，融合較少</td>
+<td>需要精確邊界的修改</td>
 </tr>
 <tr>
-<td><strong>0.5 ~ 0.7</strong></td>
-<td>中度改變，會重新詮釋</td>
-<td>修復手部、換表情</td>
-</tr>
-<tr>
-<td><strong>0.7 ~ 1.0</strong></td>
-<td>大幅改變，幾乎重畫</td>
-<td>完全替換元素</td>
+<td><strong>較高</strong></td>
+<td>邊緣柔和，融合自然</td>
+<td>希望重繪區域和周圍無縫接合</td>
 </tr>
 </tbody>
 </table>
+<p style="color: #666; font-size: 0.95rem;">💡 一般建議使用預設值即可。如果重繪區域邊緣有明顯接縫，可以嘗試調高 Feathering。</p>
+<h3>Prompt 撰寫技巧</h3>
+<p>PixAI 的 Inpaint 使用的是PixAI以 Danbooru 為訓練集去訓練的模型（Hikari），因此 <strong>prompt 建議使用 Danbooru tag</strong>。</p>
+<p>此外，有一個重要原則：<strong>盡量用「正面描述」取代「否定描述」</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>❌ 避免</th>
+<th>✅ 建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>想移除人物，補上地板</td>
+<td><code>no human</code></td>
+<td><code>stone floor</code></td>
+</tr>
+<tr>
+<td>想移除人物，補上街景</td>
+<td><code>no people</code></td>
+<td><code>empty street</code>、<code>scenery</code></td>
+</tr>
+<tr>
+  <td>想移除物件</td>
+  <td><code>no table</code></td>
+  <td><code>wooden floor</code>、<code>grass</code></td>
+  </tr>
+</tbody>
+</table>
+<p style="color: #666; font-size: 0.95rem;">💡 直接描述你「想要什麼」比描述「不要什麼」更有效。否定詞有時反而會讓模型更容易畫出你不想要的東西。</p>
 <h3>修手小技巧</h3>
 <p>手部崩壞是 AI 繪圖最常見的問題，Inpaint 修手流程：</p>
 <pre><code>1. 把崩壞的手部區域塗滿遮罩（畫大一點，包含手腕）
 2. Prompt 加上手部描述，例如：
-   - &quot;beautiful detailed hands&quot;
-   - &quot;correct hand anatomy&quot;
-   - &quot;five fingers&quot;
-3. Denoising 設 0.6 ~ 0.8
-4. 多生成幾次，挑最好的
+   - "beautiful detailed hands"
+   - "correct hand anatomy"
+   - "five fingers"
+3. 多生成幾次，挑最好的
 </code></pre>
 <hr />
 <h2>Outpaint 向外擴展</h2>
@@ -194,18 +219,16 @@
 <pre><code>問題：AI 畫出了六根手指
 解法：
 1. Inpaint 遮罩塗滿整隻手
-2. Prompt: &quot;1girl, beautiful hand, five fingers, detailed fingers&quot;
-3. Negative: &quot;extra fingers, mutated hands, bad anatomy&quot;
-4. Denoising: 0.7
-5. 生成 4-8 張，挑最好的
+2. Prompt: "1girl, beautiful hand, five fingers, detailed fingers"
+3. Negative: "extra fingers, mutated hands, bad anatomy"
+4. 生成 4-8 張，挑最好的
 </code></pre>
 <h3>範例 2：移除背景路人</h3>
 <pre><code>問題：背景出現不想要的人物
 解法：
 1. Inpaint 遮罩塗滿那個人物
-2. Prompt: 描述你想要的背景（如 &quot;empty street, no people&quot;）
-3. Denoising: 0.8 ~ 1.0（需要完全替換）
-4. 生成並檢查
+2. Prompt: 描述你想要的背景（如 "empty street, no people"）
+3. 生成並檢查
 </code></pre>
 <h3>範例 3：把半身像變全身像</h3>
 <pre><code>問題：只有上半身，想看到全身
@@ -220,7 +243,7 @@
 <p><strong>Q：Inpaint 後遮罩區域和周圍格格不入？</strong></p>
 <p>A：</p>
 <ul>
-  <li>Denoising 調低一點，讓 AI 更參考周圍</li>
+  <li>調高 Feathering，讓邊緣融合更自然</li>
   <li>遮罩畫大一點，包含一些周圍區域</li>
   <li>在 prompt 中描述周圍的特徵</li>
 </ul>

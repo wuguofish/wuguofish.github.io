@@ -7,6 +7,12 @@
 <li><strong>人數錯誤</strong> — 要兩個人卻出現三個，或只剩一個</li>
 <li><strong>性別錯誤</strong> — 要畫兩個男生卻出現女生</li>
 </ol>
+
+<div class="warning">
+  <strong>⚠️ 重要提醒：多人構圖不是 SDXL 的強項</strong><br>
+  SDXL 模型在處理多角色時容易出現「特徵互染」問題。如果你需要畫<strong>三個人以上</strong>，建議考慮使用 <strong>DiT 模型</strong>，它對多人構圖的處理能力更強。
+</div>
+
 <h2>解決方案：區塊分離語法</h2>
 <p>經過實測，以下寫法最能讓模型清楚區分不同角色：</p>
 <h3>用位置區分（推薦）</h3>
@@ -26,25 +32,39 @@ girl: 女生詳細特徵
 <hr />
 <h2>範例</h2>
 <h3>範例 1：兩個男性角色</h3>
-<pre><code>Positive:
-2boys, Kuro at right, Shiro at left, standing, talking, cafe
+<p>
+🖼️ 實際生成效果：<a href="https://pixai.art/artwork/1969578350609405807" target="_blank">範例圖</a>
+</p>
+Positive:
+<pre><code>2boys, Kuro at right, Shiro at left, standing, talking, cafe,
 
-right: Kuro, short hair, black hair, red eyes, tall male, black jacket
-left: Shiro, long hair, white hair, blue eyes, slim, white coat
+right: Kuro, short hair, black hair, red eyes, tall male, black jacket,
+left: Shiro, long hair, white hair, blue eyes, slim, white coat,
+</code></pre>
 
 Negative:
-1girl, female, breasts
+<pre><code>1girl, 2girls, breasts, 
 </code></pre>
+
 <h3>範例 2：一男一女</h3>
-<pre><code>Positive:
-1boy, 1girl, holding hands, walking, street, sunset
+<p>
+🖼️ 實際生成效果：
+<ul>
+      <li><a href="https://pixai.art/artwork/1969579562679412461" target="_blank">範例圖 1</a></li>
+      <li><a href="https://pixai.art/artwork/1969579640697197971" target="_blank">範例圖 2</a></li>
+</ul>
+</p> 
+Positive:
+<pre><code>1boy, 1girl, holding hands, walking, street, sunset,
 
-boy: short hair, brown hair, tall male, casual clothes
-girl: long hair, blonde hair, sundress, smile
+boy: short hair, brown hair, tall male, casual clothes,
+girl: long hair, blonde hair, sundress, smile,
+</code></pre>
 
 Negative:
-yaoi, yuri
+<pre><code>yaoi, yuri
 </code></pre>
+
 <h3>範例 3：三人以上</h3>
 <p>人數越多越難控制，建議：</p>
 <ul>
@@ -52,18 +72,32 @@ yaoi, yuri
   <li>每個角色的特徵差異要大（髮色完全不同）</li>
   <li>構圖保持簡單（並排站立比複雜互動容易成功）</li>
 </ul>
-<pre><code>Positive:
-3boys, standing, group picture, simple background
+<p>
+  🖼️ 實際生成效果：（可以看出三個人多少會互相汙染）
+  <ul>
+        <li><a href="https://pixai.art/artwork/1969583487796045788" target="_blank">範例圖 1</a></li>
+        <li><a href="https://pixai.art/artwork/1969583317821939169" target="_blank">範例圖 2</a></li>
+  </ul>
+</p> 
+Positive:
+<pre><code>3boys, standing, simple background,
 
-leftmost: short hair, black hair, glasses
-center: medium hair, red hair, tall male  
-rightmost: long hair, blonde hair, slim
-
-Negative:
-1girl, female
+leftmost: short hair, black hair, glasses,
+center: medium hair, red hair, tall male,
+rightmost: long hair, blonde hair, slim,
 </code></pre>
+Negative:
+<pre><code>1girl, 2girls, 3girls
+</code></pre>
+
 <hr />
+
 <h2>進階技巧</h2>
+
+<h3>調高 CFG Scale</h3>
+<p>畫多人時，把 <strong>CFG Scale 調高到 5.5 ~ 6.5</strong>，可以讓模型更嚴格遵守你的提示詞，減少特徵互染的問題。</p>
+<p style="color: #666; font-size: 0.95rem;">💡 一般單人圖建議 CFG 5~7，但多人構圖拉到 6 以上效果會比較好。太高（超過 8）可能會崩圖，請自行測試找到平衡點。</p>
+
 <h3>加大特徵差異</h3>
 <p>如果角色還是會混在一起，試著讓差異更明顯：</p>
 <table>
@@ -129,3 +163,14 @@ Negative:
   <li>打鬥（動作複雜）</li>
 </ul>
 <p>建議從簡單構圖開始，熟練後再挑戰複雜構圖。</p>
+
+<hr />
+
+<h2>補救方案：Inpaint</h2>
+<p>如果生成後發現特徵還是互染了，不用氣餒！可以使用 <strong>Inpaint</strong> 功能來局部修正：</p>
+<ul>
+  <li>框選出問題區域（例如髮色錯誤的部分）</li>
+  <li>在 Inpaint 的提示詞中只寫該區域應該有的特徵</li>
+  <li>重新生成該區域即可</li>
+</ul>
+<p>詳細操作請參考 <a href="#11-inpaint-outpaint">Inpaint/Outpaint 指南</a>。</p>
