@@ -47,7 +47,28 @@
 </div>
 <h2>重要觀念</h2>
 <h3>Tag 必須存在於資料庫</h3>
-<p>AI 模型是用 Danbooru / e621 的圖片訓練的，所以 <strong>只有資料庫裡有的 tag 才有效</strong>。</p>
+<p>AI 模型是用 Danbooru / e621 的圖片訓練的，所以 <strong>資料庫裡有的 tag 效果最穩定可靠</strong>。</p>
+<p style="color: #666; font-size: 0.95rem;">
+  💡 不在資料庫的詞有時也能用（如 <code>red chess piece</code>），因為模型的 text encoder（CLIP）有基礎的英文理解能力，會嘗試組合近似概念。但效果不如正式 tag 穩定，建議優先使用資料庫內的 tag。
+</p>
+<details style="margin-top: 10px;">
+  <summary style="cursor: pointer; color: #2563eb;">📚 延伸閱讀：為什麼 CLIP 能理解自然語言？</summary>
+  <div style="padding: 10px 0 0 10px; font-size: 0.9rem;">
+    <p><strong>中文資源：</strong></p>
+    <ul>
+      <li><a href="https://youtu.be/oLSpkO619FM" target="_blank">[Stable Diffusion雜談] Stable Diffusion 與 CLIP 的基本原理</a>（工gin師）</li>
+      <li><a href="https://vocus.cc/article/69084b3efd89780001af5fa7" target="_blank">一次掌握CLIP：AI跨模態理解的關鍵技術</a>（Josh的沙龍）</li>
+      <li><a href="https://ithelp.ithome.com.tw/articles/10339667" target="_blank">[Day29] SD XL：SD的限界突破</a>（Nick・iT邦鐵人賽）</li>
+    </ul>
+    <p><strong>英文資源：</strong></p>
+    <ul>
+      <li><a href="https://openai.com/index/clip/" target="_blank">CLIP: Connecting text and images</a>（OpenAI 官方）</li>
+      <li><a href="https://www.lightly.ai/blog/clip-openai" target="_blank">OpenAI CLIP Model Explained</a>（Lightly）</li>
+      <li><a href="https://mybyways.com/blog/two-text-prompts-text-encoders-in-sdxl-1-0" target="_blank">Two Text Encoders in SDXL 1.0</a>（myByways）</li>
+      <li><a href="https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0" target="_blank">SDXL 官方文檔</a>（Hugging Face）</li>
+    </ul>
+  </div>
+</details>
 <div class="warning">
   <strong>常見錯誤：</strong><br>
   ❌ <code>young man</code> → 不存在（改用 <code>1boy</code> + 具體特徵）<br>
