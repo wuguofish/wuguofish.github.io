@@ -1,0 +1,164 @@
+<h1>在 PixAI 上訓練自己的 LoRA</h1>
+<blockquote>
+<p>學會使用 LoRA 之後，下一步就是訓練專屬於自己的 LoRA！PixAI 提供了免費的線上訓練功能，讓你不需要自己準備 GPU 也能輕鬆上手。</p>
+</blockquote>
+<hr />
+
+<h2>準備訓練圖片</h2>
+<p>訓練圖片的品質直接影響 LoRA 的效果，<strong>重質不重量</strong>是最重要的原則。</p>
+
+<h3>基本要求</h3>
+<ul>
+  <li><strong>數量</strong>：建議 25～100 張（太少學不好，太多可能過擬合）</li>
+  <li><strong>尺寸</strong>：裁成正方形，邊長至少 768px</li>
+  <li><strong>品質</strong>：寧可高品質的圖片少一點，也不要一堆無關的雜圖</li>
+</ul>
+
+<h3>角色 LoRA 的特別注意事項</h3>
+<p>如果你要訓練的是角色 LoRA，還需要注意：</p>
+<ul>
+  <li><strong>臉部清晰置中</strong>：讓模型能好好學習角色的臉部特徵</li>
+  <li><strong>避免遮擋</strong>：盡量不要被手或其他東西遮擋臉部
+    <ul>
+      <li>除非那是你想要訓練的特徵之一（例如角色招牌的手勢）</li>
+    </ul>
+  </li>
+  <li><strong>多角度</strong>：最好每個角度都要至少 3 張
+    <ul>
+      <li>正面、側面、45 度角、仰角、俯角</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="warning">
+<strong>常見錯誤</strong>：只放正面照 → 模型只會畫正面，換角度就崩<br>
+<strong>解決方法</strong>：多準備不同角度的圖片，讓模型學會角色的立體結構
+</div>
+
+<hr />
+
+<h2>在 PixAI 上建立訓練</h2>
+
+<h3>步驟 1：進入訓練頁面</h3>
+<p>在 PixAI 網站上找到「訓練」或「Train」功能（通常在側邊欄或個人頁面中）。</p>
+
+<h3>步驟 2：填寫基本資訊</h3>
+<table>
+  <thead>
+    <tr>
+      <th>欄位</th>
+      <th>說明</th>
+      <th>建議</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>LoRA 名稱</strong></td>
+      <td>你的 LoRA 顯示名稱</td>
+      <td>建議後綴訓練模型，方便辨識（例如：MyCharacter_illustriousXL）</td>
+    </tr>
+    <tr>
+      <td><strong>模型類別</strong></td>
+      <td>選擇 SD 1.5、SDXL 或 DiT</td>
+      <td>目前網站上最多的是 <strong>SDXL</strong>，<strong>DiT</strong>則是未來趨勢，建議至少訓練這兩個版本</td>
+    </tr>
+    <tr>
+      <td><strong>模型主題</strong></td>
+      <td>選擇訓練用的基礎模型</td>
+      <td>選擇你預計要使用的模型，或至少是同家族的模型</td>
+    </tr>
+    <tr>
+      <td><strong>觸發詞</strong></td>
+      <td>啟動 LoRA 效果的關鍵字</td>
+      <td>輸入所有訓練圖片的<strong>共通點</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>關於觸發詞</h3>
+<p>觸發詞是讓模型知道「現在要用這個 LoRA」的暗號。設定好的觸發詞應該是：</p>
+<ul>
+  <li>所有訓練圖片都有的共通特徵</li>
+  <li>不會跟其他常見詞彙混淆</li>
+  <li>好記、好打</li>
+</ul>
+<p><strong>範例</strong>：</p>
+<pre><code>角色名：hatsune miku, aqua hair, twin tails
+風格：thick_lineart, painterly
+服裝：frilly_maid_dress</code></pre>
+
+<h3>步驟 3：上傳訓練圖片</h3>
+<p>把準備好的圖片上傳，PixAI 會自動處理後續的訓練流程。</p>
+
+<hr />
+
+<h2>訓練多個版本</h2>
+<p>PixAI 現在支援同一個 LoRA 訓練多個版本，這在以下情況很實用：</p>
+<ul>
+  <li>想要針對不同基礎模型各訓練一版（例如 Illustrious XL 和 NoobAI XL）</li>
+  <li>想要訓練適用不同技術模型的LoRA（例如 SDXL 和 DiT）</li>
+  <li>想要更新訓練資料後重新訓練</li>
+</ul>
+
+<h3>如何新增版本</h3>
+<ol>
+  <li>進入已完成訓練的模型頁面</li>
+  <li>點擊「<strong>新增版本</strong>」按鈕</li>
+  <li>或按右上角的選單，選擇「<strong>重複使用資料集</strong>」</li>
+  <li>選擇新的基礎模型或調整參數</li>
+  <li>開始訓練新版本</li>
+</ol>
+
+<hr />
+
+<h2>訓練後的測試</h2>
+<p>訓練完成後，記得要測試一下效果：</p>
+
+<h3>測試清單</h3>
+<ul>
+  <li><strong>基本測試</strong>：用觸發詞生成，看角色/風格是否正確</li>
+  <li><strong>角度測試</strong>：測試不同視角（正面、側面、背面）</li>
+  <li><strong>權重測試</strong>：測試不同權重（0.5、0.8、1.0、1.2）的效果</li>
+  <li><strong>組合測試</strong>：跟其他 LoRA 疊加看會不會打架</li>
+</ul>
+
+<h3>如果效果不好</h3>
+<table>
+  <thead>
+    <tr>
+      <th>問題</th>
+      <th>可能原因</th>
+      <th>解決方法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>角色特徵不明顯</td>
+      <td>訓練圖片太少或太雜</td>
+      <td>精選更有代表性的圖片重新訓練</td>
+    </tr>
+    <tr>
+      <td>只能畫某個角度</td>
+      <td>訓練圖片角度太單一</td>
+      <td>補充不同角度的圖片</td>
+    </tr>
+    <tr>
+      <td>過擬合（所有圖都長一樣）</td>
+      <td>訓練圖片太少或太相似</td>
+      <td>增加圖片多樣性</td>
+    </tr>
+    <tr>
+      <td>跟基礎模型風格不搭</td>
+      <td>訓練用的模型選錯</td>
+      <td>選擇正確的模型主題重新訓練</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2>延伸閱讀</h2>
+<ul>
+  <li>LoRA 基礎介紹：<a href="#08-lora-basics">08-lora-basics</a></li>
+  <li>加速 LoRA 介紹：<a href="#09-acceleration-lora">09-acceleration-lora</a></li>
+</ul>
