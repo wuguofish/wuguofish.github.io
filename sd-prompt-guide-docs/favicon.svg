@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <!-- 紫色背景 -->
+  <rect fill="#7c3aed" width="32" height="32" rx="4"/>
+  <!-- 空心愛心 (原本實心愛心的位置) -->
+  <path d="m20.53,11.18c2.36,-5.91 11.62,0 0,7.59c-11.62,-7.59 -2.36,-13.5 0,-7.59z" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+  <!-- 畫筆 (維持長度，寬度適中) -->
+  <g transform="translate(14, 14) rotate(45)">
+    <rect fill="#ffffff" x="-2" y="3" width="4" height="14" rx="0.6"/>
+    <polygon fill="#fbbf24" points="-2,3 2,3 0,0"/>
+  </g>
+  <!-- 底線 (原本位置) -->
+  <line stroke="#ffffff" stroke-width="2" x1="16" y1="24.89" x2="24.89" y2="24.89"/>
+</svg>
