@@ -215,6 +215,7 @@ masterpiece, best quality</code></pre>
 <p>⚠️ <strong>注意</strong>：權重建議不要超過 1.5，太高容易導致畫面崩壞。</p>
 
 <h3>括號權重（進階）</h3>
+<p>⚠️ <strong>建議在 PixAI 上只使用小括號 <code>()</code></strong>，大括號 <code>{}</code> 和方括號 <code>[]</code> 的行為在不同平台上不一致，容易造成混淆。</p>
 <table>
 <thead>
 <tr>
@@ -229,20 +230,10 @@ masterpiece, best quality</code></pre>
 <td><code>((black hair))</code></td>
 <td>每層括號 ×1.1，雙層 = 1.21</td>
 </tr>
-<tr>
-<td><code>{關鍵字}</code></td>
-<td><code>{{black hair}}</code></td>
-<td>每層括號 ×1.05，雙層 = 1.1025</td>
-</tr>
-<tr>
-<td><code>[關鍵字]</code></td>
-<td><code>[[black hair]]</code></td>
-<td>每層括號 ÷1.05，雙層 ≈ 0.907</td>
-</tr>
 </tbody>
 </table>
 
-<p>💡 <strong>建議</strong>：直接用 <code>(關鍵字:權重)</code> 的寫法比較直觀好控制。</p>
+<p>💡 <strong>建議</strong>：直接用 <code>(關鍵字:權重)</code> 的寫法最直觀好控制，也最不容易出錯。</p>
 
 <h3>跳脫字元</h3>
 <p>如果你的提示詞本身就需要括號（例如角色名稱），使用反斜線跳脫：</p>
@@ -251,16 +242,17 @@ masterpiece, best quality</code></pre>
 
 <hr />
 
-<h2>運算符號（實驗性功能）</h2>
-<p>⚠️ <strong>重要提醒</strong>：以下符號並非 PixAI 官方支援的功能，而是某些模型在訓練時可能有學習到的語法。<strong>效果因模型而異，請以實際測試為準</strong>。</p>
+<h2>運算符號（⚠️ PixAI 不適用）</h2>
+<p>⚠️ <strong>重要提醒</strong>：以下符號經社群驗證，<strong>在 PixAI 上無效</strong>。這些是 A1111（Automatic1111 WebUI）等本地端工具的功能，PixAI 並不支援。</p>
+<p style="color: #666; font-size: 0.95rem;">📖 想深入了解 PixAI 上哪些語法有效、哪些無效，可以參考 PixAI 官方 Discord 中 Maki 整理的實驗文章：<a href="https://discord.com/channels/1041682784856584273/1462309387564744869" target="_blank">Using Emphasis on PixAI</a>。</p>
 
 <table>
 <thead>
 <tr>
 <th>符號</th>
 <th>範例</th>
-<th>可能的效果</th>
-<th>備註</th>
+<th>原本預期的效果</th>
+<th>在 PixAI 上的狀況</th>
 </tr>
 </thead>
 <tbody>
@@ -268,30 +260,30 @@ masterpiece, best quality</code></pre>
 <td><code>AND</code></td>
 <td><code>a cat AND a dog</code></td>
 <td>同時滿足兩個條件</td>
-<td>必須大寫</td>
+<td>❌ A1111 功能，PixAI 無效</td>
 </tr>
 <tr>
 <td><code>+</code></td>
 <td><code>a cat + a dog</code></td>
 <td>同時滿足兩個條件</td>
-<td>與 AND 類似</td>
+<td>❌ 未確認有效果</td>
 </tr>
 <tr>
 <td><code>|</code></td>
 <td><code>red|blue hair</code></td>
 <td>隨機選擇其中一個</td>
-<td>或運算</td>
+<td>❌ ComfyUI 的 OR 語法，PixAI 無效</td>
 </tr>
 <tr>
 <td><code>_</code></td>
 <td><code>coffee_cake</code></td>
 <td>連接成單一概念</td>
-<td>較少使用</td>
+<td>⚠️ 通常等同於空白，除非該 tag 本身含底線</td>
 </tr>
 </tbody>
 </table>
 
-<p>💡 <strong>實用建議</strong>：如果你發現這些符號沒有效果，可能是你使用的模型不支援。這時候建議用一般的逗號分隔寫法就好。</p>
+<p>💡 <strong>結論</strong>：在 PixAI 上請直接使用逗號分隔的標準寫法，不需要使用這些運算符號。</p>
 
 <hr />
 
