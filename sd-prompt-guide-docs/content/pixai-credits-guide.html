@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixAI 點數取得方式</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Noto+Sans+TC:wght@400;500;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: '阿童體-Monospaced';
+    src: url('fonts/ATon-Monospaced.woff2') format('woff2');
+    font-display: swap;
+  }
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root{
+    --bg:#fdf6f0;
+    --bg-dots:rgba(190,160,140,0.45);
+    --card1:#fff0f0;--border1:#e8a0a0;--icon1:#d46b6b;
+    --card2:#f0f4ff;--border2:#9eb8e8;--icon2:#5b82c4;
+    --card3:#fef9e7;--border3:#e0c86a;--icon3:#c4a32e;
+    --card4:#f0faf0;--border4:#8cc8a0;--icon4:#4a9e6a;
+    --card5:#f5f0ff;--border5:#b8a0e0;--icon5:#7b5cbf;
+    --card6:#fff5eb;--border6:#e0b48a;--icon6:#c48540;
+    --text:#4a3f35;
+    --text-light:#7a6f65;
+    --title-color:#d46b8a;
+    --subtitle-color:#8b6f5e;
+  }
+
+  body{
+    font-family:'Noto Sans TC','Patrick Hand',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    /* notebook dot grid */
+    background-image:radial-gradient(circle,var(--bg-dots) 1.5px,transparent 1.5px);
+    background-size:22px 22px;
+  }
+
+  .page{
+    max-width:1100px;
+    margin:0 auto;
+    padding:48px 40px 36px;
+    position:relative;
+  }
+
+  /* ── decorative tape strips ── */
+  .tape{
+    position:absolute;width:120px;height:36px;
+    background:rgba(255,220,180,0.55);
+    border:1.5px dashed rgba(200,160,120,0.35);
+    border-radius:3px;
+    transform:rotate(-8deg);
+    z-index:2;
+    pointer-events:none;
+  }
+  .tape--tl{top:18px;left:28px;transform:rotate(-12deg)}
+  .tape--tr{top:22px;right:32px;width:100px;transform:rotate(6deg);background:rgba(200,220,255,0.5);border-color:rgba(140,170,220,0.3)}
+
+  /* ── floating doodles (SVG) ── */
+  .doodle{position:absolute;pointer-events:none;opacity:.55;z-index:0}
+
+  /* ── header ── */
+  .header{text-align:center;margin-bottom:42px;position:relative;z-index:1}
+  .header__badge{
+    display:inline-block;
+    background:linear-gradient(135deg,#fce4ec,#fff3e0);
+    border:2.5px dashed var(--title-color);
+    border-radius:50px;
+    padding:8px 32px 6px;
+    margin-bottom:14px;
+    font-family:'Caveat',cursive;
+    font-size:15px;
+    color:var(--title-color);
+    letter-spacing:1px;
+    transform:rotate(-1.5deg);
+  }
+  .header h1{
+    font-family:'阿童體-Monospaced','Caveat',cursive;
+    font-size:clamp(42px,6vw,62px);
+    font-weight:400;
+    color:var(--title-color);
+    line-height:1.2;
+    letter-spacing:2px;
+    text-shadow:2px 2px 0 rgba(212,107,138,0.10);
+    transform:rotate(-0.5deg);
+  }
+  .header__sub{
+    font-family:'阿童體-Monospaced','Patrick Hand',cursive;
+    font-size:18px;
+    color:var(--subtitle-color);
+    margin-top:8px;
+    letter-spacing:0.5px;
+  }
+
+  /* ── decorative divider ── */
+  .divider{
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    margin:0 auto 36px;max-width:400px;
+  }
+  .divider__line{flex:1;height:2px;background:repeating-linear-gradient(90deg,transparent,transparent 4px,rgba(212,107,138,0.3) 4px,rgba(212,107,138,0.3) 10px)}
+  .divider__icon{font-size:20px;opacity:0.7}
+
+  /* ── cards grid ── */
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+    gap:26px;
+    position:relative;z-index:1;
+  }
+
+  .card{
+    position:relative;
+    background:var(--card-bg);
+    border:2.5px solid var(--card-border);
+    border-radius:20px;
+    padding:28px 24px 22px;
+    transition:transform .25s ease,box-shadow .25s ease;
+    /* hand-drawn feel: slight rotation */
+    box-shadow:3px 4px 0 rgba(0,0,0,0.04);
+  }
+  .card:nth-child(odd){transform:rotate(-0.6deg)}
+  .card:nth-child(even){transform:rotate(0.5deg)}
+  .card:hover{
+    transform:rotate(0deg) translateY(-4px)!important;
+    box-shadow:4px 8px 20px rgba(0,0,0,0.07);
+  }
+
+  /* wavy top edge (pseudo SVG) */
+  .card::before{
+    content:'';position:absolute;top:-2px;left:20px;right:20px;height:6px;
+    background:var(--card-bg);
+    border-top:2.5px solid var(--card-border);
+    border-radius:0 0 50% 50%/0 0 100% 100%;
+    clip-path:url(#wavyClip);
+  }
+
+  /* number circle */
+  .card__num{
+    position:absolute;top:-14px;left:18px;
+    width:34px;height:34px;
+    background:var(--card-icon);
+    color:#fff;
+    font-family:'Caveat',cursive;
+    font-size:20px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    border:2.5px solid #fff;
+    box-shadow:2px 2px 0 rgba(0,0,0,0.06);
+    transform:rotate(-6deg);
+    z-index:2;
+  }
+
+  .card__icon{
+    font-size:36px;
+    margin-bottom:8px;
+    display:block;
+    filter:drop-shadow(1px 1px 0 rgba(0,0,0,0.05));
+  }
+
+  .card__title{
+    font-family:'阿童體-Monospaced','Caveat',cursive;
+    font-size:26px;
+    font-weight:400;
+    color:var(--card-icon);
+    margin-bottom:6px;
+    line-height:1.2;
+  }
+
+  .card__desc{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--text);
+  }
+  .card__desc strong{
+    color:var(--card-icon);
+    font-weight:700;
+  }
+
+  /* highlight tag */
+  .tag{
+    display:inline-block;
+    background:rgba(255,255,255,0.6);
+    border:1.5px dashed var(--card-border);
+    border-radius:12px;
+    padding:2px 10px;
+    font-size:12.5px;
+    color:var(--card-icon);
+    margin-top:8px;
+    font-family:'Patrick Hand',cursive;
+    letter-spacing:0.3px;
+  }
+
+  /* ── card color assignments ── */
+  .card--1{--card-bg:var(--card1);--card-border:var(--border1);--card-icon:var(--icon1)}
+  .card--2{--card-bg:var(--card2);--card-border:var(--border2);--card-icon:var(--icon2)}
+  .card--3{--card-bg:var(--card3);--card-border:var(--border3);--card-icon:var(--icon3)}
+  .card--4{--card-bg:var(--card4);--card-border:var(--border4);--card-icon:var(--icon4)}
+  .card--5{--card-bg:var(--card5);--card-border:var(--border5);--card-icon:var(--icon5)}
+  .card--6{--card-bg:var(--card6);--card-border:var(--border6);--card-icon:var(--icon6)}
+
+  /* ── membership tier table ── */
+  .tier-table{
+    margin-top:10px;
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0 4px;
+  }
+  .tier-table td{
+    padding:3px 8px;
+    font-size:13px;
+    border-bottom:1px dashed var(--card-border);
+  }
+  .tier-table td:first-child{
+    font-family:'Patrick Hand',cursive;
+    color:var(--card-icon);
+    font-size:14px;
+    width:90px;
+  }
+  .tier-table td:last-child{
+    text-align:right;
+    font-weight:700;
+    color:var(--card-icon);
+    font-family:'Caveat',cursive;
+    font-size:16px;
+  }
+
+  /* ── footer ── */
+  .footer{
+    text-align:center;
+    margin-top:44px;
+    padding-top:20px;
+    border-top:2px dashed rgba(180,160,140,0.25);
+    font-family:'Patrick Hand',cursive;
+    font-size:16px;
+    color:var(--text-light);
+    position:relative;z-index:1;
+  }
+  .footer span{opacity:0.7}
+
+  /* ── corner doodle decorations (pure CSS) ── */
+  .sparkle{
+    position:absolute;pointer-events:none;z-index:0;
+  }
+  .sparkle::before,.sparkle::after{
+    content:'';position:absolute;
+    background:currentColor;border-radius:50%;
+  }
+
+  /* ── animations ── */
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(0deg)}
+    50%{transform:translateY(-8px) rotate(3deg)}
+  }
+  @keyframes wiggle{
+    0%,100%{transform:rotate(-2deg)}
+    50%{transform:rotate(2deg)}
+  }
+  .float{animation:float 4s ease-in-out infinite}
+  .float-delay{animation:float 5s ease-in-out 1s infinite}
+  .wiggle{animation:wiggle 3s ease-in-out infinite}
+
+  /* ── responsive ── */
+  @media(max-width:720px){
+    .page{padding:32px 18px 28px}
+    .cards{grid-template-columns:1fr;gap:22px}
+    .tape{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG doodles (hidden, referenced) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <clipPath id="wavyClip"><path d="M0,0 Q25,6 50,0 T100,0 T150,0 T200,0 T250,0 T300,0 V-4 H0Z"/></clipPath>
+  </defs>
+</svg>
+
+<div class="page">
+
+  <!-- Decorative tape -->
+  <div class="tape tape--tl"></div>
+  <div class="tape tape--tr"></div>
+
+  <!-- Floating doodles -->
+  <svg class="doodle float" style="top:30px;right:120px;width:40px" viewBox="0 0 40 40">
+    <path d="M20 2l4 12h12l-10 7 4 13-10-8-10 8 4-13L4 14h12z" fill="none" stroke="#e8a0a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <svg class="doodle float-delay" style="top:180px;left:12px;width:32px" viewBox="0 0 40 40">
+    <path d="M20 8 Q20 0 26 8 Q34 16 20 28 Q6 16 14 8 Q20 0 20 8Z" fill="none" stroke="#b8a0e0" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <svg class="doodle float" style="bottom:200px;right:10px;width:36px" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="14" fill="none" stroke="#e0c86a" stroke-width="2" stroke-dasharray="4 4"/>
+    <circle cx="20" cy="20" r="4" fill="#e0c86a" opacity="0.4"/>
+  </svg>
+  <svg class="doodle wiggle" style="top:50%;left:20px;width:28px" viewBox="0 0 40 40">
+    <path d="M8 28 Q20 4 32 28" fill="none" stroke="#8cc8a0" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="20" cy="8" r="3" fill="#8cc8a0" opacity="0.5"/>
+  </svg>
+  <svg class="doodle float-delay" style="bottom:80px;left:60px;width:24px" viewBox="0 0 40 40">
+    <path d="M10 20h20M20 10v20" stroke="#e8a0a0" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  </svg>
+  <svg class="doodle float" style="bottom:120px;right:80px;width:30px" viewBox="0 0 40 40">
+    <path d="M6 20 Q20 2 34 20 Q20 38 6 20Z" fill="none" stroke="#9eb8e8" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__badge">✨ Beginner's Guide ✨</div>
+    <h1>PixAI 點數取得方式</h1>
+    <p class="header__sub">～ 新手必看！輕鬆收集 Credits 的 6 種方法 ～</p>
+  </header>
+
+  <div class="divider">
+    <div class="divider__line"></div>
+    <span class="divider__icon">🎨</span>
+    <div class="divider__line"></div>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards">
+
+    <!-- 1. 每日領取 -->
+    <div class="card card--1">
+      <span class="card__num">1</span>
+      <span class="card__icon">📅</span>
+      <div class="card__title">每日領取</div>
+      <div class="card__desc">
+        每天登入就能免費領取點數！<br>
+        每日 <strong>UTC 00:00</strong> 重置
+        <table class="tier-table">
+          <tr><td>🙂 非會員</td><td>10,000 點</td></tr>
+          <tr><td>⭐ Starter</td><td>12,000 點</td></tr>
+          <tr><td>🌟 Hobbyist</td><td>20,000 點</td></tr>
+          <tr><td>💫 Pro</td><td>30,000 點</td></tr>
+        </table>
+      </div>
+      <span class="tag">💡 最穩定的來源！</span>
+    </div>
+
+    <!-- 2. 發佈作品 -->
+    <div class="card card--2">
+      <span class="card__num">2</span>
+      <span class="card__icon">🖼️</span>
+      <div class="card__title">發佈作品</div>
+      <div class="card__desc">
+        將創作發佈到 PixAI 社群<br>
+        每日最多 <strong>10 token</strong>（每個 1,000 點）<br>
+        ＝ 最高 <strong>100,000 點／天</strong><br><br>
+        分享到 𝕏（Twitter）<br>
+        再加 <strong>3 token ＝ 3,000 點</strong>
+      </div>
+      <span class="tag">🔥 收益最高！</span>
+    </div>
+
+    <!-- 3. 獲得按讚 -->
+    <div class="card card--3">
+      <span class="card__num">3</span>
+      <span class="card__icon">💛</span>
+      <div class="card__title">獲得按讚</div>
+      <div class="card__desc">
+        你的作品被其他用戶按讚時獲得獎勵<br><br>
+        每日最多 <strong>20 token</strong><br>
+        （每個 100 點）<br>
+        ＝ 最高 <strong>2,000 點／天</strong><br><br>
+        可在通知中查看進度 📬
+      </div>
+      <span class="tag">👍 創作越讚越多！</span>
+    </div>
+
+    <!-- 4. 參加比賽 -->
+    <div class="card card--4">
+      <span class="card__num">4</span>
+      <span class="card__icon">🏆</span>
+      <div class="card__title">參加比賽</div>
+      <div class="card__desc">
+        PixAI 每週舉辦<strong>主題創作比賽</strong><br><br>
+        根據作品的互動量（按讚、留言）<br>
+        獲得相應的點數獎勵<br><br>
+        還能認識更多創作者！
+      </div>
+      <span class="tag">🎯 挑戰自己！</span>
+    </div>
+
+    <!-- 5. 官方活動 -->
+    <div class="card card--5">
+      <span class="card__num">5</span>
+      <span class="card__icon">🎉</span>
+      <div class="card__title">官方活動</div>
+      <div class="card__desc">
+        關注 PixAI 的 <strong>Discord</strong> 和社群媒體<br><br>
+        定期舉辦活動，獎品包括：<br>
+        ・大量 Credits 點數<br>
+        ・會員試用資格<br>
+        ・其他限定獎勵
+      </div>
+      <span class="tag">📢 記得追蹤官方！</span>
+    </div>
+
+    <!-- 6. SMA 計畫 -->
+    <div class="card card--6">
+      <span class="card__num">6</span>
+      <span class="card__icon">🌐</span>
+      <div class="card__title">SMA 計畫</div>
+      <div class="card__desc">
+        <strong>Social Media Ambassadors</strong><br>
+        社群媒體大使計畫<br><br>
+        擁有 <strong>1,000+ 粉絲</strong>的創作者<br>
+        可申請成為大使<br>
+        獲得額外的 Credits 獎勵！
+      </div>
+      <span class="tag">👑 進階創作者專屬</span>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>資料來源：<a href="https://pixai.art/articles/en/credits-on-pixai/" target="_blank">pixai.art</a>（2025年8月）</span>
+    <br>
+    <span style="font-size:22px;opacity:0.5;line-height:2">✿ ✿ ✿</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
