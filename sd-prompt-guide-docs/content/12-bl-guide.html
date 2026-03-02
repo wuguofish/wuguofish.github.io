@@ -17,6 +17,14 @@
 2. <code>2boys</code> 的權重不夠強
 3. 互動描述詞（如 <code>kiss</code>）在訓練集中常與異性戀配對</p>
 <p><strong>解法</strong>：使用區塊分離語法</p>
+
+<blockquote>
+  <strong>⚠️ 重要提醒：SDXL模型**沒有理解提示詞內構圖配置**的能力</strong><br>
+  本章節提供的建議寫法是目前中文區社群的大量測試後發現能提高機率的方式之一。
+  目前的推測此方法能提高成功率是靠CLIP的基礎理解能力，但prompt越長效果越差。
+  增加 CFG 或許能提升效果，但並不保證能成功。
+</blockquote>
+
 ✅ Positive（使用 right:/left: 區塊分離）：
 <pre><code>2boys, yaoi, 角色A at right, 角色B at left, 互動, 場景
 
