@@ -501,7 +501,7 @@ nsfw, nude
 
 ### 範例 1：比愛心
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1964289416839594394>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1964289416839594394?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -520,7 +520,7 @@ simple background, white background,
 
 ### 範例 2：牽手
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969688080071440546>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969688080071440546?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -532,7 +532,7 @@ holding hands, looking at viewer,
 
 ### 範例 3：吻手
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969688677469070019>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969688677469070019?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -544,7 +544,7 @@ Positive:
 
 ### 範例 4：被餵食
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/zh/artwork/1959502489562995800>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/zh/artwork/1959502489562995800?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -558,7 +558,7 @@ Positive:
 
 ### 範例 5：即將擁抱
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969684787295042765>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969684787295042765?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -570,7 +570,7 @@ Positive:
 
 ### 範例 6：摸臉
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969694437534097090>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969694437534097090?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -583,7 +583,7 @@ solo focus, male focus, 1boy, 角色人設,
 
 ### 範例 7：惡搞向－－捏臉頰
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969693954309235518>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969693954309235518?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -641,10 +641,10 @@ A: 互動類的構圖本來就難度較高。建議：
 
 | 名稱                                                                               | 作者                | 基礎模型                | 觸發詞                                                         |
 |----------------------------------------------------------------------------------|-------------------|---------------------|-------------------------------------------------------------|
-| [[Hoshino] Female Fingers POV](<https://pixai.art/zh/model/1829204677156840472>) | callagainsometime | Hoshino             | `pov`, `pov hands`, `female fingers`, `female pov`          |
-| [Female Fingers POV](<https://pixai.art/zh/model/1810901088008722614>)           | callagainsometime | Animagine XL V3.1   | `pov`, `finger pov`, `female finger pov`, `slender fingers` |
-| [Female POV Hand And Finger](<https://pixai.art/zh/model/1969710978626188643>)   | 阿童ATone           | Illustrious-XL-v2.0 | `fpov_hand_finger`                                          |
-| [Female POV Kissing Hand](<https://pixai.art/zh/model/1942029360467149364>)      | 阿童ATone           | Illustrious-XL-v2.0 | `fpov kissing hand`                                         |
+| [[Hoshino] Female Fingers POV](<https://pixai.art/zh/model/1829204677156840472?utm_source=eap_blog>) | callagainsometime | Hoshino             | `pov`, `pov hands`, `female fingers`, `female pov`          |
+| [Female Fingers POV](<https://pixai.art/zh/model/1810901088008722614?utm_source=eap_blog>)           | callagainsometime | Animagine XL V3.1   | `pov`, `finger pov`, `female finger pov`, `slender fingers` |
+| [Female POV Hand And Finger](<https://pixai.art/zh/model/1969710978626188643?utm_source=eap_blog>)   | 阿童ATone           | Illustrious-XL-v2.0 | `fpov_hand_finger`                                          |
+| [Female POV Kissing Hand](<https://pixai.art/zh/model/1942029360467149364?utm_source=eap_blog>)      | 阿童ATone           | Illustrious-XL-v2.0 | `fpov kissing hand`                                         |
 
 ### 未標示基礎模型
 
@@ -652,7 +652,7 @@ A: 互動類的構圖本來就難度較高。建議：
 
 | 名稱                                                             | 觸發詞                                  | 備註                     |
 |----------------------------------------------------------------|--------------------------------------|------------------------|
-| [Female POV](<https://pixai.art/zh/model/1788705416870654701>) | `female pov`, `fpov`, `pov`, `1girl` | 使用數 55.3k，評價 Excellent |
+| [Female POV](<https://pixai.art/zh/model/1788705416870654701?utm_source=eap_blog>) | `female pov`, `fpov`, `pov`, `1girl` | 使用數 55.3k，評價 Excellent |
 
 ### 尋找更多 LoRA
 

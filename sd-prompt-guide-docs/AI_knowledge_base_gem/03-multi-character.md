@@ -53,7 +53,7 @@ girl: 女生詳細特徵
 
 ### 範例 1：兩個男性角色
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969578350609405807>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969578350609405807?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -74,8 +74,8 @@ Negative:
 
 🖼️ 實際生成效果：
 
-- [範例圖 1](<https://pixai.art/artwork/1969579562679412461>)
-- [範例圖 2](<https://pixai.art/artwork/1969579640697197971>)
+- [範例圖 1](<https://pixai.art/artwork/1969579562679412461?utm_source=eap_blog>)
+- [範例圖 2](<https://pixai.art/artwork/1969579640697197971?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -102,8 +102,8 @@ yaoi, yuri
 
 🖼️ 實際生成效果：（可以看出三個人多少會互相汙染）
 
-- [範例圖 1](<https://pixai.art/artwork/1969583487796045788>)
-- [範例圖 2](<https://pixai.art/artwork/1969583317821939169>)
+- [範例圖 1](<https://pixai.art/artwork/1969583487796045788?utm_source=eap_blog>)
+- [範例圖 2](<https://pixai.art/artwork/1969583317821939169?utm_source=eap_blog>)
 
 Positive:
 ```

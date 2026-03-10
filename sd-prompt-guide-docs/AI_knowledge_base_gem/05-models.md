@@ -14,7 +14,7 @@
 
 ### 1\. Plant Milk
 
-**連結**：https://pixai.art/zh/model/1840638240479764095
+**連結**：https://pixai.art/zh/model/1840638240479764095?utm_source=eap_blog
 
 **特色**：
 
@@ -28,7 +28,7 @@
 
 ### 2\. Aüngir
 
-**連結**：https://pixai.art/zh/model/1825099018174912691
+**連結**：https://pixai.art/zh/model/1825099018174912691?utm_source=eap_blog
 
 **特色**：
 
@@ -44,7 +44,7 @@
 
 ### 3\. One obsession
 
-**連結**：https://pixai.art/zh/model/1875126058825562303
+**連結**：https://pixai.art/zh/model/1875126058825562303?utm_source=eap_blog
 
 **特色**：
 
@@ -57,7 +57,7 @@
 
 ### 4\. coco-Illustrious-NoobXL-Style
 
-**連結**：https://pixai.art/zh/model/1819625090188724117
+**連結**：https://pixai.art/zh/model/1819625090188724117?utm_source=eap_blog
 
 **特色**：
 
@@ -70,7 +70,7 @@
 
 ### 5\. Nova Orange XL v10.0
 
-**連結**：https://pixai.art/zh/model/1882805156367629767
+**連結**：https://pixai.art/zh/model/1882805156367629767?utm_source=eap_blog
 
 **特色**：
 
@@ -84,8 +84,8 @@
 
 ### 6\. Diving-Illustrious Anime
 
-**暗色系版本**：https://pixai.art/zh/model/1890273426555336148
-**亮色系版本**：https://pixai.art/zh/model/1932440954135769967
+**暗色系版本**：https://pixai.art/zh/model/1890273426555336148?utm_source=eap_blog
+**亮色系版本**：https://pixai.art/zh/model/1932440954135769967?utm_source=eap_blog
 
 **特色**：
 
@@ -117,7 +117,7 @@
 
 ### 7\. Vete ┃ Dreamhex ILL
 
-**連結**：https://pixai.art/zh/model/1958202009206907933
+**連結**：https://pixai.art/zh/model/1958202009206907933?utm_source=eap_blog
 
 **特色**：
 
@@ -136,7 +136,7 @@
 
 ### 8\. ChocoMint Mix
 
-**連結**：https://pixai.art/zh/model/1874095126418918009
+**連結**：https://pixai.art/zh/model/1874095126418918009?utm_source=eap_blog
 
 **特色**：
 
@@ -166,9 +166,9 @@
 
 # 推薦 DiT 模型
 
-> 📖 本頁的 DiT 模型資訊引用自 [**PixAI 官方部落格**](<https://pixai.art/articles/zh/otome-special-mastering-bl-yaoi-art-in-pixai-2/>)，經官方授權引用。
+> 📖 本頁的 DiT 模型資訊引用自 [**PixAI 官方部落格**](<https://pixai.art/articles/zh/otome-special-mastering-bl-yaoi-art-in-pixai-2/?utm_source=eap_blog>)，經官方授權引用。
 >
-> **👉[在PixAI上使用基於DiT架構的模型](<https://pixai.art/en/market#type=DIT7_MODEL>)**
+> **👉[在PixAI上使用基於DiT架構的模型](<https://pixai.art/en/market#type=DIT7_MODEL?utm_source=eap_blog>)**
 
 ## 什麼是 DiT？
 
@@ -184,10 +184,10 @@ DiT（Diffusion Transformer）是新一代的圖像生成架構，與傳統 SDXL
 
 | 模型                                                                | 特色                           |
 |-------------------------------------------------------------------|------------------------------|
-| [Tsubaki](<https://pixai.art/zh/model/1884107375027888751>)       | 支援自然語言提示詞，多角色生成品質高（間距、互動、平衡） |
-| [Tsubaki v1.1](<https://pixai.art/zh/model/1935090614966005945>)  | 強化版，更精煉的面部、服裝與背景渲染           |
-| [Tsubaki Flash](<https://pixai.art/zh/model/1934789863877919615>) | 官方高速版本，大幅縮短生成時間，極高的 LoRA 相容性 |
-| [Serin](<https://pixai.art/zh/model/1911477338694141481>)         | 正統韓系藝術風格，視覺震撼的角色設計           |
+| [Tsubaki](<https://pixai.art/zh/model/1884107375027888751?utm_source=eap_blog>)       | 支援自然語言提示詞，多角色生成品質高（間距、互動、平衡） |
+| [Tsubaki v1.1](<https://pixai.art/zh/model/1935090614966005945?utm_source=eap_blog>)  | 強化版，更精煉的面部、服裝與背景渲染           |
+| [Tsubaki Flash](<https://pixai.art/zh/model/1934789863877919615?utm_source=eap_blog>) | 官方高速版本，大幅縮短生成時間，極高的 LoRA 相容性 |
+| [Serin](<https://pixai.art/zh/model/1911477338694141481?utm_source=eap_blog>)         | 正統韓系藝術風格，視覺震撼的角色設計           |
 
 ---
 

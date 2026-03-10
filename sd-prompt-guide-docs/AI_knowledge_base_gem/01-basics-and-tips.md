@@ -394,7 +394,7 @@ LoRA 的基礎概念與使用方法。
 
 針對 SDXL 模型訓練 LoRA 的教學。
 
-[PixAI - Train LoRA with PixAI](<https://support.pixai.art/en/articles/8259846-train-lora-with-pixai>)
+[PixAI - Train LoRA with PixAI](<https://support.pixai.art/en/articles/8259846-train-lora-with-pixai?utm_source=eap_blog>)
 
 使用 PixAI 平台訓練 LoRA 的官方教學。
 
@@ -487,4 +487,4 @@ PixAI 每週舉辦**主題創作比賽**：
 
 ---
 
-資料來源：[pixai.art](https://pixai.art/articles/en/credits-on-pixai/)（2025年8月）
+資料來源：[pixai.art](https://pixai.art/articles/en/credits-on-pixai/?utm_source=eap_blog)（2025年8月）

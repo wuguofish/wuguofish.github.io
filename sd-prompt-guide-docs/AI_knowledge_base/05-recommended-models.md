@@ -14,7 +14,7 @@
 
 ### 1\. Plant Milk
 
-**連結**：https://pixai.art/zh/model/1840638240479764095
+**連結**：https://pixai.art/zh/model/1840638240479764095?utm_source=eap_blog
 
 **特色**：
 
@@ -28,7 +28,7 @@
 
 ### 2\. Aüngir
 
-**連結**：https://pixai.art/zh/model/1825099018174912691
+**連結**：https://pixai.art/zh/model/1825099018174912691?utm_source=eap_blog
 
 **特色**：
 
@@ -44,7 +44,7 @@
 
 ### 3\. One obsession
 
-**連結**：https://pixai.art/zh/model/1875126058825562303
+**連結**：https://pixai.art/zh/model/1875126058825562303?utm_source=eap_blog
 
 **特色**：
 
@@ -57,7 +57,7 @@
 
 ### 4\. coco-Illustrious-NoobXL-Style
 
-**連結**：https://pixai.art/zh/model/1819625090188724117
+**連結**：https://pixai.art/zh/model/1819625090188724117?utm_source=eap_blog
 
 **特色**：
 
@@ -70,7 +70,7 @@
 
 ### 5\. Nova Orange XL v10.0
 
-**連結**：https://pixai.art/zh/model/1882805156367629767
+**連結**：https://pixai.art/zh/model/1882805156367629767?utm_source=eap_blog
 
 **特色**：
 
@@ -84,8 +84,8 @@
 
 ### 6\. Diving-Illustrious Anime
 
-**暗色系版本**：https://pixai.art/zh/model/1890273426555336148
-**亮色系版本**：https://pixai.art/zh/model/1932440954135769967
+**暗色系版本**：https://pixai.art/zh/model/1890273426555336148?utm_source=eap_blog
+**亮色系版本**：https://pixai.art/zh/model/1932440954135769967?utm_source=eap_blog
 
 **特色**：
 
@@ -117,7 +117,7 @@
 
 ### 7\. Vete ┃ Dreamhex ILL
 
-**連結**：https://pixai.art/zh/model/1958202009206907933
+**連結**：https://pixai.art/zh/model/1958202009206907933?utm_source=eap_blog
 
 **特色**：
 
@@ -136,7 +136,7 @@
 
 ### 8\. ChocoMint Mix
 
-**連結**：https://pixai.art/zh/model/1874095126418918009
+**連結**：https://pixai.art/zh/model/1874095126418918009?utm_source=eap_blog
 
 **特色**：
 

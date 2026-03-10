@@ -1,8 +1,8 @@
 # 推薦 DiT 模型
 
-> 📖 本頁的 DiT 模型資訊引用自 [**PixAI 官方部落格**](<https://pixai.art/articles/zh/otome-special-mastering-bl-yaoi-art-in-pixai-2/>)，經官方授權引用。
+> 📖 本頁的 DiT 模型資訊引用自 [**PixAI 官方部落格**](<https://pixai.art/articles/zh/otome-special-mastering-bl-yaoi-art-in-pixai-2/?utm_source=eap_blog>)，經官方授權引用。
 >
-> **👉[在PixAI上使用基於DiT架構的模型](<https://pixai.art/en/market#type=DIT7_MODEL>)**
+> **👉[在PixAI上使用基於DiT架構的模型](<https://pixai.art/en/market#type=DIT7_MODEL?utm_source=eap_blog>)**
 
 ## 什麼是 DiT？
 
@@ -18,10 +18,10 @@ DiT（Diffusion Transformer）是新一代的圖像生成架構，與傳統 SDXL
 
 | 模型                                                                | 特色                           |
 |-------------------------------------------------------------------|------------------------------|
-| [Tsubaki](<https://pixai.art/zh/model/1884107375027888751>)       | 支援自然語言提示詞，多角色生成品質高（間距、互動、平衡） |
-| [Tsubaki v1.1](<https://pixai.art/zh/model/1935090614966005945>)  | 強化版，更精煉的面部、服裝與背景渲染           |
-| [Tsubaki Flash](<https://pixai.art/zh/model/1934789863877919615>) | 官方高速版本，大幅縮短生成時間，極高的 LoRA 相容性 |
-| [Serin](<https://pixai.art/zh/model/1911477338694141481>)         | 正統韓系藝術風格，視覺震撼的角色設計           |
+| [Tsubaki](<https://pixai.art/zh/model/1884107375027888751?utm_source=eap_blog>)       | 支援自然語言提示詞，多角色生成品質高（間距、互動、平衡） |
+| [Tsubaki v1.1](<https://pixai.art/zh/model/1935090614966005945?utm_source=eap_blog>)  | 強化版，更精煉的面部、服裝與背景渲染           |
+| [Tsubaki Flash](<https://pixai.art/zh/model/1934789863877919615?utm_source=eap_blog>) | 官方高速版本，大幅縮短生成時間，極高的 LoRA 相容性 |
+| [Serin](<https://pixai.art/zh/model/1911477338694141481?utm_source=eap_blog>)         | 正統韓系藝術風格，視覺震撼的角色設計           |
 
 ---
 
