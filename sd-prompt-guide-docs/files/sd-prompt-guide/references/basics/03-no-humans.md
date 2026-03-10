@@ -27,7 +27,7 @@ figure, character, portrait, body
 
 ### 自然風景
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969565824758421469>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969565824758421469?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -46,7 +46,7 @@ character, face, portrait
 
 ### 都市風景
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969566087377127882>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969566087377127882?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -67,9 +67,9 @@ character, face, portrait, crowd
 
 🖼️ 實際生成效果：
 
-- [bedroom](<https://pixai.art/artwork/1969566490290644548>)
-- [library](<https://pixai.art/artwork/1969566674894930484>)
-- [cafe](<https://pixai.art/artwork/1969566763949038280>)
+- [bedroom](<https://pixai.art/artwork/1969566490290644548?utm_source=eap_blog>)
+- [library](<https://pixai.art/artwork/1969566674894930484?utm_source=eap_blog>)
+- [cafe](<https://pixai.art/artwork/1969566763949038280?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -94,11 +94,11 @@ character, face, portrait
 
 🖼️ 實際生成效果：
 
-- [月餅（mooncake）](<https://pixai.art/artwork/1969567576165286765>)
-- [粽子(zongzi)](<https://pixai.art/artwork/1969567905358623113>)
-- [湯圓（tangyuan）](<https://pixai.art/artwork/1969567987213912395>)
-- [珍珠奶茶（bubble tea）](<https://pixai.art/artwork/1969569105725169399>)
-- [紅茶（black tea）](<https://pixai.art/artwork/1969569384282115582>)
+- [月餅（mooncake）](<https://pixai.art/artwork/1969567576165286765?utm_source=eap_blog>)
+- [粽子(zongzi)](<https://pixai.art/artwork/1969567905358623113?utm_source=eap_blog>)
+- [湯圓（tangyuan）](<https://pixai.art/artwork/1969567987213912395?utm_source=eap_blog>)
+- [珍珠奶茶（bubble tea）](<https://pixai.art/artwork/1969569105725169399?utm_source=eap_blog>)
+- [紅茶（black tea）](<https://pixai.art/artwork/1969569384282115582?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -118,9 +118,9 @@ figure, character, face
 
 🖼️ 實際生成效果：
 
-- [向日葵（sunflower）](<https://pixai.art/artwork/1969568543605829094>)
-- [茶花（camellia）](<https://pixai.art/artwork/1969568635850475981>)
-- [菊花（chrysanthemum）](<https://pixai.art/artwork/1969568713701478423>)
+- [向日葵（sunflower）](<https://pixai.art/artwork/1969568543605829094?utm_source=eap_blog>)
+- [茶花（camellia）](<https://pixai.art/artwork/1969568635850475981?utm_source=eap_blog>)
+- [菊花（chrysanthemum）](<https://pixai.art/artwork/1969568713701478423?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -141,8 +141,8 @@ character, face, portrait
 
 🖼️ 實際生成效果：
 
-- [咖啡豆](<https://pixai.art/artwork/1969569961430983834>)
-- [文具組合](<https://pixai.art/artwork/1969571477945137988>)
+- [咖啡豆](<https://pixai.art/artwork/1969569961430983834?utm_source=eap_blog>)
+- [文具組合](<https://pixai.art/artwork/1969571477945137988?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -177,7 +177,7 @@ figure, character, face
 
 ### 範例：放在地上的鞋子
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969571790031817169>) Positive:
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969571790031817169?utm_source=eap_blog>) Positive:
 ```
 still life, no humans,
 unworn shoes, sneakers,
@@ -202,8 +202,8 @@ figure, character
 
 🖼️ 實際生成效果：
 
-- [範例圖 1](<https://pixai.art/artwork/1969573219872526406>)
-- [範例圖 2](<https://pixai.art/artwork/1969573532817268837>)
+- [範例圖 1](<https://pixai.art/artwork/1969573219872526406?utm_source=eap_blog>)
+- [範例圖 2](<https://pixai.art/artwork/1969573532817268837?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -220,7 +220,7 @@ person, human, character, photo
 
 ### 海報/Banner 背景
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969575243312079766>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969575243312079766?utm_source=eap_blog>)
 
 Positive:
 ```

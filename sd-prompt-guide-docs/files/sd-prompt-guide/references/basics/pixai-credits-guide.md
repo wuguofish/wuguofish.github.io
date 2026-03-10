@@ -60,4 +60,4 @@ PixAI 每週舉辦**主題創作比賽**：
 
 ---
 
-資料來源：[pixai.art](https://pixai.art/articles/en/credits-on-pixai/)（2025年8月）
+資料來源：[pixai.art](https://pixai.art/articles/en/credits-on-pixai/?utm_source=eap_blog)（2025年8月）

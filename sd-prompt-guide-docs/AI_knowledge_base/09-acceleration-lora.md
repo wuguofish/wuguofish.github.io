@@ -44,7 +44,7 @@
 
 ### 1\. LCM（Latent Consistency Model）
 
-🔗 **PixAI 連結**：https://pixai.art/model/1687631572599847061
+🔗 **PixAI 連結**：https://pixai.art/model/1687631572599847061?utm_source=eap_blog
 
 **原理**：將擴散模型蒸餾成「一致性模型」，讓模型學會「一步到位」生成圖像。
 
@@ -58,7 +58,7 @@
 
 ### 2\. DMD2（Distribution Matching Distillation 2）
 
-🔗 **PixAI 連結**：https://pixai.art/zh/model/1897811443252033347
+🔗 **PixAI 連結**：https://pixai.art/zh/model/1897811443252033347?utm_source=eap_blog
 
 **原理**：透過「分佈匹配蒸餾」，學生模型快速學會老師模型的輸出分佈。
 
@@ -72,7 +72,7 @@
 
 ### 3\. PCM（Phased Consistency Model）- NormalCFG 版
 
-🔗 **PixAI 連結**：https://pixai.art/zh/model/1810142527271081205
+🔗 **PixAI 連結**：https://pixai.art/zh/model/1810142527271081205?utm_source=eap_blog
 
 **原理**：LCM 的改良版，將生成軌跡分段處理，減少誤差累積。
 
@@ -86,7 +86,7 @@
 
 ### 4\. WAI-illustrious-Rectified-4Steps
 
-🔗 **PixAI 連結**：https://pixai.art/zh/model/1857294002524835135
+🔗 **PixAI 連結**：https://pixai.art/zh/model/1857294002524835135?utm_source=eap_blog
 
 **原理**：基於 Rectified Flow 技術，專為 Illustrious 系列模型優化的 4 步加速 LoRA。
 
@@ -100,7 +100,7 @@
 
 ### 5\. Hyper SDXL
 
-🔗 **PixAI 連結**：https://pixai.art/zh/model/1783737893546128417
+🔗 **PixAI 連結**：https://pixai.art/zh/model/1783737893546128417?utm_source=eap_blog
 
 **原理**：ByteDance 開發的 Hyper-SD 技術，結合 Trajectory Segmented Consistency Distillation（TSCD）與 Human Feedback Learning，實現極低步數生成。
 
@@ -239,8 +239,8 @@ PCM 有兩種版本，差別在於 CFG 範圍：
 
 | 加速 LoRA              | PixAI 連結                                       |
 |----------------------|------------------------------------------------|
-| LCM                  | https://pixai.art/model/1687631572599847061    |
-| DMD2                 | https://pixai.art/zh/model/1897811443252033347 |
-| PCM (NormalCFG)      | https://pixai.art/zh/model/1810142527271081205 |
-| WAI-Rectified-4Steps | https://pixai.art/zh/model/1857294002524835135 |
-| Hyper SDXL           | https://pixai.art/zh/model/1783737893546128417 |
+| LCM                  | https://pixai.art/model/1687631572599847061?utm_source=eap_blog    |
+| DMD2                 | https://pixai.art/zh/model/1897811443252033347?utm_source=eap_blog |
+| PCM (NormalCFG)      | https://pixai.art/zh/model/1810142527271081205?utm_source=eap_blog |
+| WAI-Rectified-4Steps | https://pixai.art/zh/model/1857294002524835135?utm_source=eap_blog |
+| Hyper SDXL           | https://pixai.art/zh/model/1783737893546128417?utm_source=eap_blog |

@@ -21,7 +21,7 @@
 
 ```
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969510792091976598>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969510792091976598?utm_source=eap_blog>)
 
 ### 問題 2：想畫成熟男性，結果變阿伯
 
@@ -31,12 +31,12 @@
 
 | 想要的效果  | 建議用詞（都是有效的 Danbooru tag）                   | 範例圖（PixAI）                                                   |
 |--------|--------------------------------------------|--------------------------------------------------------------|
-| 少年感    | `bishounen`                                | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969540234820798124>) |
-| 青年感(1) | `manly`                                    | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969511546958035792>) |
-| 青年感(2) | `tall male`, `toned male`, `narrowed eyes` | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969512043666331691>) |
-| 輕熟感    | `tall male`, `stubble`, `muscular male`    | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969539218394127846>) |
-| 大叔感    | `mature male`, `beard`, `muscular male`    | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969539360340877425>) |
-| 老人     | `old man`, `grey hair`, `wrinkles`         | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969539540603234330>) |
+| 少年感    | `bishounen`                                | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969540234820798124?utm_source=eap_blog>) |
+| 青年感(1) | `manly`                                    | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969511546958035792?utm_source=eap_blog>) |
+| 青年感(2) | `tall male`, `toned male`, `narrowed eyes` | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969512043666331691?utm_source=eap_blog>) |
+| 輕熟感    | `tall male`, `stubble`, `muscular male`    | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969539218394127846?utm_source=eap_blog>) |
+| 大叔感    | `mature male`, `beard`, `muscular male`    | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969539360340877425?utm_source=eap_blog>) |
+| 老人     | `old man`, `grey hair`, `wrinkles`         | [🖼️ 實際生成效果](<https://pixai.art/artwork/1969539540603234330?utm_source=eap_blog>) |
 
 **⚠️ 避免使用這些「模型不認識」的詞**：
 
@@ -60,7 +60,7 @@
 
 💡 補充：`slim`、`slender` 在 Danbooru 已棄用，但 e621 系模型（如 NoobAI-XL）可使用 `slim_male`。
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969504032097544233>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969504032097544233?utm_source=eap_blog>)
 
 ### 問題 4：臉型不好看
 
@@ -81,7 +81,7 @@ thick eyebrows（粗眉）
 
 | narrowed eyes                                                                                                                                 | half-closed eyes                                                                                                                                 | empty eyes                                                                                                                                 | thick eyebrows                                                                                                                                 |
 |-----------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| [![narrowed eyes](https://images-ng.pixai.art/gi/orig/c54a6078-153e-4e94-ab62-0bc271b19365)](<https://pixai.art/artwork/1969542505303551693>) | [![half-closed eyes](https://images-ng.pixai.art/gi/orig/9c2ecb30-37c0-44c9-83e2-bb02ddd660bc)](<https://pixai.art/artwork/1969542583299331470>) | [![empty eyes](https://images-ng.pixai.art/gi/orig/25f4a1a2-3535-476e-856c-fde2ba074366)](<https://pixai.art/artwork/1969542719345245388>) | [![thick eyebrows](https://images-ng.pixai.art/gi/orig/f9820670-a2c1-46b5-bfad-4fc9b904662c)](<https://pixai.art/artwork/1969542850996724704>) |
+| [![narrowed eyes](https://images-ng.pixai.art/gi/orig/c54a6078-153e-4e94-ab62-0bc271b19365)](<https://pixai.art/artwork/1969542505303551693?utm_source=eap_blog>) | [![half-closed eyes](https://images-ng.pixai.art/gi/orig/9c2ecb30-37c0-44c9-83e2-bb02ddd660bc)](<https://pixai.art/artwork/1969542583299331470?utm_source=eap_blog>) | [![empty eyes](https://images-ng.pixai.art/gi/orig/25f4a1a2-3535-476e-856c-fde2ba074366)](<https://pixai.art/artwork/1969542719345245388?utm_source=eap_blog>) | [![thick eyebrows](https://images-ng.pixai.art/gi/orig/f9820670-a2c1-46b5-bfad-4fc9b904662c)](<https://pixai.art/artwork/1969542850996724704?utm_source=eap_blog>) |
 
 ---
 
@@ -96,7 +96,7 @@ thick eyebrows（粗眉）
 
 ### 範例：清秀少年
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969546758144778701>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969546758144778701?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -114,7 +114,7 @@ Negative:
 
 ### 範例：帥氣青年
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969546938723573302>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969546938723573302?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -132,7 +132,7 @@ Negative:
 
 ### 範例：陰鬱系美少年
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969548058845340243>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969548058845340243?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -259,7 +259,7 @@ figure, character, portrait, body
 
 ### 自然風景
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969565824758421469>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969565824758421469?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -278,7 +278,7 @@ character, face, portrait
 
 ### 都市風景
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969566087377127882>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969566087377127882?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -299,9 +299,9 @@ character, face, portrait, crowd
 
 🖼️ 實際生成效果：
 
-- [bedroom](<https://pixai.art/artwork/1969566490290644548>)
-- [library](<https://pixai.art/artwork/1969566674894930484>)
-- [cafe](<https://pixai.art/artwork/1969566763949038280>)
+- [bedroom](<https://pixai.art/artwork/1969566490290644548?utm_source=eap_blog>)
+- [library](<https://pixai.art/artwork/1969566674894930484?utm_source=eap_blog>)
+- [cafe](<https://pixai.art/artwork/1969566763949038280?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -326,11 +326,11 @@ character, face, portrait
 
 🖼️ 實際生成效果：
 
-- [月餅（mooncake）](<https://pixai.art/artwork/1969567576165286765>)
-- [粽子(zongzi)](<https://pixai.art/artwork/1969567905358623113>)
-- [湯圓（tangyuan）](<https://pixai.art/artwork/1969567987213912395>)
-- [珍珠奶茶（bubble tea）](<https://pixai.art/artwork/1969569105725169399>)
-- [紅茶（black tea）](<https://pixai.art/artwork/1969569384282115582>)
+- [月餅（mooncake）](<https://pixai.art/artwork/1969567576165286765?utm_source=eap_blog>)
+- [粽子(zongzi)](<https://pixai.art/artwork/1969567905358623113?utm_source=eap_blog>)
+- [湯圓（tangyuan）](<https://pixai.art/artwork/1969567987213912395?utm_source=eap_blog>)
+- [珍珠奶茶（bubble tea）](<https://pixai.art/artwork/1969569105725169399?utm_source=eap_blog>)
+- [紅茶（black tea）](<https://pixai.art/artwork/1969569384282115582?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -350,9 +350,9 @@ figure, character, face
 
 🖼️ 實際生成效果：
 
-- [向日葵（sunflower）](<https://pixai.art/artwork/1969568543605829094>)
-- [茶花（camellia）](<https://pixai.art/artwork/1969568635850475981>)
-- [菊花（chrysanthemum）](<https://pixai.art/artwork/1969568713701478423>)
+- [向日葵（sunflower）](<https://pixai.art/artwork/1969568543605829094?utm_source=eap_blog>)
+- [茶花（camellia）](<https://pixai.art/artwork/1969568635850475981?utm_source=eap_blog>)
+- [菊花（chrysanthemum）](<https://pixai.art/artwork/1969568713701478423?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -373,8 +373,8 @@ character, face, portrait
 
 🖼️ 實際生成效果：
 
-- [咖啡豆](<https://pixai.art/artwork/1969569961430983834>)
-- [文具組合](<https://pixai.art/artwork/1969571477945137988>)
+- [咖啡豆](<https://pixai.art/artwork/1969569961430983834?utm_source=eap_blog>)
+- [文具組合](<https://pixai.art/artwork/1969571477945137988?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -409,7 +409,7 @@ figure, character, face
 
 ### 範例：放在地上的鞋子
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969571790031817169>) Positive:
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969571790031817169?utm_source=eap_blog>) Positive:
 ```
 still life, no humans,
 unworn shoes, sneakers,
@@ -434,8 +434,8 @@ figure, character
 
 🖼️ 實際生成效果：
 
-- [範例圖 1](<https://pixai.art/artwork/1969573219872526406>)
-- [範例圖 2](<https://pixai.art/artwork/1969573532817268837>)
+- [範例圖 1](<https://pixai.art/artwork/1969573219872526406?utm_source=eap_blog>)
+- [範例圖 2](<https://pixai.art/artwork/1969573532817268837?utm_source=eap_blog>)
 
 Positive:
 ```
@@ -452,7 +452,7 @@ person, human, character, photo
 
 ### 海報/Banner 背景
 
-🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969575243312079766>)
+🖼️ 實際生成效果：[範例圖](<https://pixai.art/artwork/1969575243312079766?utm_source=eap_blog>)
 
 Positive:
 ```
