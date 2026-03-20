@@ -1,0 +1,132 @@
+<h1>自訂風格功能介紹</h1>
+
+<blockquote>
+  <p>📝 本文持續更新中，會隨著新的技巧或功能加入而更新。</p>
+  <p>以下是作者目前實驗出來的心得，不代表最佳做法，僅供參考。</p>
+  <p><strong>👉 <a href="https://pixai.art/?utm_source=eap_blog" target="_blank" rel="noreferrer noopener">在 PixAI 上使用 Tsubaki.2</a></strong></p>
+</blockquote>
+
+<h2>什麼是 Style Code？</h2>
+<p>Tsubaki.2 引入了「風格」功能，讓使用者可以自訂畫面風格，類似以前 SDXL 的品質標籤工具。</p>
+<ul>
+  <li>就算不選官方給的預設風格，自己在提示詞內描述風格也有效果。</li>  
+  <li>自訂風格框（Customize Style）和提示詞（Prompt）的效果<strong>不同</strong>——寫在風格框內的風格效果更強烈。（詳見下方「把風格描述寫在自訂風格框和提示詞的差異」段落）</li> 
+  <li>建立自訂風格後，可以透過分享功能產出一組Style Code（例如 <code>SH171537</code>），可以分享給其他人使用。</li>
+  <li>你可以把 Style Code 想像成一組「風格 P 值」——分享代碼就能讓別人用你的風格！</li>
+</ul>
+
+<h3>自訂風格示範</h3>
+<p>附圖第一張是套了我自己的Style Code（<code>SH171537</code>），第二張是沒有套風格的。（同提示詞、同 seed）</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; min-width:250px;">
+    <a href="https://pixai.art/artwork/1988169771693716217?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/style-with-SH171537.jpg" alt="套用 SH171537 風格" style="max-width:400px; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">套用 Style Code SH171537</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; min-width:250px;">
+    <a href="https://pixai.art/artwork/1988169040595419314?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/style-without.jpg" alt="無風格對照" style="max-width:400px; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">無風格對照</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>自訂風格製作心得</h2>
+<p>以下是我目前實驗出來的一些心得：</p>
+<ul>
+  <li>透過反覆嘗試不同的風格描述詞來找到喜歡的效果。</li>
+  <li>可以從描述<strong>繪畫風格</strong>（如水彩、水墨、厚塗）、<strong>光影效果</strong>（如電影光影、逆光）、<strong>色調氛圍</strong>（如暗色系、高對比）等方向去嘗試。</li>
+  <li>有時候意外的組合反而會產生很棒的效果，多實驗就對了！</li>
+</ul>
+
+<p>這部分是初步心得，歡迎大家分享自己的經驗 😊</p>
+
+<hr />
+
+<h2 id="style-field-vs-prompt">把風格描述寫在自訂風格框和提示詞的差異</h2>
+
+<p>經過實驗發現：同樣的風格描述寫在不同的地方，效果有明顯差異。</p>
+
+<h3>🔍 發現 1：風格框的效果比提示詞更強</h3>
+<p>以下面這段風格描述為例：</p>
+<pre><code>The background blurs with motion, emphasizing speed through light trails while maintaining sharp focus on the rider and her machine.
+The image balances hyper-realistic textures of leather, metal, and fabric with stylized lighting that heightens the cyberpunk aesthetic.</code></pre>
+
+<div class="comparison-grid">
+  <figure style="margin:0; text-align:center; max-width:500px;">
+    <a href="https://pixai.art/artwork/1991584987169247425?utm_source=eap_blog" target="_blank">
+	<img src="content/images/style-prompt/style_write_in_prompt.png" alt="風格描述寫在提示詞內" 
+	style="max-width:100%; border-radius:8px;"></a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">風格描述寫在提示詞（Prompt）內</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; max-width:500px;">
+	<a href="https://pixai.art/artwork/1991592339123141812?utm_source=eap_blog" target="_blank">
+	<img src="content/images/style-prompt/style_write_in_style_field.png" alt="風格描述寫在自訂風格框內" 
+	style="max-width:100%; border-radius:8px;"></a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">風格描述寫在自訂風格框（Customize Style）內</figcaption>
+  </figure>
+</div>
+<p>可以明顯看出，寫在自訂風格框時，整體的畫風變得<strong>更加強烈</strong>。</p>
+
+<h3>🔍 發現 2：提示詞助手會補強風格描述</h3>
+<p>如果有開啟<strong>提示詞助手（Prompt Helper）</strong>，從生成紀錄（Generation Tasks）中會發現：提示詞助手會將自訂風格框的內容在提示詞內再次補強。因此開啟提示詞助手的情況下，風格會<strong>更加強烈</strong>。</p>
+<div class="comparison-grid">
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/ph_write_style_twice.png" alt="有開提示詞助手的生成紀錄" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">有開提示詞助手 → 風格描述被再次補強</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/style_field_cannot_seen_in_generation_tasks_without_ph.png" alt="沒有開提示詞助手的生成紀錄" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">沒有開提示詞助手 → 生成紀錄中看不到風格框內容</figcaption>
+  </figure>
+</div>
+
+<h2>將自訂風格轉換成Style Code 的好處</h3>
+<ul>
+	<li>便於分享：只要短短幾個字元，就能將風格套用在別的作品上</li>
+	<li>能隱藏你的風格描述</li>
+</ul>
+<p>作品釋出（publish）後，其他使用者可以在作品資訊內看到你的自訂風格框內容：</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items: center;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/style_context_in_works_after_publish.png" alt="釋出後可看到風格描述" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">直接寫風格描述 → 釋出後其他人可以看到完整內容</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/style_code_in_works_after_publish.png" alt="釋出後只看到 Style Code" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">使用 Style Code → 釋出後只顯示代碼，原始描述受保護</figcaption>
+  </figure>
+</div>
+<p>因此，如果你想分享作品但不想公開風格描述的細節，<strong>使用 Style Code 是更好的選擇</strong>。</p>
+
+<hr />
+
+<h2>提示詞助手的影響 ⚠️</h2>
+<p>在做預設風格實驗的時候，發現一件很有趣的事情：</p>
+<ul>
+  <li>開<strong>提示詞助手</strong>雖然會讓整體畫面氛圍感和協調感更好，</li>
+  <li>但有時候提示詞助手在改寫提示詞時會<strong>過度解讀提示詞</strong>，造成角色外表改變。</li>
+</ul>
+<p>因此——如果希望模型不認識的<strong>原創角色</strong>外表能保持較高的一致性，建議<strong>把提示詞助手關起來</strong>，減少變數。</p>
+
+<hr />
+
+<h2>補充：封測期間的預設風格對照表</h2>
+<p>封測期間用「阿宇」的提示詞去測預設風格做出來的對照圖。（圖片裡面的 PH 是提示詞助手的簡稱）</p>
+<p>雖然正式上線後，預設風格的名稱和選項有一些和封測期間對不上，但實驗都做了，大家可以加減看看。</p>
+<div style="display:flex; justify-content:center; margin:16px 0;">
+  <figure style="margin:0; text-align:center; max-width:100%;">
+    <img src="content/images/tsubaki2/preset-comparison.jpg" alt="預設風格對照圖" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">預設風格 × 提示詞助手（PH）對照</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>結語</h2>
+<p>這篇文章會持續更新，之後若有新的技巧或功能釋出都會補上來。</p>
+<p>想要看更多的風格，可以到<a href="#19-style-code-sharing">Style Code 分享篇</a></p>
+<p>或是到<a href="https://discord.com/channels/1041682784856584273/1483065736258785290" target="_blank">PixAI 官方Discord的專屬頻道</a></p>

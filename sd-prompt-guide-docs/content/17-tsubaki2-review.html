@@ -13,34 +13,13 @@
 <ul>
   <li><strong>比例更好</strong>：人/物間的比例比原本的 Tsubaki 好很多，對提示詞的理解也比之前好。</li>
   <li><strong>畫面更生動</strong>：畫面比 SDXL 生動，也不會有之前 Tsubaki 人物有時會出現獵奇畫面的情況。</li>
-  <li><strong>風格描述有效</strong>：就算不選官方給的預設風格，自己在提示詞內下風格也有用。</li>
-  <li><strong>自訂 Style Code</strong>：能自己自訂風格（類似品質標籤工具），再把風格代碼分享給別人用。</li>
-</ul>
-<p><em>* 註：自訂風格框（Customize Style）和提示詞（Prompt）雖然都能寫風格描述，但效果不同——寫在風格框內的效果更強烈。詳細比較請參考<a href="18-style-code-sharing.html#style-field-vs-prompt">Style Code 分享篇</a>。</em></p>
-
-<h3>Style Code 示範</h3>
-<p>附圖第一張是套了我自己的風格代碼（<code>SH171537</code>），第二張是沒有套風格的。（同提示詞、同 seed）</p>
-<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
-  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
-    <a href="https://pixai.art/artwork/1988169771693716217?utm_source=eap_blog" target="_blank">
-      <img src="content/images/tsubaki2/style-with-SH171537.jpg" alt="套用 SH171537 風格" style="max-width:100%; border-radius:8px;">
-    </a>
-    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">套用 Style Code SH171537</figcaption>
-  </figure>
-  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
-    <a href="https://pixai.art/artwork/1988169040595419314?utm_source=eap_blog" target="_blank">
-      <img src="content/images/tsubaki2/style-without.jpg" alt="無風格對照" style="max-width:100%; border-radius:8px;">
-    </a>
-    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">無風格對照</figcaption>
-  </figure>
-</div>
-
-<h2>模式與限制</h2>
-<ul>
-  <li>有<strong>四種模式</strong>可以選，我自己覺得標準就很夠用，點數也不多。</li>
+    <li>有<strong>四種模式</strong>可以選，我自己覺得標準就很夠用，點數也不多。</li>
   <li>有時候用<strong>輕量模式</strong>效果也不會太差。</li>
-  <li><strong>LoRA 功能已開放！</strong>（2026/3/20 更新）進階選項的一些參數目前仍不能自己調整。</li>
+  <li><strong>風格描述有效</strong>：就算不選官方給的預設風格，自己在提示詞內下風格也有用。</li>
+  <li><strong>自訂 Style Code</strong>：能自己自訂風格（類似可分享的品質標籤工具），再把風格代碼分享給別人用。</li>
 </ul>
+<p><em>* 註：自訂風格框（Customize Style）和提示詞（Prompt）雖然都能寫風格描述，但效果不同——寫在風格框內的效果更強烈。<br/>
+　　 詳細內容請參考<a href="#18-style-code-intro">自訂風格功能介紹篇</a>。</em></p>
 
 <hr />
 
@@ -256,27 +235,45 @@
   </figure>
 </div>
 
-<hr />
-
-<h2>預設風格對照</h2>
-<p>封測期間用「阿宇」的提示詞去測預設風格做出來的對照圖。（圖片裡面的 PH 是提示詞助手的簡稱）</p>
-<p>雖然正式上線後，預設風格的名稱和選項有一些和封測期間對不上，但實驗都做了，大家可以加減看看。</p>
-<div style="display:flex; justify-content:center; margin:16px 0;">
-  <figure style="margin:0; text-align:center; max-width:100%;">
-    <img src="content/images/tsubaki2/preset-comparison.jpg" alt="預設風格對照圖" style="max-width:100%; border-radius:8px;">
-    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">預設風格 × 提示詞助手（PH）對照</figcaption>
+<!-- 比較 10：樂器演奏 -->
+<h3>比較 10：樂器演奏 🥁</h3>
+<p>Tsubaki.2 在畫樂器演奏的場景時，人物的動作和構圖比較合理自然。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1991632406718343301?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/drums-tsubaki2.jpg" alt="鼓手 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1878877947323521740?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/drums-plantmilk.jpg" alt="鼓手 - Plant Milk (Flax)" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Plant Milk (Flax)</figcaption>
   </figure>
 </div>
 
-<hr />
-
-<h2>重要發現：提示詞助手的影響 ⚠️</h2>
-<p>在做預設風格實驗的時候，發現一件很有趣的事情：</p>
-<ul>
-  <li>開<strong>提示詞助手</strong>雖然會讓整體畫面氛圍感和協調感更好，</li>
-  <li>但有時候提示詞助手在改寫提示詞時會<strong>過度解讀提示詞</strong>，造成角色外表改變。</li>
-</ul>
-<p>因此——如果希望模型不認識的<strong>原創角色</strong>外表能保持較高的一致性，建議<strong>把提示詞助手關起來</strong>，減少變數。</p>
+<!-- 比較 11：檳榔西施 -->
+<h3>比較 11：檳榔西施 🌴</h3>
+<p>我目前覺得<strong>最能展現 Tsubaki.2 進步幅度</strong>的一組。</p>
+<p>台灣省道曾經的特色景象：檳榔攤的檳榔西施。<br />
+以前用 Tsubaki 生成這個主題的時候，總會看到檳榔西施姐姐各種穿過櫃台、穿過檳榔攤的玻璃櫥窗，<br />
+大概算了三十幾張才終於有一張符合物理定律的作品。</p>
+<p>Tsubaki.2 的成功率大約有 <strong>3/4</strong>，進步非常顯著。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1991637177834922924?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/betelnut-tsubaki2.jpg" alt="檳榔西施 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1943184053635757442?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/betelnut-tsubaki.jpg" alt="檳榔西施 - Tsubaki" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki（大約算了 30+ 張才有一張合理的）</figcaption>
+  </figure>
+</div>
 
 <hr />
 

@@ -1,0 +1,131 @@
+<h1>Customize Style Feature Guide</h1>
+
+<blockquote>
+  <p>📝 This article is updated as new tips and features are discovered.</p>
+  <p>The following are based on the author's personal experiments and may not represent best practices.</p>
+  <p><strong>👉 <a href="https://pixai.art/en/?utm_source=eap_blog" target="_blank" rel="noreferrer noopener">Try Tsubaki.2 on PixAI</a></strong></p>
+</blockquote>
+
+<h2>What is a Style Code?</h2>
+<p>Tsubaki.2 introduces a "Style" feature that lets users customize the visual style of generated images, similar to the quality tag tool from the SDXL era.</p>
+<ul>
+  <li>Even without selecting an official preset style, writing style descriptions directly in the prompt is effective.</li>
+  <li>The Customize Style field and Prompt field produce <strong>different</strong> effects — descriptions in the Customize Style field produce stronger results. (See the "Customize Style Field vs Prompt" section below for details.)</li>
+  <li>After creating a custom style, you can generate a Style Code (e.g. <code>SH171537</code>) through the sharing feature, which others can use to apply your style.</li>
+  <li>Think of Style Codes as "style P-values" — share a code and let others use your style!</li>
+</ul>
+
+<h3>Style Code Demo</h3>
+<p>The first image below uses my Style Code (<code>SH171537</code>), the second has no style applied. (Same prompt, same seed)</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; min-width:250px;">
+    <a href="https://pixai.art/artwork/1988169771693716217?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/style-with-SH171537.jpg" alt="With Style Code SH171537" style="max-width:400px; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">With Style Code SH171537</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; min-width:250px;">
+    <a href="https://pixai.art/artwork/1988169040595419314?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/style-without.jpg" alt="No style applied" style="max-width:400px; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">No style applied</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>Tips for Creating Custom Styles</h2>
+<p>Here are some tips from my experiments so far:</p>
+<ul>
+  <li>Experiment with different style descriptions to find what you like.</li>
+  <li>Try different approaches: <strong>painting style</strong> (watercolor, ink wash, impasto), <strong>lighting</strong> (cinematic lighting, backlight), <strong>color mood</strong> (muted tones, high contrast), etc.</li>
+  <li>Sometimes unexpected combinations produce amazing results — just keep experimenting!</li>
+</ul>
+<p>These are preliminary findings — feel free to share your own discoveries 😊</p>
+
+<hr />
+
+<h2 id="style-field-vs-prompt">Customize Style Field vs Prompt</h2>
+
+<p>Through experimentation, I discovered that the same style description produces noticeably different results depending on where you write it.</p>
+
+<h3>🔍 Finding 1: The Customize Style field produces stronger effects</h3>
+<p>Using this style description as an example:</p>
+<pre><code>The background blurs with motion, emphasizing speed through light trails while maintaining sharp focus on the rider and her machine.
+The image balances hyper-realistic textures of leather, metal, and fabric with stylized lighting that heightens the cyberpunk aesthetic.</code></pre>
+
+<div class="comparison-grid">
+  <figure style="margin:0; text-align:center; max-width:500px;">
+    <a href="https://pixai.art/artwork/1991584987169247425?utm_source=eap_blog" target="_blank">
+    <img src="content/images/style-prompt/style_write_in_prompt.png" alt="Style description in Prompt"
+    style="max-width:100%; border-radius:8px;"></a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Style description written in Prompt field</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; max-width:500px;">
+    <a href="https://pixai.art/artwork/1991592339123141812?utm_source=eap_blog" target="_blank">
+    <img src="content/images/style-prompt/style_write_in_style_field.png" alt="Style description in Customize Style field"
+    style="max-width:100%; border-radius:8px;"></a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Style description written in Customize Style field</figcaption>
+  </figure>
+</div>
+<p>The difference is clear — the style effect is <strong>much stronger</strong> when written in the Customize Style field.</p>
+
+<h3>🔍 Finding 2: Prompt Helper reinforces style descriptions</h3>
+<p>When <strong>Prompt Helper</strong> is enabled, the Generation Tasks log reveals that it reinforces the Customize Style field content by incorporating it into the prompt again. This makes the style effect <strong>even stronger</strong>.</p>
+<div class="comparison-grid">
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/ph_write_style_twice.png" alt="Generation Tasks with Prompt Helper ON" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Prompt Helper ON → Style description reinforced</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/style_field_cannot_seen_in_generation_tasks_without_ph.png" alt="Generation Tasks with Prompt Helper OFF" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Prompt Helper OFF → Style field content not visible in Generation Tasks</figcaption>
+  </figure>
+</div>
+
+<h2>Benefits of Converting Custom Styles to Style Codes</h2>
+<ul>
+  <li>Easy to share: Just a few characters to apply a style to other artworks</li>
+  <li>Protects your style description</li>
+</ul>
+<p>After publishing an artwork, other users can see your Customize Style field content in the artwork details:</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items: center;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/style_context_in_works_after_publish.png" alt="Style description visible after publish" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Direct style description → Others can see the full content after publish</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:300px;">
+    <img src="content/images/style-prompt/style_code_in_works_after_publish.png" alt="Only Style Code visible after publish" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Using Style Code → Only the code is shown, original description is protected</figcaption>
+  </figure>
+</div>
+<p>Therefore, if you want to share your work but keep your style description private, <strong>using a Style Code is the better choice</strong>.</p>
+
+<hr />
+
+<h2>Prompt Helper Impact ⚠️</h2>
+<p>During preset style experiments, an interesting finding emerged:</p>
+<ul>
+  <li>Enabling <strong>Prompt Helper</strong> generally improves the overall atmosphere and coherence of the image.</li>
+  <li>However, the Prompt Helper sometimes <strong>over-interprets the prompt</strong>, causing unexpected changes to the character's appearance.</li>
+</ul>
+<p>Therefore — if you need high consistency for <strong>original characters</strong> that the model doesn't recognize, it's recommended to <strong>turn off the Prompt Helper</strong> to reduce variables.</p>
+
+<hr />
+
+<h2>Appendix: Preset Style Comparison Chart (Beta)</h2>
+<p>This comparison chart was made during the beta testing period using "Tsunu's" prompt to test all preset styles. (PH = Prompt Helper)</p>
+<p>Some preset style names and options have changed since the official launch, but the experimental results still serve as useful reference.</p>
+<div style="display:flex; justify-content:center; margin:16px 0;">
+  <figure style="margin:0; text-align:center; max-width:100%;">
+    <img src="content/images/tsubaki2/preset-comparison.jpg" alt="Preset Style Comparison Chart" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Preset Styles × Prompt Helper (PH) Comparison</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>Closing</h2>
+<p>This article will be updated as new tips or features are released.</p>
+<p>Want to see more styles? Check out the <a href="#19-style-code-sharing-en">Style Code Collection</a>.</p>
+<p>Or visit the <a href="https://discord.com/channels/1041682784856584273/1483065736258785290" target="_blank">dedicated channel on PixAI's official Discord</a>.</p>
