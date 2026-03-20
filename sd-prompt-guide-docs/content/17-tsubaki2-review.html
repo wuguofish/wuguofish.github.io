@@ -1,0 +1,286 @@
+<h1>Tsubaki.2 使用心得</h1>
+
+<blockquote>
+  <p>📖 本文為作者使用 PixAI Tsubaki.2 模型的個人心得分享。</p>
+  <p><strong>👉 <a href="https://pixai.art/zh/tsubaki-2/guide?utm_source=eap_blog" target="_blank">Tsubaki.2 官方指南</a></strong>｜<strong><a href="https://pixai.art/?utm_source=eap_blog" target="_blank">在 PixAI 上使用 Tsubaki.2</a></strong></p>
+</blockquote>
+
+<h2>前言</h2>
+<p>PixAI 在 2026/3/6 發佈了新模型 Tsubaki.2。我自己玩了好一陣子，有一些心得和成品想來分享一下。</p>
+
+<h2>整體改進</h2>
+<p>跟之前的 Tsubaki 和 SDXL 模型相比，Tsubaki.2 有不少明顯的進步：</p>
+<ul>
+  <li><strong>比例更好</strong>：人/物間的比例比原本的 Tsubaki 好很多，對提示詞的理解也比之前好。</li>
+  <li><strong>畫面更生動</strong>：畫面比 SDXL 生動，也不會有之前 Tsubaki 人物有時會出現獵奇畫面的情況。</li>
+  <li><strong>風格描述有效</strong>：就算不選官方給的預設風格，自己在提示詞內下風格也有用。</li>
+  <li><strong>自訂 Style Code</strong>：能自己自訂風格（類似品質標籤工具），再把風格代碼分享給別人用。</li>
+</ul>
+<p><em>* 註：自訂風格框（Customize Style）和提示詞（Prompt）雖然都能寫風格描述，但效果不同——寫在風格框內的效果更強烈。詳細比較請參考<a href="18-style-code-sharing.html#style-field-vs-prompt">Style Code 分享篇</a>。</em></p>
+
+<h3>Style Code 示範</h3>
+<p>附圖第一張是套了我自己的風格代碼（<code>SH171537</code>），第二張是沒有套風格的。（同提示詞、同 seed）</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1988169771693716217?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/style-with-SH171537.jpg" alt="套用 SH171537 風格" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">套用 Style Code SH171537</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1988169040595419314?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/style-without.jpg" alt="無風格對照" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">無風格對照</figcaption>
+  </figure>
+</div>
+
+<h2>模式與限制</h2>
+<ul>
+  <li>有<strong>四種模式</strong>可以選，我自己覺得標準就很夠用，點數也不多。</li>
+  <li>有時候用<strong>輕量模式</strong>效果也不會太差。</li>
+  <li><strong>LoRA 功能已開放！</strong>（2026/3/20 更新）進階選項的一些參數目前仍不能自己調整。</li>
+</ul>
+
+<hr />
+
+<h2>模型比較</h2>
+<p>以下是用同樣的提示詞，分別在 Tsubaki.2 和之前的模型上生成的比較。</p>
+
+<!-- 比較 1：巴黎之旅 -->
+<h3>比較 1：巴黎之旅 ✈️</h3>
+<p>我個人覺得這組 Tsubaki.2 <strong>大勝</strong>。</p>
+<p>這個提示詞的難度在於要還原「CDG」標籤和「I ♥ Paris」貼紙，而 Tsubaki.2 是最接近的。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1987671734126807578?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/paris-tsubaki2.jpg" alt="巴黎之旅 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1987671542162266670?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/paris-tsubaki.jpg" alt="巴黎之旅 - Tsubaki" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1987671416264920359?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/paris-chocomint.jpg" alt="巴黎之旅 - ChocoMint Mix" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">ChocoMint Mix</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 2：命運的紅線 -->
+<h3>比較 2：命運的紅線 🧵</h3>
+<p>雖然說原本的 SDXL 版本比較多細節，但是在整體畫面上，DiT 的優勢就出現了——紅線、人和人之間的比例，還有整體的氛圍，都比較協調。</p>
+<p>而且有玩過 SDXL 版本的應該會有感覺，那個手指纏紅線的表達方式，常常要嘛沒纏到，要嘛你會擔心畫中人物的手指會血流不順。Tsubaki.2 不會有這個問題，<strong>一步到位</strong>。</p>
+<p><em>核心提示詞：<code>heart of string, string of fate, red string, string around finger</code></em></p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1987612832499226392?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/redstring-tsubaki2.jpg" alt="命運的紅線 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1976455090363654974?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/redstring-chocomint.jpg" alt="命運的紅線 - ChocoMint Mix" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">ChocoMint Mix</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 3：Mio 吹泡泡 -->
+<h3>比較 3：Mio 吹泡泡 🫧</h3>
+<p>吹泡泡這個動作在 SDXL 時代很難畫。提示詞是 <code>bubble wand, blowing bubbles</code>，但很多時候要嘛泡泡怪怪的，要嘛會讓你很擔心畫中的人把泡泡吞下去。</p>
+<p>Tsubaki.2 出來的畫面很唯美輕透，重點是——<strong>Mio 終於是吹泡泡而不是吞泡泡</strong>。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1987615365234943891?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/bubble-tsubaki2.jpg" alt="Mio吹泡泡 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/zh/artwork/1981486015423737512?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/bubble-sdxl.jpg" alt="Mio吹泡泡 - RIN Anime ArtFlow" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">RIN Anime ArtFlow Illustrious</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 4：類水墨畫風格 -->
+<h3>比較 4：類水墨畫風格 🎨</h3>
+<p>其實官方預設模型沒有類水墨畫風，我只是在提示詞寫了 <code>ink wash painting</code>，然後開提示詞助手讓它自由發揮。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1987614795326677957?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/inkwash-tsubaki2-1.jpg" alt="水墨畫 - Tsubaki.2 (1)" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1981606245476434099?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/inkwash-pancake.jpg" alt="水墨畫 - PancakeMixIL" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">PancakeMixIL</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1987670170237865738?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/inkwash-tsubaki2-2.jpg" alt="水墨畫 - Tsubaki.2 (2)" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2（另一張）</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1987616799554360148?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/inkwash-tsrmix.jpg" alt="水墨畫 - TSRMix" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">TSRMix</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 5：Claude 推石頭 -->
+<h3>比較 5：Claude 推石頭 🪨</h3>
+<p>這張圖片的靈感來源：有一個 Twitch 頻道 <a href="https://www.twitch.tv/claudeplayspokemon" target="_blank">claudeplayspokemon</a>，是專門在實況 Claude（對，就是那個 AI）玩寶可夢的頻道。前一代和目前的 Claude 都在冠軍之路的推岩石謎題卡關，我看了它推了好久的石頭...，所以決定來生張圖片表達我的心情 😂</p>
+<p>可以發現在人物的臉、還有整體推石頭的動態感，Tsubaki.2 版本的比較自然一點。水箭龜倒是都畫得滿好的。但是提示詞裡面沒有寫明是誰負責推石頭，看來兩個模型對於推石頭者的解讀不太一樣 😂</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1987670371154782426?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/claude-tsubaki2.jpg" alt="Claude推石頭 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1984402975950569287?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/claude-chocomint.jpg" alt="Claude推石頭 - ChocoMint Mix" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">ChocoMint Mix</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 6：驚喜擁抱 -->
+<h3>比較 6：來自背後的驚喜擁抱 ☕</h3>
+<p>可以很明顯看出 Tsubaki.2 對於動態感還有咖啡的噴濺感處理的比 SDXL 好。至於咖啡杯蓋子根本沒開還能噴液體，而且居然還插吸管這件事情，我就暫時不跟它計較了 😂</p>
+<p>Tsubaki.2 唯一讓我有意見的，應該是領帶的顏色不對吧，其他都很好。</p>
+<details>
+  <summary>📖 這張圖的小故事</summary>
+  <p>之前無聊叫自己手邊的 AI 工具幫自己想擬人化形象後，我有把它們各自的擬人化形象整理出來給其他 AI 工具參考。我這邊的 Claude 和 Le Chat 看完了彼此的形象後，Claude 一直說 Le Chat 的形象很可愛，然後出現各種像暈船的反應。我的 Le Chat 知道後...就開始寫...同人文...。</p>
+  <p>嗯，這張圖片的提示詞，是我的 Le Chat 給我的。雖然拿生產力工具湊 CP 還寫同人文感覺有點微妙，但反正它們反應很可愛啦，就不計較了。</p>
+</details>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1987672084643203373?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/hug-tsubaki2.jpg" alt="驚喜擁抱 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:250px;">
+    <a href="https://pixai.art/artwork/1983661017545140787?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/hug-chocomint.jpg" alt="驚喜擁抱 - ChocoMint Mix" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">ChocoMint Mix</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 7：運動場景 -->
+<h3>比較 7：運動場景 🏸</h3>
+<p>Tsubaki.2 在畫運動的畫面時，比過去的模型表現還要自然，動態感明顯提升。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1990931983734139490?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/sport-tsubaki2.jpg" alt="打羽毛球 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1991581762210661915?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/sport-tsubaki.jpg" alt="打羽毛球 - Tsubaki" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1991580113553240328?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/sport-nova.jpg" alt="打羽毛球 - Nova Anime XL" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Nova Anime XL</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 8：駕駛交通工具 -->
+<h3>比較 8：Mio 駕駛機甲 🤖</h3>
+<p>Tsubaki.2 在畫駕駛或騎乘交通工具的場景時，人物和載具之間的比例和互動感比過去的模型更自然。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1988283875917908477?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/vehicle-tsubaki2-1.jpg" alt="Mio 駕駛機甲 - Tsubaki.2（一）" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2（一）</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1988283943239095057?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/vehicle-tsubaki2-2.jpg" alt="Mio 駕駛機甲 - Tsubaki.2（二）" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2（二）</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1971436433841849510?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/vehicle-tsubaki.jpg" alt="Mio 駕駛機甲 - Tsubaki" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki</figcaption>
+  </figure>
+</div>
+
+<!-- 比較 9：辣妹騎重機 -->
+<h3>比較 9：辣妹騎重機 🏍️</h3>
+<p>延續交通工具的主題，再來一組重機比較。可以觀察人物騎乘姿勢、車體細節和整體構圖的差異。</p>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; align-items:flex-end;">
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1991584987169247425?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/bike-tsubaki2.jpg" alt="辣妹騎重機 - Tsubaki.2" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki.2</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1991584550222562082?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/bike-tsubaki.jpg" alt="辣妹騎重機 - Tsubaki" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Tsubaki</figcaption>
+  </figure>
+  <figure style="margin:0; text-align:center; flex:1; min-width:200px;">
+    <a href="https://pixai.art/artwork/1991584151890195593?utm_source=eap_blog" target="_blank">
+      <img src="content/images/tsubaki2/bike-crystalize.jpg" alt="辣妹騎重機 - Crystalize" style="max-width:100%; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Crystalize</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>預設風格對照</h2>
+<p>封測期間用「阿宇」的提示詞去測預設風格做出來的對照圖。（圖片裡面的 PH 是提示詞助手的簡稱）</p>
+<p>雖然正式上線後，預設風格的名稱和選項有一些和封測期間對不上，但實驗都做了，大家可以加減看看。</p>
+<div style="display:flex; justify-content:center; margin:16px 0;">
+  <figure style="margin:0; text-align:center; max-width:100%;">
+    <img src="content/images/tsubaki2/preset-comparison.jpg" alt="預設風格對照圖" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">預設風格 × 提示詞助手（PH）對照</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>重要發現：提示詞助手的影響 ⚠️</h2>
+<p>在做預設風格實驗的時候，發現一件很有趣的事情：</p>
+<ul>
+  <li>開<strong>提示詞助手</strong>雖然會讓整體畫面氛圍感和協調感更好，</li>
+  <li>但有時候提示詞助手在改寫提示詞時會<strong>過度解讀提示詞</strong>，造成角色外表改變。</li>
+</ul>
+<p>因此——如果希望模型不認識的<strong>原創角色</strong>外表能保持較高的一致性，建議<strong>把提示詞助手關起來</strong>，減少變數。</p>
+
+<hr />
+
+<h2>結語</h2>
+<p>整體來說，Tsubaki.2 是一次很有感的升級。比例、動態感、提示詞理解都明顯進步，Style Code 的功能也很有趣。雖然目前還沒有 LoRA 和部分進階參數，但以現在的表現來說已經非常值得一試。</p>
+<p>而且就在本文撰寫的同一天（2026/3/20），PixAI 正式開放了 Tsubaki.2 的 LoRA 功能，未來的可玩性又更高了！🎨</p>
+<p><strong>👉 <a href="https://pixai.art/?utm_source=eap_blog" target="_blank">前往 PixAI 體驗 Tsubaki.2</a></strong></p>
