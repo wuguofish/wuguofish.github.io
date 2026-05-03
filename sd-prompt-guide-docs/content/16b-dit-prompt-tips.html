@@ -90,7 +90,7 @@
 </tr>
 <tr>
 <td>大量品質 tag（<code>8k, ultra-detailed, extremely detailed</code>）</td>
-<td>DiT 模型本身畫質就穩、疊品質 tag 可能會跟預期效果不一致（不一定稀釋、也可能用力過猛）。最多放 1 個風格詞</td>
+<td>DiT 模型本身畫質就穩、疊品質 tag 可能會跟預期效果不一致。除非效果真的很差，否則同意思的風格詞不用重複寫。</td>
 </tr>
 <tr>
 <td>底線串接（<code>black_hair</code>、<code>looking_at_viewer</code>）</td>
@@ -98,15 +98,11 @@
 </tr>
 <tr>
 <td>括號權重 <code>(black hair:1.2)</code></td>
-<td>DiT 不認這種權重語法；想強調某元素，重新組句、把它放前面</td>
+<td>DiT 不認識這種權重語法；想強調某元素，重新組句、把它放前面</td>
 </tr>
 <tr>
 <td><code>right: ... left: ...</code> 區塊或 <code>BREAK</code> 隔離多人</td>
 <td>在 DiT 上仍有用、但效果不特別突出；改用自然語言敘述關係、整體畫面通常更生動（見後方多人圖段）</td>
-</tr>
-<tr>
-<td>角色 LoRA trigger 補丁式放最前（<code>tsunu, 1boy, ...</code>）</td>
-<td>DiT 上建議改成把 trigger 嵌入敘述（如 <code>A young man named tsunu...</code>）；詳見後方 LoRA 段</td>
 </tr>
 </tbody>
 </table>
@@ -114,9 +110,9 @@
 <hr />
 
 <h2>生成參數差異</h2>
-<p>除了 prompt 寫法、DiT 模型（如 Tsubaki.2）的參數面板跟 SDXL 也不一樣：</p>
+<p>除了 prompt 寫法、一些DiT 模型（如 Tsubaki.2）的參數面板跟 SDXL 也不一樣：</p>
 <ul>
-  <li><strong>CFG Scale 與步數設定不存在</strong>——SDXL 上常調的這兩個參數、在 DiT 介面根本沒有。</li>
+  <li><strong>CFG Scale 與步數設定不一定存在</strong>——SDXL 上常調的這兩個參數、在Tsubaki.2介面根本沒有。</li>
   <li><strong>改用「模式」(Mode) 控制品質 vs 速度</strong>：選項是 <code>輕量 / 標準 / 專業 / 極致</code>（英文：<code>Lite / Standard / Pro / Ultra</code>），原理近似 SDXL 的「步數」——越高越精緻、也越花點數。</li>
   <li>預設「標準」品質就很好；要極致細節時再用「專業」。</li>
 </ul>
@@ -181,7 +177,7 @@
 <pre><code>A romantic wide shot under cherry blossoms at sunset, a silver-haired catgirl with purple eyes is tiptoeing to kiss a tall black-haired boy, the boy gently holding her waist, they are looking at each other affectionately, detailed intricate clothing, soft pink petals floating around them, warm golden sunlight, cinematic lighting, emotional atmosphere, beautiful detailed anime style</code></pre>
 
 <blockquote>
-<p>⚠️ <strong>不要套 SDXL 多人圖的隔離技巧</strong>——<code>right: ... left: ...</code>、<code>BREAK</code>、重複 tag 等手法在 DiT 通常無效或反效果。改用「她正踮腳吻他、他輕輕扶著她的腰」這樣的敘述關係。</p>
+<p>⚠️ <strong>不需要特別套 SDXL 多人圖的隔離技巧</strong>——<code>right: ... left: ...</code>。改用「她正踮腳吻他、他輕輕扶著她的腰」這樣的敘述關係即可。</p>
 </blockquote>
 
 <hr />

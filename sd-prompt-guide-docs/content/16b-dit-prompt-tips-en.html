@@ -104,19 +104,15 @@
 <td><code>right: ... left: ...</code> blocks or <code>BREAK</code> for multi-character isolation</td>
 <td>These still work on DiT, but the effect isn't pronounced. Switching to <strong>described relationships and interactions</strong> usually gives a livelier composition (see the multi-character section below).</td>
 </tr>
-<tr>
-<td>LoRA trigger glued to the front (<code>tsunu, 1boy, ...</code>)</td>
-<td>Suggested DiT alternative: embed the trigger into the sentence (<code>A young man named tsunu...</code>). See the LoRA section below.</td>
-</tr>
 </tbody>
 </table>
 
 <hr />
 
 <h2>Generation Parameters: What's Different</h2>
-<p>Beyond the prompt itself, DiT models (like Tsubaki.2) also expose a different parameter panel from SDXL:</p>
+<p>Beyond the prompt itself, Tsubaki.2 also expose a different parameter panel from SDXL:</p>
 <ul>
-  <li><strong>No CFG Scale and no step count.</strong> The two knobs you tune most on SDXL simply aren't on the DiT panel.</li>
+  <li><strong>No CFG Scale and no step count.</strong> The two knobs you tune most on SDXL simply aren't on the Tsubaki.2 panel.</li>
   <li><strong>Use the "Mode" selector instead</strong> to balance quality vs. speed. The options are <code>Lite / Standard / Pro / Ultra</code> (Chinese: <code>輕量 / 標準 / 專業 / 極致</code>). The underlying mechanism is close to step count — higher tiers give finer detail at higher credit cost.</li>
   <li>"Standard" is already a strong default; reserve "Pro" for cases that genuinely need extreme detail.</li>
 </ul>
@@ -181,7 +177,7 @@
 <pre><code>A romantic wide shot under cherry blossoms at sunset, a silver-haired catgirl with purple eyes is tiptoeing to kiss a tall black-haired boy, the boy gently holding her waist, they are looking at each other affectionately, detailed intricate clothing, soft pink petals floating around them, warm golden sunlight, cinematic lighting, emotional atmosphere, beautiful detailed anime style</code></pre>
 
 <blockquote>
-<p>⚠️ <strong>Don't reach for SDXL multi-character tricks</strong> — <code>right: ... left: ...</code>, <code>BREAK</code>, repeated tags, etc. usually don't work or actively backfire in DiT. Use described relationships like "she is tiptoeing to kiss him while he holds her waist" instead.</p>
+<p>⚠️ <strong>SDXL multi-character tricks are not necessary</strong> — relationships description like "she is tiptoeing to kiss him while he holds her waist" usually works better.</p>
 </blockquote>
 
 <hr />
