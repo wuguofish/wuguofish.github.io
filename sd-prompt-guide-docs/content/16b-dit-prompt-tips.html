@@ -1,0 +1,231 @@
+<h1>DiT 模型 Prompt 撰寫指南</h1>
+
+<p>PixAI 推出的 Tsubaki / Serin / Tsubaki Flash 等 DiT 模型，提示詞寫法跟 SDXL 系列差很多。本章針對「會用 SDXL、剛接觸 DiT」的使用者，整理一套寫 prompt 的基礎 SOP。</p>
+
+<hr />
+
+<h2>核心原則</h2>
+<p>DiT 模型 <strong>只接受英文 prompt</strong>，並且強烈建議用<strong>自然英文</strong>描述——越像跟一位專業畫家說故事，效果越好。</p>
+
+<p><strong>為什麼不用 Danbooru tag？</strong></p>
+<ul>
+  <li>SDXL 系列（Illustrious、NoobAI 等）的 text encoder 是 CLIP，CLIP 訓練時看到的就是 Danbooru / e621 的 tag 描述，所以吃 tag 寫法。</li>
+  <li>DiT 模型用的是更接近 LLM 的 text encoder，理解自然語言敘述的能力強很多，反而對純 tag 串列適應沒那麼好。</li>
+  <li>結果：在 SDXL 必須查資料庫的限制（<code>young man</code> 不存在、要用 <code>1boy</code>），到 DiT 都不再是限制，可以放心用一般英文寫作的方式描述。</li>
+</ul>
+
+<hr />
+
+<h2>實證對比：模型 × prompt 風格</h2>
+<p>同一個 prompt 餵到不同模型、效果差很多。以下用 <a href="https://pixai.art/zh/model/2003569134213267874/2003619928619895094?utm_source=eap_blog" target="_blank">PixAI 看板娘 Mio 的 LoRA</a>（DiT 版 + SDXL 版同一角色、Spring Echoes 翠色版本）做嚴格對照——<strong>同主題、同場景、只換模型 / prompt 風格</strong>：</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>自然語言 prompt</th>
+<th>Tag 堆疊 prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tsubaki.2 (DiT)</strong></td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632257497851383?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/A-nature-dit.png" alt="A: Tsubaki.2 + 自然語言" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">A：模型擅長 + prompt 適配 ✓</figcaption>
+  </figure>
+</td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632821115072747?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/B-tags-dit.png" alt="B: Tsubaki.2 + Tag 堆疊" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">B：DiT 對 tag 風格適應較弱</figcaption>
+  </figure>
+</td>
+</tr>
+<tr>
+<td><strong>Illustrious-XL (SDXL)</strong></td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632700776527473?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/C-nature-sdxl.png" alt="C: Illustrious-XL + 自然語言" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">C：SDXL 對自然語言適應較弱</figcaption>
+  </figure>
+</td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632410572594057?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/D-tags-sdxl.png" alt="D: Illustrious-XL + Tag 堆疊" style="max-width:100%; max-height:50vh;border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">D：模型擅長 + prompt 適配 ✓</figcaption>
+  </figure>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>對角線（A、D）兩個都是「模型 + prompt 風格」匹配的組合、效果最自然；另一條對角線（B、C）則出現意外效果——不適當的配對會讓即使是同一個 LoRA、同一個場景主題、結果也跑掉。</p>
+
+<hr />
+
+<h2>SDXL → DiT 遷移常見踩坑</h2>
+<p>從 SDXL 跳到 DiT 時，這些習慣要丟掉：</p>
+
+<table>
+<thead>
+<tr>
+<th>❌ SDXL 慣性寫法</th>
+<th>在 DiT 為什麼不行 / 該改成</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1boy, solo, masterpiece, best quality</code></td>
+<td>DiT 不靠品質 tag 提升畫質；改用自然句「A young man standing alone in a cinematic scene」</td>
+</tr>
+<tr>
+<td>大量品質 tag（<code>8k, ultra-detailed, extremely detailed</code>）</td>
+<td>DiT 模型本身畫質就穩、疊品質 tag 可能會跟預期效果不一致（不一定稀釋、也可能用力過猛）。最多放 1 個風格詞</td>
+</tr>
+<tr>
+<td>底線串接（<code>black_hair</code>、<code>looking_at_viewer</code>）</td>
+<td>DiT 直接看自然英文，不必處理底線</td>
+</tr>
+<tr>
+<td>括號權重 <code>(black hair:1.2)</code></td>
+<td>DiT 不認這種權重語法；想強調某元素，重新組句、把它放前面</td>
+</tr>
+<tr>
+<td><code>right: ... left: ...</code> 區塊或 <code>BREAK</code> 隔離多人</td>
+<td>在 DiT 上仍有用、但效果不特別突出；改用自然語言敘述關係、整體畫面通常更生動（見後方多人圖段）</td>
+</tr>
+<tr>
+<td>角色 LoRA trigger 補丁式放最前（<code>tsunu, 1boy, ...</code>）</td>
+<td>DiT 上建議改成把 trigger 嵌入敘述（如 <code>A young man named tsunu...</code>）；詳見後方 LoRA 段</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2>生成參數差異</h2>
+<p>除了 prompt 寫法、DiT 模型（如 Tsubaki.2）的參數面板跟 SDXL 也不一樣：</p>
+<ul>
+  <li><strong>CFG Scale 與步數設定不存在</strong>——SDXL 上常調的這兩個參數、在 DiT 介面根本沒有。</li>
+  <li><strong>改用「模式」(Mode) 控制品質 vs 速度</strong>：選項是 <code>輕量 / 標準 / 專業 / 極致</code>（英文：<code>Lite / Standard / Pro / Ultra</code>），原理近似 SDXL 的「步數」——越高越精緻、也越花點數。</li>
+  <li>預設「標準」品質就很好；要極致細節時再用「專業」。</li>
+</ul>
+
+<div style="display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; align-items:flex-start;">
+  <figure style="margin:0; text-align:center;">
+    <img src="content/images/dit-prompt/mode-selector-zh.png" alt="模式選單" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">模式選單介面</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>情境 1：單人圖</h2>
+
+<p><strong>推薦撰寫順序</strong>：</p>
+
+<table>
+<thead>
+<tr><th>順序</th><th>內容</th><th>為什麼這樣排</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>畫風 / 整體氛圍 / 鏡頭語言</td><td>先給模型整體基調，後面所有元素都會 align 這個基調</td></tr>
+<tr><td>2</td><td>主角 + 動作 / 姿態</td><td>接著讓畫面焦點清楚</td></tr>
+<tr><td>3</td><td>服裝與配件</td><td>角色定位後再描述細節</td></tr>
+<tr><td>4</td><td>前景道具</td><td>補足視覺重點</td></tr>
+<tr><td>5</td><td>背景環境</td><td>從前景到後景、由近到遠</td></tr>
+<tr><td>6</td><td>光影與特效</td><td>最後一層收尾、定氛圍</td></tr>
+</tbody>
+</table>
+
+<p><strong>範例</strong>：</p>
+
+<pre><code>A cinematic medium shot of a young Taiwanese girl with long silver hair and purple eyes, gently smiling, wearing an elegant white lolita dress with intricate lace, standing in a cherry blossom garden, soft pink petals floating in the air, warm golden hour sunlight filtering through the trees, highly detailed, beautiful anime style</code></pre>
+
+<blockquote>
+<p>💡 注意這裡寫了 <code>young Taiwanese girl</code>——這在 SDXL 是不存在的 tag、會被 CLIP 誤解，但在 DiT 是合法的自然描述。<strong>DiT 不需要查 Danbooru 資料庫</strong>。</p>
+</blockquote>
+
+<hr />
+
+<h2>情境 2：多人圖</h2>
+<p>DiT 對多人圖最大的不同——<strong>不是用標籤隔離，而是用敘述關係</strong>。</p>
+
+<p><strong>推薦撰寫順序</strong>：</p>
+
+<table>
+<thead>
+<tr><th>順序</th><th>內容</th><th>為什麼這樣排</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>整體構圖 / 鏡頭 / 氛圍</td><td>同單人圖、先設定基調</td></tr>
+<tr><td>2</td><td><strong>人物之間的關係與互動</strong>（最重要！）</td><td>DiT 靠這層理解誰是誰、誰在跟誰互動</td></tr>
+<tr><td>3</td><td>各角色的外觀、動作、表情(從主要到次要)</td><td>一個一個介紹、依重要性排序</td></tr>
+<tr><td>4</td><td>服裝與細節</td><td>角色介紹完再補細節</td></tr>
+<tr><td>5</td><td>背景、光影、特效</td><td>同單人圖最後收尾</td></tr>
+</tbody>
+</table>
+
+<p><strong>範例</strong>：</p>
+
+<pre><code>A romantic wide shot under cherry blossoms at sunset, a silver-haired catgirl with purple eyes is tiptoeing to kiss a tall black-haired boy, the boy gently holding her waist, they are looking at each other affectionately, detailed intricate clothing, soft pink petals floating around them, warm golden sunlight, cinematic lighting, emotional atmosphere, beautiful detailed anime style</code></pre>
+
+<blockquote>
+<p>⚠️ <strong>不要套 SDXL 多人圖的隔離技巧</strong>——<code>right: ... left: ...</code>、<code>BREAK</code>、重複 tag 等手法在 DiT 通常無效或反效果。改用「她正踮腳吻他、他輕輕扶著她的腰」這樣的敘述關係。</p>
+</blockquote>
+
+<hr />
+
+<h2>通用小提醒</h2>
+
+<h3>LoRA 觸發詞嵌入方式（建議寫法、未充分驗證）</h3>
+
+<p>社群一般<strong>推測</strong>：把 LoRA trigger 寫成敘述的一部分、<strong>有可能</strong>比 tag 式 prefix 穩定——理由是這樣寫讓模型更清楚 trigger 跟敘述中描述對象的對應關係。但目前還沒有充分驗證、不同 LoRA / 場景的實際效果可能不同、建議兩種都試試看。</p>
+
+<p>值得一提：<strong>部分 PixAI 官方 DiT 系 LoRA（例如看板娘 Mio LoRA）的 trigger 直接設計成一整段角色描述</strong>、本來就要融進敘述使用。例如 <a href="https://pixai.art/zh/model/2003569134213267874/2003696017189397264?utm_source=eap_blog" target="_blank">[PixAI Mio/ミオ] Spring Echoes LoRA</a> 的觸發詞：</p>
+
+<pre><code>A girl with white-to-pink gradient hair, heart ahoge, purple eyes, eyepatch, cat ears, fang, jirai kei style. Open dark grey glossy leather hoodie over a black bandeau, slight cleavage, cinched waist, pink drawstrings. Black distressed low-rise denim short</code></pre>
+
+<p>把這段直接接續場景動作、比另起一行當 prefix 更自然：</p>
+
+<table>
+<thead>
+<tr><th>寫法</th><th>範例</th></tr>
+</thead>
+<tbody>
+<tr><td>整段 trigger 塞最前、再接場景</td><td><code>&lt;觸發詞整段&gt;. She is walking through neon-lit Shibuya at night.</code></td></tr>
+<tr><td>自然合一(推薦)</td><td><code>A girl with white-to-pink gradient hair, heart ahoge, purple eyes, eyepatch, cat ears, fang, jirai kei style, walking through neon-lit Shibuya at night, ...</code></td></tr>
+</tbody>
+</table>
+
+<p>實在無法自然嵌入時、再單獨放最前或最後一句。</p>
+
+<h3>負面提示詞（共用版）</h3>
+<pre><code>blurry, low quality, deformed hands, extra fingers, bad anatomy, watermark, text, logo, ugly, deformed, mutated</code></pre>
+<p>DiT 跟 SDXL 一樣吃負面提示詞、這條基礎清單兩邊通用。</p>
+
+<h3>風格描述優先放 Customize Style</h3>
+<blockquote>
+<p>⚠️ <strong>Customize Style 是 Tsubaki.2 模型獨有的欄位</strong>——其他 DiT 模型（Tsubaki v1、Serin、Tsubaki Flash）沒有這個欄位。在 Tsubaki.2 上把風格詞拆到 Customize Style 可以讓主 prompt 更乾淨；其他 DiT 模型請直接整合進主 prompt 末尾。</p>
+</blockquote>
+
+<h4>Customize Style 範例</h4>
+<table>
+<thead>
+<tr><th>場景</th><th>Customize Style 內容</th></tr>
+</thead>
+<tbody>
+<tr><td>單人立繪</td><td><code>delicate anime style, soft lighting, studio ghibli influence</code></td></tr>
+<tr><td>多人浪漫</td><td><code>romantic anime style, cinematic, soft bokeh</code></td></tr>
+</tbody>
+</table>

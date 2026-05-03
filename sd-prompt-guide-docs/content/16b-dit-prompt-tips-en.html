@@ -1,0 +1,231 @@
+<h1>DiT Model Prompt Writing Guide</h1>
+
+<p>PixAI's DiT family — Tsubaki / Serin / Tsubaki Flash — has a very different prompt style from the SDXL line. This chapter is for users who already know SDXL prompting and are picking up DiT.</p>
+
+<hr />
+
+<h2>Core Principle</h2>
+<p>DiT models <strong>only accept English prompts</strong> and strongly favor <strong>natural English</strong> descriptions — the closer it sounds to telling a story to a professional illustrator, the better.</p>
+
+<p><strong>Why not use Danbooru tags?</strong></p>
+<ul>
+  <li>SDXL-family models (Illustrious, NoobAI, etc.) use a CLIP text encoder, which was trained on Danbooru / e621 tag-style captions and therefore expects tag-style input.</li>
+  <li>DiT models use a text encoder closer to a modern LLM. They understand natural-language descriptions much better and adapt less well to a flat tag list.</li>
+  <li>The upshot: SDXL's tag-existence rule (<code>young man</code> is invalid; you must write <code>1boy</code>) <strong>does not apply</strong> in DiT. Just write normal English.</li>
+</ul>
+
+<hr />
+
+<h2>Empirical comparison: Model × Prompt style</h2>
+<p>The same prompt sent to different models gives very different results. The 2×2 below uses the <a href="https://pixai.art/en/model/2003569134213267874/2003619928619895094?utm_source=eap_blog" target="_blank">PixAI mascot Mio LoRA</a> (DiT + SDXL versions of the same character, Spring Echoes / Emerald Melody variant) under a strict controlled comparison — <strong>same scene, only the model / prompt style swapped</strong>:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Natural-language prompt</th>
+<th>Tag-stack prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tsubaki.2 (DiT)</strong></td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632257497851383?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/A-nature-dit.png" alt="A: Tsubaki.2 + natural language" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">A: Model strength + matching prompt style ✓</figcaption>
+  </figure>
+</td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632821115072747?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/B-tags-dit.png" alt="B: Tsubaki.2 + tag stack" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">B: DiT adapts poorly to tag-style prompts</figcaption>
+  </figure>
+</td>
+</tr>
+<tr>
+<td><strong>Illustrious-XL (SDXL)</strong></td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632700776527473?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/C-nature-sdxl.png" alt="C: Illustrious-XL + natural language" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">C: SDXL adapts poorly to natural language</figcaption>
+  </figure>
+</td>
+<td>
+  <figure style="margin:0; text-align:center;">
+    <a href="https://pixai.art/artwork/2007632410572594057?utm_source=eap_blog" target="_blank">
+      <img src="content/images/dit-prompt/compare/D-tags-sdxl.png" alt="D: Illustrious-XL + tag stack" style="max-width:100%; max-height:50vh; border-radius:8px;">
+    </a>
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">D: Model strength + matching prompt style ✓</figcaption>
+  </figure>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>The diagonal A → D pairs match each model's preferred prompt style; the off-diagonal B → C pairs produce off-target outputs — even with the same LoRA and the same scene, a mismatched model / prompt-style pairing can throw the result off.</p>
+
+<hr />
+
+<h2>SDXL → DiT: Common Migration Pitfalls</h2>
+<p>When jumping from SDXL to DiT, drop these habits:</p>
+
+<table>
+<thead>
+<tr>
+<th>❌ SDXL habit</th>
+<th>Why it fails in DiT / What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1boy, solo, masterpiece, best quality</code></td>
+<td>DiT doesn't lean on quality tags. Rewrite as a natural sentence: "A young man standing alone in a cinematic scene."</td>
+</tr>
+<tr>
+<td>Heavy quality stacks (<code>8k, ultra-detailed, extremely detailed</code>)</td>
+<td>DiT image quality is already strong; piling on quality tags can produce results that don't match what you intended (sometimes diluted, sometimes overshot). Keep at most one style word.</td>
+</tr>
+<tr>
+<td>Underscore tokens (<code>black_hair</code>, <code>looking_at_viewer</code>)</td>
+<td>DiT reads natural English. Drop the underscores.</td>
+</tr>
+<tr>
+<td>Bracket weighting <code>(black hair:1.2)</code></td>
+<td>DiT doesn't recognize this syntax. To emphasize an element, rewrite the sentence and put it earlier.</td>
+</tr>
+<tr>
+<td><code>right: ... left: ...</code> blocks or <code>BREAK</code> for multi-character isolation</td>
+<td>These still work on DiT, but the effect isn't pronounced. Switching to <strong>described relationships and interactions</strong> usually gives a livelier composition (see the multi-character section below).</td>
+</tr>
+<tr>
+<td>LoRA trigger glued to the front (<code>tsunu, 1boy, ...</code>)</td>
+<td>Suggested DiT alternative: embed the trigger into the sentence (<code>A young man named tsunu...</code>). See the LoRA section below.</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2>Generation Parameters: What's Different</h2>
+<p>Beyond the prompt itself, DiT models (like Tsubaki.2) also expose a different parameter panel from SDXL:</p>
+<ul>
+  <li><strong>No CFG Scale and no step count.</strong> The two knobs you tune most on SDXL simply aren't on the DiT panel.</li>
+  <li><strong>Use the "Mode" selector instead</strong> to balance quality vs. speed. The options are <code>Lite / Standard / Pro / Ultra</code> (Chinese: <code>輕量 / 標準 / 專業 / 極致</code>). The underlying mechanism is close to step count — higher tiers give finer detail at higher credit cost.</li>
+  <li>"Standard" is already a strong default; reserve "Pro" for cases that genuinely need extreme detail.</li>
+</ul>
+
+<div style="display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; align-items:flex-start;">
+  <figure style="margin:0; text-align:center;">
+    <img src="content/images/dit-prompt/mode-selector-en.png" alt="Mode selector" style="max-width:100%; border-radius:8px;">
+    <figcaption style="color:#aaa; font-size:0.9em; margin-top:4px;">Mode selector UI</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h2>Scenario 1: Single Character</h2>
+
+<p><strong>Recommended writing order</strong>:</p>
+
+<table>
+<thead>
+<tr><th>Order</th><th>Content</th><th>Why this order</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Style / overall mood / camera language</td><td>Sets the global tone first; everything below aligns with it</td></tr>
+<tr><td>2</td><td>Subject + action / pose</td><td>Establishes the focal point</td></tr>
+<tr><td>3</td><td>Outfit &amp; accessories</td><td>Detail the subject after positioning</td></tr>
+<tr><td>4</td><td>Foreground props</td><td>Round out the focal area</td></tr>
+<tr><td>5</td><td>Background environment</td><td>From near to far</td></tr>
+<tr><td>6</td><td>Lighting &amp; effects</td><td>Final pass that locks in atmosphere</td></tr>
+</tbody>
+</table>
+
+<p><strong>Example</strong>:</p>
+
+<pre><code>A cinematic medium shot of a young Taiwanese girl with long silver hair and purple eyes, gently smiling, wearing an elegant white lolita dress with intricate lace, standing in a cherry blossom garden, soft pink petals floating in the air, warm golden hour sunlight filtering through the trees, highly detailed, beautiful anime style</code></pre>
+
+<blockquote>
+<p>💡 Notice the phrase <code>young Taiwanese girl</code> — that's an invalid Danbooru tag in SDXL and CLIP would mishandle it, but it's perfectly fine natural English in DiT. <strong>DiT does not require tag database lookups.</strong></p>
+</blockquote>
+
+<hr />
+
+<h2>Scenario 2: Multiple Characters</h2>
+<p>The biggest change in DiT for multi-character scenes — <strong>describe relationships instead of isolating with tags</strong>.</p>
+
+<p><strong>Recommended writing order</strong>:</p>
+
+<table>
+<thead>
+<tr><th>Order</th><th>Content</th><th>Why this order</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Overall composition / camera / mood</td><td>Same as single character — set the tone</td></tr>
+<tr><td>2</td><td><strong>Relationships and interactions between characters</strong> (most important!)</td><td>This is how DiT figures out who is who and who is doing what to whom</td></tr>
+<tr><td>3</td><td>Each character's appearance, action, expression (primary → secondary)</td><td>Introduce them one by one in priority order</td></tr>
+<tr><td>4</td><td>Outfits and details</td><td>After the cast is clear</td></tr>
+<tr><td>5</td><td>Background, lighting, effects</td><td>Final pass, same as above</td></tr>
+</tbody>
+</table>
+
+<p><strong>Example</strong>:</p>
+
+<pre><code>A romantic wide shot under cherry blossoms at sunset, a silver-haired catgirl with purple eyes is tiptoeing to kiss a tall black-haired boy, the boy gently holding her waist, they are looking at each other affectionately, detailed intricate clothing, soft pink petals floating around them, warm golden sunlight, cinematic lighting, emotional atmosphere, beautiful detailed anime style</code></pre>
+
+<blockquote>
+<p>⚠️ <strong>Don't reach for SDXL multi-character tricks</strong> — <code>right: ... left: ...</code>, <code>BREAK</code>, repeated tags, etc. usually don't work or actively backfire in DiT. Use described relationships like "she is tiptoeing to kiss him while he holds her waist" instead.</p>
+</blockquote>
+
+<hr />
+
+<h2>General Tips</h2>
+
+<h3>Embedding LoRA triggers (suggestion, not yet fully validated)</h3>
+
+<p>A common community <strong>conjecture</strong>: writing the LoRA trigger as part of the natural-language description <strong>may</strong> be more stable than a tag-style prefix, because it makes the relationship between the trigger and the described subject more explicit to the model. This isn't fully validated, and behavior can vary by LoRA / scenario — try both styles and see which works better in your case.</p>
+
+<p>Worth noting: <strong>some PixAI official DiT LoRAs (such as the mascot Mio LoRA) ship a trigger that is itself a full descriptive sentence</strong>, designed to be folded directly into your prompt. For example, the <a href="https://pixai.art/en/model/2003569134213267874/2003696017189397264?utm_source=eap_blog" target="_blank">[PixAI Mio/ミオ] Spring Echoes LoRA</a> trigger:</p>
+
+<pre><code>A girl with white-to-pink gradient hair, heart ahoge, purple eyes, eyepatch, cat ears, fang, jirai kei style. Open dark grey glossy leather hoodie over a black bandeau, slight cleavage, cinched waist, pink drawstrings. Black distressed low-rise denim short</code></pre>
+
+<p>Letting it flow directly into the scene action reads more naturally than dropping it as a prefix and starting a separate sentence:</p>
+
+<table>
+<thead>
+<tr><th>Style</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Whole trigger as a prefix, then a separate scene sentence</td><td><code>&lt;full trigger&gt;. She is walking through neon-lit Shibuya at night.</code></td></tr>
+<tr><td>Naturally combined (recommended)</td><td><code>A girl with white-to-pink gradient hair, heart ahoge, purple eyes, eyepatch, cat ears, fang, jirai kei style, walking through neon-lit Shibuya at night, ...</code></td></tr>
+</tbody>
+</table>
+
+<p>If you can't fit it naturally, drop it as a single sentence at the start or end.</p>
+
+<h3>Negative prompt (shared baseline)</h3>
+<pre><code>blurry, low quality, deformed hands, extra fingers, bad anatomy, watermark, text, logo, ugly, deformed, mutated</code></pre>
+<p>DiT honors negative prompts the same way SDXL does. This baseline list works for both.</p>
+
+<h3>Put style descriptions in Customize Style</h3>
+<blockquote>
+<p>⚠️ <strong>Customize Style is Tsubaki.2-only.</strong> Other DiT models (Tsubaki v1, Serin, Tsubaki Flash) don't have this field. On Tsubaki.2, peeling style words out into Customize Style keeps your main prompt clean. On other DiT models, fold the style words into the tail of the main prompt.</p>
+</blockquote>
+
+<h4>Customize Style examples</h4>
+<table>
+<thead>
+<tr><th>Scene</th><th>Customize Style content</th></tr>
+</thead>
+<tbody>
+<tr><td>Single-character portrait</td><td><code>delicate anime style, soft lighting, studio ghibli influence</code></td></tr>
+<tr><td>Romantic multi-character</td><td><code>romantic anime style, cinematic, soft bokeh</code></td></tr>
+</tbody>
+</table>
