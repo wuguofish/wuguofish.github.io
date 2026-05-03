@@ -7,7 +7,7 @@ description: |
 
   ⚠️ 第一步：先判斷使用者用哪一架構
   - SDXL 系（Illustrious、NoobAI、Pony 等）→ Danbooru tag 寫法（本 SKILL 主路線）
-  - DiT 系（Tsubaki、Tsubaki.2、Mio.2、Serin 等）→ 自然英文敘述（跳到 references/basics/16b-dit-prompt-tips.md）
+  - DiT 系（Tsubaki、Tsubaki.2、Serin 等）→ 自然英文敘述（跳到 references/basics/16b-dit-prompt-tips.md）
 
   兩條路線寫法完全不同、不要混用。
 
@@ -61,7 +61,7 @@ PixAI 上有兩種主要模型架構，**Prompt 寫法完全不同**：
 | 架構 | 代表模型 | Prompt 風格 | 走哪條路線 |
 |------|---------|-----------|-----------|
 | **SDXL** | Illustrious-XL、NoobAI、Pony、ChocoMint Mix 等 | Danbooru 標籤語言（`1girl, black_hair, smile`） | **本 SKILL 主路線**：查 tag 庫驗證、給 tag 組合 |
-| **DiT** | Tsubaki、Tsubaki.2、Tsubaki Flash、Serin、Mio.2 等 | 自然英文敘述（"A young girl with black hair smiling..."） | **跳到 [16b-dit-prompt-tips.md](references/basics/16b-dit-prompt-tips.md)**：不查 tag 庫、不需要 1girl/1boy 等 fix tag |
+| **DiT** | Tsubaki、Tsubaki.2、Tsubaki Flash、Serin 等 | 自然英文敘述（"A young girl with black hair smiling..."） | **跳到 [16b-dit-prompt-tips.md](references/basics/16b-dit-prompt-tips.md)**：不查 tag 庫、不需要 1girl/1boy 等 fix tag |
 
 **判斷方式**：
 - 使用者明說「Tsubaki / Mio / DiT 模型」→ DiT 路線
