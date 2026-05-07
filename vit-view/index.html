@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 是怎麼看你的圖的</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1a1a1a;
+    --muted: #6a6a6a;
+    --accent: #2c5f7f;
+    --border: #e0ddd6;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Segoe UI", sans-serif;
+    line-height: 1.6;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    color: var(--muted);
+    margin: 0 0 24px;
+    font-size: 15px;
+  }
+  .privacy-banner {
+    background: #f0ede5;
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 28px;
+    color: #3a3a3a;
+  }
+  .privacy-banner strong { color: var(--fg); }
+  .privacy-banner code {
+    background: rgba(0,0,0,0.05);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    background: var(--card);
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+  .upload-area:hover, .upload-area.drag-over {
+    border-color: var(--accent);
+    background: #f5f3ed;
+  }
+  .upload-area p { margin: 8px 0; color: var(--muted); }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn:hover { background: #1f4960; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .btn-secondary:hover { background: rgba(44,95,127,0.05); }
+  #status {
+    text-align: center;
+    color: var(--muted);
+    margin: 16px 0;
+    font-size: 14px;
+    min-height: 20px;
+  }
+  #output-wrapper {
+    display: none;
+    margin-top: 24px;
+    text-align: center;
+  }
+  #output {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  details {
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  details summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-size: 15px;
+    user-select: none;
+  }
+  details p, details ul { font-size: 14px; color: #3a3a3a; }
+  details code {
+    background: rgba(0,0,0,0.05);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 60px;
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>AI 是怎麼看你的圖的</h1>
+  <p class="subtitle">把圖丟進來,看看 vision encoder 拿到的是什麼樣子。</p>
+
+  <div class="privacy-banner">
+    <strong>隱私說明:</strong> 這個網站是純前端的,所有運算都在你的瀏覽器裡完成。
+    你的圖不會被上傳到任何伺服器。如果不信,打開開發者工具的 <code>Network</code> 分頁觀察就知道了。
+  </div>
+
+  <div class="upload-area" id="dropZone">
+    <input type="file" id="fileInput" accept="image/*" style="display:none;">
+    <button class="btn" id="selectBtn">選擇圖片</button>
+    <p>或把圖片拖到這裡</p>
+  </div>
+
+  <div id="status"></div>
+
+  <div id="output-wrapper">
+    <canvas id="output"></canvas>
+    <div class="actions">
+      <button class="btn" id="downloadBtn">下載結果</button>
+      <button class="btn btn-secondary" id="resetBtn">換一張</button>
+    </div>
+  </div>
+
+  <details>
+    <summary>這四格是什麼意思?</summary>
+    <p><strong>1. Original</strong>: 你看到的原圖。</p>
+    <p><strong>2. Resized to 224×224</strong>: ViT 的標準輸入尺寸。任何高解析度的圖在這一步先被縮小。如果你的原圖是 4000×4000,光這一步就丟掉了 99% 以上的像素。</p>
+    <p><strong>3. 16×16 patch average</strong>: ViT 把圖切成 14×14 = 196 塊,每塊取顏色平均。這是「空間細節」的死亡——筆觸、紋理、表情、細微漸層全部在這一步消失。</p>
+    <p><strong>4. Semantic collapse</strong>: 模擬 CLIP 風格的特徵壓縮。像素被量化到 8 種主要顏色,每塊再 snap 到最接近的那種。這大致就是 vision encoder 餵給 LLM 的特徵保留量——能告訴你「畫面有什麼」,但「畫得好不好看」不在這份資料裡。</p>
+  </details>
+
+  <details>
+    <summary>為什麼會這樣設計?</summary>	
+    <p>多模態 LLM (Claude, GPT-4V, Gemini 等) 雖然「看得到圖」,但它們不是真的「看」——它們前面有一條 vision encoder pipeline 把圖翻譯成 token 序列,再餵給語言模型。</p>
+	<img src ="vision_transformer_image_to_tokens.svg" />
+    <p>這個翻譯過程是高度有損的。CLIP 這類 encoder 學的是「圖跟文字描述對不對得起來」,所以保留下來的是「物件、場景、構圖」這類粗略語意,不是「色彩處理、筆觸節奏、邊緣呼吸感」這類美學細節。</p>
+    <p>這個工具讓你直觀看到那個損失。如果你的 AI 助手對某張圖的反應很怪 (誤判 NSFW、看不懂美感、認錯內容),很可能不是它「不夠努力」,而是它拿到的就是第三、四格那種品質的資料。</p>
+  </details>
+
+  <footer>
+    <p>原始碼公開,可以 fork、本地下載、離線使用。</p>
+  </footer>
+</main>
+
+<script>
+"use strict";
+
+// ==================== Stage 1: Resize ====================
+function resizeTo(srcCanvas, w, h) {
+  const dst = document.createElement("canvas");
+  dst.width = w;
+  dst.height = h;
+  const ctx = dst.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(srcCanvas, 0, 0, w, h);
+  return dst;
+}
+
+// ==================== Stage 2: Patch average ====================
+function patchAverage(srcCanvas, patchSize) {
+  patchSize = patchSize || 16;
+  const w = srcCanvas.width, h = srcCanvas.height;
+  const srcData = srcCanvas.getContext("2d").getImageData(0, 0, w, h).data;
+
+  const dst = document.createElement("canvas");
+  dst.width = w; dst.height = h;
+  const dstCtx = dst.getContext("2d");
+  const dstImg = dstCtx.createImageData(w, h);
+  const dstData = dstImg.data;
+
+  const nH = Math.floor(h / patchSize);
+  const nW = Math.floor(w / patchSize);
+
+  for (let py = 0; py < nH; py++) {
+    for (let px = 0; px < nW; px++) {
+      let r = 0, g = 0, b = 0;
+      const total = patchSize * patchSize;
+      for (let dy = 0; dy < patchSize; dy++) {
+        for (let dx = 0; dx < patchSize; dx++) {
+          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
+          r += srcData[i]; g += srcData[i+1]; b += srcData[i+2];
+        }
+      }
+      r = Math.round(r / total);
+      g = Math.round(g / total);
+      b = Math.round(b / total);
+      for (let dy = 0; dy < patchSize; dy++) {
+        for (let dx = 0; dx < patchSize; dx++) {
+          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
+          dstData[i] = r; dstData[i+1] = g; dstData[i+2] = b; dstData[i+3] = 255;
+        }
+      }
+    }
+  }
+  dstCtx.putImageData(dstImg, 0, 0);
+  return dst;
+}
+
+// ==================== Stage 3: K-means semantic collapse ====================
+function semanticCollapse(srcCanvas, k, patchSize) {
+  k = k || 8;
+  patchSize = patchSize || 16;
+  const w = srcCanvas.width, h = srcCanvas.height;
+  const srcData = srcCanvas.getContext("2d").getImageData(0, 0, w, h).data;
+  const nPixels = w * h;
+
+  // 確定性 RNG (LCG, seed=42)
+  let rng = 42;
+  function rand() {
+    rng = (rng * 1664525 + 1013904223) >>> 0;
+    return rng / 0xFFFFFFFF;
+  }
+
+  // 初始化 k 個中心
+  const centers = [];
+  for (let i = 0; i < k; i++) {
+    const idx = Math.floor(rand() * nPixels);
+    centers.push([srcData[idx*4], srcData[idx*4+1], srcData[idx*4+2]]);
+  }
+
+  const labels = new Int32Array(nPixels);
+
+  // K-means 10 iterations
+  for (let iter = 0; iter < 10; iter++) {
+    // 分配
+    for (let i = 0; i < nPixels; i++) {
+      const r = srcData[i*4], g = srcData[i*4+1], b = srcData[i*4+2];
+      let bestDist = Infinity, bestK = 0;
+      for (let j = 0; j < k; j++) {
+        const dr = r - centers[j][0];
+        const dg = g - centers[j][1];
+        const db = b - centers[j][2];
+        const d = dr*dr + dg*dg + db*db;
+        if (d < bestDist) { bestDist = d; bestK = j; }
+      }
+      labels[i] = bestK;
+    }
+    // 更新
+    const sums = [];
+    for (let j = 0; j < k; j++) sums.push([0, 0, 0, 0]);
+    for (let i = 0; i < nPixels; i++) {
+      const j = labels[i];
+      sums[j][0] += srcData[i*4];
+      sums[j][1] += srcData[i*4+1];
+      sums[j][2] += srcData[i*4+2];
+      sums[j][3] += 1;
+    }
+    for (let j = 0; j < k; j++) {
+      if (sums[j][3] > 0) {
+        centers[j] = [sums[j][0]/sums[j][3], sums[j][1]/sums[j][3], sums[j][2]/sums[j][3]];
+      }
+    }
+  }
+
+  // 量化整張圖
+  const quantized = new Uint8ClampedArray(nPixels * 4);
+  for (let i = 0; i < nPixels; i++) {
+    const j = labels[i];
+    quantized[i*4]   = centers[j][0];
+    quantized[i*4+1] = centers[j][1];
+    quantized[i*4+2] = centers[j][2];
+    quantized[i*4+3] = 255;
+  }
+
+  // 對量化後的圖做 patch 平均, 然後 snap 到最近中心
+  const dst = document.createElement("canvas");
+  dst.width = w; dst.height = h;
+  const dstCtx = dst.getContext("2d");
+  const dstImg = dstCtx.createImageData(w, h);
+  const dstData = dstImg.data;
+
+  const nH = Math.floor(h / patchSize);
+  const nW = Math.floor(w / patchSize);
+
+  for (let py = 0; py < nH; py++) {
+    for (let px = 0; px < nW; px++) {
+      let r = 0, g = 0, b = 0;
+      const total = patchSize * patchSize;
+      for (let dy = 0; dy < patchSize; dy++) {
+        for (let dx = 0; dx < patchSize; dx++) {
+          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
+          r += quantized[i]; g += quantized[i+1]; b += quantized[i+2];
+        }
+      }
+      r /= total; g /= total; b /= total;
+
+      let bestDist = Infinity, bestK = 0;
+      for (let j = 0; j < k; j++) {
+        const dr = r - centers[j][0];
+        const dg = g - centers[j][1];
+        const db = b - centers[j][2];
+        const d = dr*dr + dg*dg + db*db;
+        if (d < bestDist) { bestDist = d; bestK = j; }
+      }
+      const sr = Math.round(centers[bestK][0]);
+      const sg = Math.round(centers[bestK][1]);
+      const sb = Math.round(centers[bestK][2]);
+      for (let dy = 0; dy < patchSize; dy++) {
+        for (let dx = 0; dx < patchSize; dx++) {
+          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
+          dstData[i] = sr; dstData[i+1] = sg; dstData[i+2] = sb; dstData[i+3] = 255;
+        }
+      }
+    }
+  }
+  dstCtx.putImageData(dstImg, 0, 0);
+  return dst;
+}
+
+// ==================== 4-grid composition ====================
+function makeComparison(img) {
+  const orig = document.createElement("canvas");
+  orig.width = img.naturalWidth;
+  orig.height = img.naturalHeight;
+  orig.getContext("2d").drawImage(img, 0, 0);
+
+  // Panel 1: 原圖縮圖補方框
+  const thumb = document.createElement("canvas");
+  thumb.width = 224; thumb.height = 224;
+  const tc = thumb.getContext("2d");
+  tc.fillStyle = "#F0F0F0";
+  tc.fillRect(0, 0, 224, 224);
+  const ratio = Math.min(224 / orig.width, 224 / orig.height);
+  const tw = orig.width * ratio, th = orig.height * ratio;
+  tc.imageSmoothingQuality = "high";
+  tc.drawImage(orig, (224 - tw) / 2, (224 - th) / 2, tw, th);
+
+  // 三階段
+  const resized = resizeTo(orig, 224, 224);
+  const patched = patchAverage(resized);
+  const collapsed = semanticCollapse(resized);
+
+  // 拼 2x2
+  const cell = 224, margin = 24, labelH = 40;
+  const W = cell * 2 + margin * 3;
+  const H = (cell + labelH) * 2 + margin * 3;
+
+  const out = document.createElement("canvas");
+  out.width = W; out.height = H;
+  const ctx = out.getContext("2d");
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(0, 0, W, H);
+
+  const panels = [
+    [thumb,     "1. Original",             "what humans see"],
+    [resized,   "2. Resized to 224x224",   "first information loss"],
+    [patched,   "3. 16x16 patch average",  "brushstroke / texture gone"],
+    [collapsed, "4. Semantic collapse",    "what CLIP-style features keep"],
+  ];
+  panels.forEach(function(p, idx) {
+    const row = Math.floor(idx / 2), col = idx % 2;
+    const x = margin + col * (cell + margin);
+    const y = margin + row * (cell + labelH + margin);
+    ctx.drawImage(p[0], x, y);
+    ctx.fillStyle = "#141414";
+    ctx.font = "bold 16px sans-serif";
+    ctx.fillText(p[1], x, y + cell + 18);
+    ctx.fillStyle = "#787878";
+    ctx.font = "13px sans-serif";
+    ctx.fillText(p[2], x, y + cell + 36);
+  });
+  return out;
+}
+
+// ==================== UI wiring ====================
+const fileInput = document.getElementById("fileInput");
+const selectBtn = document.getElementById("selectBtn");
+const dropZone = document.getElementById("dropZone");
+const status = document.getElementById("status");
+const outputWrap = document.getElementById("output-wrapper");
+const output = document.getElementById("output");
+const downloadBtn = document.getElementById("downloadBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const MAX_DIM = 2048;
+
+function setStatus(msg) { status.textContent = msg || ""; }
+
+function handleFile(file) {
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    setStatus("這不是圖片檔案。");
+    return;
+  }
+  setStatus("讀取中…");
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      // 太大的圖先縮小再處理 (避免吃記憶體)
+      let workImg = img;
+      if (Math.max(img.naturalWidth, img.naturalHeight) > MAX_DIM) {
+        const r = MAX_DIM / Math.max(img.naturalWidth, img.naturalHeight);
+        const tmp = document.createElement("canvas");
+        tmp.width = Math.round(img.naturalWidth * r);
+        tmp.height = Math.round(img.naturalHeight * r);
+        tmp.getContext("2d").drawImage(img, 0, 0, tmp.width, tmp.height);
+        const wrapper = new Image();
+        wrapper.onload = function() {
+          process(wrapper);
+        };
+        wrapper.src = tmp.toDataURL("image/png");
+        return;
+      }
+      process(workImg);
+    };
+    img.onerror = function() { setStatus("無法讀取這張圖。"); };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function process(img) {
+  setStatus("處理中…(k-means 大概 1 秒)");
+  // 用 setTimeout 讓 UI 先更新再開算
+  setTimeout(function() {
+    try {
+      const t0 = performance.now();
+      const result = makeComparison(img);
+      const t1 = performance.now();
+      output.width = result.width;
+      output.height = result.height;
+      output.getContext("2d").drawImage(result, 0, 0);
+      outputWrap.style.display = "block";
+      setStatus("完成 (用了 " + Math.round(t1 - t0) + " ms)");
+    } catch (err) {
+      setStatus("處理失敗:" + err.message);
+      console.error(err);
+    }
+  }, 30);
+}
+
+selectBtn.addEventListener("click", function() { fileInput.click(); });
+fileInput.addEventListener("change", function(e) {
+  if (e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+dropZone.addEventListener("click", function(e) {
+  if (e.target === dropZone || e.target.tagName === "P") fileInput.click();
+});
+dropZone.addEventListener("dragover", function(e) {
+  e.preventDefault();
+  dropZone.classList.add("drag-over");
+});
+dropZone.addEventListener("dragleave", function() {
+  dropZone.classList.remove("drag-over");
+});
+dropZone.addEventListener("drop", function(e) {
+  e.preventDefault();
+  dropZone.classList.remove("drag-over");
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+downloadBtn.addEventListener("click", function() {
+  output.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "vit_view.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  });
+});
+
+resetBtn.addEventListener("click", function() {
+  outputWrap.style.display = "none";
+  fileInput.value = "";
+  setStatus("");
+});
+</script>
+</body>
+</html>
