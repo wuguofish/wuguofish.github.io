@@ -144,6 +144,49 @@
     max-width: 100%;
     height: auto;
   }
+  /* patch size 滑桿控制區 */
+  .patch-control {
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .patch-control-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .patch-control-head label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  #patchValue {
+    color: var(--accent);
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+  }
+  .patch-control input[type="range"] {
+    width: 100%;
+    margin: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .patch-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .patch-info {
+    font-size: 13px;
+    color: #3a3a3a;
+    margin: 12px 0 0;
+    line-height: 1.5;
+  }
   footer {
     text-align: center;
     color: var(--muted);
@@ -172,6 +215,18 @@
   <div id="status"></div>
 
   <div id="output-wrapper">
+    <div class="patch-control">
+      <div class="patch-control-head">
+        <label for="patchSlider">Patch 大小</label>
+        <span id="patchValue">16 × 16 px</span>
+      </div>
+      <input type="range" id="patchSlider" min="8" max="64" step="8" value="16">
+      <div class="patch-scale">
+        <span>8px · 細節多 (新模型)</span>
+        <span>64px · 細節少 (舊模型)</span>
+      </div>
+      <p class="patch-info" id="patchInfo"></p>
+    </div>
     <canvas id="output"></canvas>
     <div class="actions">
       <button class="btn" id="downloadBtn">下載結果</button>
@@ -233,6 +288,9 @@
 <script>
 "use strict";
 
+// 固定的 ViT 輸入邊長。整個 pipeline 都在這個尺寸上運算。
+const VIT_SIZE = 224;
+
 // ==================== Stage 1: Resize ====================
 function resizeTo(srcCanvas, w, h) {
   const dst = document.createElement("canvas");
@@ -245,37 +303,61 @@ function resizeTo(srcCanvas, w, h) {
   return dst;
 }
 
-// ==================== Stage 2: Patch average ====================
-function patchAverage(srcCanvas, patchSize) {
-  patchSize = patchSize || 16;
-  const w = srcCanvas.width, h = srcCanvas.height;
-  const srcData = srcCanvas.getContext("2d").getImageData(0, 0, w, h).data;
+// ==================== 共用：patch 平均 ====================
+// 把整張圖切成 patchSize×patchSize 的格子, 算每格的平均色。
+// 用 ceil + 邊界裁切, 邊緣不滿一格的部分也會被納入 (除以實際像素數),
+// 確保任意 patchSize 都能覆蓋整張圖, 不會留下沒處理到的白邊。
+// 回傳 { nW, nH, colors }, colors 是長度 nW*nH*3 的 Float32Array (未取整)。
+function averagePatches(srcData, w, h, patchSize) {
+  const nW = Math.ceil(w / patchSize);
+  const nH = Math.ceil(h / patchSize);
+  const colors = new Float32Array(nW * nH * 3);
 
+  for (let py = 0; py < nH; py++) {
+    for (let px = 0; px < nW; px++) {
+      const x0 = px * patchSize, y0 = py * patchSize;
+      const x1 = Math.min(x0 + patchSize, w);
+      const y1 = Math.min(y0 + patchSize, h);
+      let r = 0, g = 0, b = 0, count = 0;
+      for (let y = y0; y < y1; y++) {
+        for (let x = x0; x < x1; x++) {
+          const i = (y * w + x) * 4;
+          r += srcData[i]; g += srcData[i+1]; b += srcData[i+2];
+          count++;
+        }
+      }
+      const o = (py * nW + px) * 3;
+      colors[o] = r / count; colors[o+1] = g / count; colors[o+2] = b / count;
+    }
+  }
+  return { nW: nW, nH: nH, colors: colors };
+}
+
+// 把每個 patch 的平均色畫回整張圖 (每格填滿對應方塊)。
+// transform 可選: 給定 (r,g,b) 回傳 [r,g,b], 讓 stage3 能把平均色 snap 到 k-means 中心。
+function paintPatches(grid, w, h, patchSize, transform) {
   const dst = document.createElement("canvas");
   dst.width = w; dst.height = h;
   const dstCtx = dst.getContext("2d");
   const dstImg = dstCtx.createImageData(w, h);
   const dstData = dstImg.data;
-
-  const nH = Math.floor(h / patchSize);
-  const nW = Math.floor(w / patchSize);
+  const nW = grid.nW, nH = grid.nH, colors = grid.colors;
 
   for (let py = 0; py < nH; py++) {
     for (let px = 0; px < nW; px++) {
-      let r = 0, g = 0, b = 0;
-      const total = patchSize * patchSize;
-      for (let dy = 0; dy < patchSize; dy++) {
-        for (let dx = 0; dx < patchSize; dx++) {
-          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
-          r += srcData[i]; g += srcData[i+1]; b += srcData[i+2];
-        }
+      const o = (py * nW + px) * 3;
+      let r = colors[o], g = colors[o+1], b = colors[o+2];
+      if (transform) {
+        const t = transform(r, g, b);
+        r = t[0]; g = t[1]; b = t[2];
       }
-      r = Math.round(r / total);
-      g = Math.round(g / total);
-      b = Math.round(b / total);
-      for (let dy = 0; dy < patchSize; dy++) {
-        for (let dx = 0; dx < patchSize; dx++) {
-          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
+      r = Math.round(r); g = Math.round(g); b = Math.round(b);
+      const x0 = px * patchSize, y0 = py * patchSize;
+      const x1 = Math.min(x0 + patchSize, w);
+      const y1 = Math.min(y0 + patchSize, h);
+      for (let y = y0; y < y1; y++) {
+        for (let x = x0; x < x1; x++) {
+          const i = (y * w + x) * 4;
           dstData[i] = r; dstData[i+1] = g; dstData[i+2] = b; dstData[i+3] = 255;
         }
       }
@@ -285,15 +367,22 @@ function patchAverage(srcCanvas, patchSize) {
   return dst;
 }
 
-// ==================== Stage 3: K-means semantic collapse ====================
-function semanticCollapse(srcCanvas, k, patchSize) {
-  k = k || 8;
+// ==================== Stage 2: Patch average ====================
+function patchAverage(srcData, w, h, patchSize) {
   patchSize = patchSize || 16;
-  const w = srcCanvas.width, h = srcCanvas.height;
-  const srcData = srcCanvas.getContext("2d").getImageData(0, 0, w, h).data;
+  const grid = averagePatches(srcData, w, h, patchSize);
+  return paintPatches(grid, w, h, patchSize, null);
+}
+
+// ==================== Stage 3a: K-means 量化 (與 patchSize 無關) ====================
+// 這一步在整張 224×224 上做 k-means 分群, 結果不受 patch 大小影響,
+// 所以對同一張圖只需算一次, 之後滑桿移動時可重複使用 (見 prepareImage 的快取)。
+// 回傳 { centers, quantized }: centers 是 k 個群中心, quantized 是每個像素 snap 後的整張圖。
+function kmeansQuantize(srcData, w, h, k) {
+  k = k || 8;
   const nPixels = w * h;
 
-  // 確定性 RNG (LCG, seed=42)
+  // 確定性 RNG (LCG, seed=42) — 保證同一張圖每次分群結果完全一致。
   let rng = 42;
   function rand() {
     rng = (rng * 1664525 + 1013904223) >>> 0;
@@ -341,7 +430,7 @@ function semanticCollapse(srcCanvas, k, patchSize) {
     }
   }
 
-  // 量化整張圖
+  // 量化整張圖 (每個像素換成所屬中心的顏色)
   const quantized = new Uint8ClampedArray(nPixels * 4);
   for (let i = 0; i < nPixels; i++) {
     const j = labels[i];
@@ -351,53 +440,32 @@ function semanticCollapse(srcCanvas, k, patchSize) {
     quantized[i*4+3] = 255;
   }
 
-  // 對量化後的圖做 patch 平均, 然後 snap 到最近中心
-  const dst = document.createElement("canvas");
-  dst.width = w; dst.height = h;
-  const dstCtx = dst.getContext("2d");
-  const dstImg = dstCtx.createImageData(w, h);
-  const dstData = dstImg.data;
-
-  const nH = Math.floor(h / patchSize);
-  const nW = Math.floor(w / patchSize);
-
-  for (let py = 0; py < nH; py++) {
-    for (let px = 0; px < nW; px++) {
-      let r = 0, g = 0, b = 0;
-      const total = patchSize * patchSize;
-      for (let dy = 0; dy < patchSize; dy++) {
-        for (let dx = 0; dx < patchSize; dx++) {
-          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
-          r += quantized[i]; g += quantized[i+1]; b += quantized[i+2];
-        }
-      }
-      r /= total; g /= total; b /= total;
-
-      let bestDist = Infinity, bestK = 0;
-      for (let j = 0; j < k; j++) {
-        const dr = r - centers[j][0];
-        const dg = g - centers[j][1];
-        const db = b - centers[j][2];
-        const d = dr*dr + dg*dg + db*db;
-        if (d < bestDist) { bestDist = d; bestK = j; }
-      }
-      const sr = Math.round(centers[bestK][0]);
-      const sg = Math.round(centers[bestK][1]);
-      const sb = Math.round(centers[bestK][2]);
-      for (let dy = 0; dy < patchSize; dy++) {
-        for (let dx = 0; dx < patchSize; dx++) {
-          const i = ((py * patchSize + dy) * w + (px * patchSize + dx)) * 4;
-          dstData[i] = sr; dstData[i+1] = sg; dstData[i+2] = sb; dstData[i+3] = 255;
-        }
-      }
-    }
-  }
-  dstCtx.putImageData(dstImg, 0, 0);
-  return dst;
+  return { centers: centers, quantized: quantized };
 }
 
-// ==================== 4-grid composition ====================
-function makeComparison(img) {
+// ==================== Stage 3b: 依 patchSize 收斂成 patch (snap 到中心) ====================
+// 對量化後的圖做 patch 平均, 再把每格平均色 snap 回最近的 k-means 中心。
+// 只有這一步用到 patchSize, 所以滑桿移動時只重算這裡 (很快)。
+function collapseToPatches(quant, w, h, patchSize) {
+  const centers = quant.centers;
+  const grid = averagePatches(quant.quantized, w, h, patchSize);
+  return paintPatches(grid, w, h, patchSize, function(r, g, b) {
+    let bestDist = Infinity, bestK = 0;
+    for (let j = 0; j < centers.length; j++) {
+      const dr = r - centers[j][0];
+      const dg = g - centers[j][1];
+      const db = b - centers[j][2];
+      const d = dr*dr + dg*dg + db*db;
+      if (d < bestDist) { bestDist = d; bestK = j; }
+    }
+    return centers[bestK];
+  });
+}
+
+// ==================== 影像前處理 (與 patchSize 無關, 算一次快取) ====================
+// 縮圖、resize、k-means 量化都跟 patch 大小無關, 對同一張圖只跑一次。
+// 之後滑桿改 patchSize 時只需重跑 composeGrid 裡的 patch 步驟。
+function prepareImage(img) {
   const orig = document.createElement("canvas");
   orig.width = img.naturalWidth;
   orig.height = img.naturalHeight;
@@ -405,22 +473,33 @@ function makeComparison(img) {
 
   // Panel 1: 原圖縮圖補方框
   const thumb = document.createElement("canvas");
-  thumb.width = 224; thumb.height = 224;
+  thumb.width = VIT_SIZE; thumb.height = VIT_SIZE;
   const tc = thumb.getContext("2d");
   tc.fillStyle = "#F0F0F0";
-  tc.fillRect(0, 0, 224, 224);
-  const ratio = Math.min(224 / orig.width, 224 / orig.height);
+  tc.fillRect(0, 0, VIT_SIZE, VIT_SIZE);
+  const ratio = Math.min(VIT_SIZE / orig.width, VIT_SIZE / orig.height);
   const tw = orig.width * ratio, th = orig.height * ratio;
   tc.imageSmoothingQuality = "high";
-  tc.drawImage(orig, (224 - tw) / 2, (224 - th) / 2, tw, th);
+  tc.drawImage(orig, (VIT_SIZE - tw) / 2, (VIT_SIZE - th) / 2, tw, th);
 
-  // 三階段
-  const resized = resizeTo(orig, 224, 224);
-  const patched = patchAverage(resized);
-  const collapsed = semanticCollapse(resized);
+  // Stage 1: resize 到 224×224
+  const resized = resizeTo(orig, VIT_SIZE, VIT_SIZE);
+  const rdata = resized.getContext("2d").getImageData(0, 0, VIT_SIZE, VIT_SIZE).data;
+
+  // Stage 3a: k-means 量化 (快取起來, 滑桿移動不重算)
+  const quant = kmeansQuantize(rdata, VIT_SIZE, VIT_SIZE, 8);
+
+  return { thumb: thumb, resized: resized, rdata: rdata, quant: quant, w: VIT_SIZE, h: VIT_SIZE };
+}
+
+// ==================== 4-grid composition (依目前 patchSize 重繪) ====================
+function composeGrid(p, patchSize) {
+  // Stage 2 / Stage 3b: 這兩步才會吃 patchSize
+  const patched = patchAverage(p.rdata, p.w, p.h, patchSize);
+  const collapsed = collapseToPatches(p.quant, p.w, p.h, patchSize);
 
   // 拼 2x2
-  const cell = 224, margin = 24, labelH = 40;
+  const cell = VIT_SIZE, margin = 24, labelH = 40;
   const W = cell * 2 + margin * 3;
   const H = (cell + labelH) * 2 + margin * 3;
 
@@ -430,23 +509,24 @@ function makeComparison(img) {
   ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0, 0, W, H);
 
+  const patchLabel = "3. " + patchSize + "x" + patchSize + " patch average";
   const panels = [
-    [thumb,     "1. Original",             "what humans see"],
-    [resized,   "2. Resized to 224x224",   "first information loss"],
-    [patched,   "3. 16x16 patch average",  "brushstroke / texture gone"],
+    [p.thumb,   "1. Original",             "what humans see"],
+    [p.resized, "2. Resized to 224x224",   "first information loss"],
+    [patched,   patchLabel,                "brushstroke / texture gone"],
     [collapsed, "4. Semantic collapse",    "what CLIP-style features keep"],
   ];
-  panels.forEach(function(p, idx) {
+  panels.forEach(function(panel, idx) {
     const row = Math.floor(idx / 2), col = idx % 2;
     const x = margin + col * (cell + margin);
     const y = margin + row * (cell + labelH + margin);
-    ctx.drawImage(p[0], x, y);
+    ctx.drawImage(panel[0], x, y);
     ctx.fillStyle = "#141414";
     ctx.font = "bold 16px sans-serif";
-    ctx.fillText(p[1], x, y + cell + 18);
+    ctx.fillText(panel[1], x, y + cell + 18);
     ctx.fillStyle = "#787878";
     ctx.font = "13px sans-serif";
-    ctx.fillText(p[2], x, y + cell + 36);
+    ctx.fillText(panel[2], x, y + cell + 36);
   });
   return out;
 }
@@ -460,10 +540,40 @@ const outputWrap = document.getElementById("output-wrapper");
 const output = document.getElementById("output");
 const downloadBtn = document.getElementById("downloadBtn");
 const resetBtn = document.getElementById("resetBtn");
+const patchSlider = document.getElementById("patchSlider");
+const patchValue = document.getElementById("patchValue");
+const patchInfo = document.getElementById("patchInfo");
 
 const MAX_DIM = 2048;
 
+// 目前的 patch 大小 (來自滑桿) 與目前影像的前處理快取。
+let currentPatchSize = parseInt(patchSlider.value, 10);
+let prepared = null;
+
 function setStatus(msg) { status.textContent = msg || ""; }
+
+// 更新滑桿旁的數值與說明文字, 讓使用者理解 patch 大小 ↔ 模型世代的對應。
+function updatePatchReadout(patchSize) {
+  patchValue.textContent = patchSize + " × " + patchSize + " px";
+  const n = Math.ceil(VIT_SIZE / patchSize);
+  const count = n * n;
+  let note = "224×224 被切成 " + n + "×" + n + " = " + count + " 個 patch。"
+    + "patch 越小、patch 數越多, 保留的空間細節越多——模擬越新、解析度越高的模型 "
+    + "(如 Claude Opus 4.7 的 dynamic patching);patch 越大則越接近早期低解析度模型的粗略程度。";
+  if (patchSize === 16) {
+    note += " (16×16 是標準 ViT 的設定)";
+  }
+  patchInfo.textContent = note;
+}
+
+// 依目前 patchSize 重畫四格 (重用 prepared 裡快取的 k-means 結果, 所以很快)。
+function renderCurrent() {
+  if (!prepared) return;
+  const result = composeGrid(prepared, currentPatchSize);
+  output.width = result.width;
+  output.height = result.height;
+  output.getContext("2d").drawImage(result, 0, 0);
+}
 
 function handleFile(file) {
   if (!file) return;
@@ -505,12 +615,11 @@ function process(img) {
   setTimeout(function() {
     try {
       const t0 = performance.now();
-      const result = makeComparison(img);
+      prepared = prepareImage(img);   // 重的部分 (含 k-means) 只算一次, 快取起來
+      renderCurrent();                // 依目前 patchSize 畫出四格
       const t1 = performance.now();
-      output.width = result.width;
-      output.height = result.height;
-      output.getContext("2d").drawImage(result, 0, 0);
       outputWrap.style.display = "block";
+      updatePatchReadout(currentPatchSize);
       setStatus("完成 (用了 " + Math.round(t1 - t0) + " ms)");
     } catch (err) {
       setStatus("處理失敗:" + err.message);
@@ -556,8 +665,19 @@ downloadBtn.addEventListener("click", function() {
 resetBtn.addEventListener("click", function() {
   outputWrap.style.display = "none";
   fileInput.value = "";
+  prepared = null;
   setStatus("");
 });
+
+// 滑桿移動: 即時重算 stage2/stage3 並重繪 (k-means 已快取, 所以很快)。
+patchSlider.addEventListener("input", function() {
+  currentPatchSize = parseInt(patchSlider.value, 10);
+  updatePatchReadout(currentPatchSize);
+  renderCurrent();
+});
+
+// 初始化說明文字 (即使尚未上傳圖片也先顯示對應關係)。
+updatePatchReadout(currentPatchSize);
 </script>
 </body>
 </html>
