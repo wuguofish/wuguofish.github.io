@@ -128,6 +128,22 @@
     border-radius: 3px;
     font-size: 13px;
   }
+  .further-reading {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dotted var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .further-reading a { color: var(--accent); }
+  details figure {
+    margin: 12px 0;
+    text-align: center;
+  }
+  details figure img {
+    max-width: 100%;
+    height: auto;
+  }
   footer {
     text-align: center;
     color: var(--muted);
@@ -174,9 +190,39 @@
   <details>
     <summary>為什麼會這樣設計?</summary>	
     <p>多模態 LLM (Claude, GPT-4V, Gemini 等) 雖然「看得到圖」,但它們不是真的「看」——它們前面有一條 vision encoder pipeline 把圖翻譯成 token 序列,再餵給語言模型。</p>
-	<img src ="vision_transformer_image_to_tokens.svg" />
+    <figure>
+      <img src="vision_transformer_image_to_tokens.svg" alt="Vision Transformer 把圖切成 patches 再變成 token 序列的流程">
+    </figure>
     <p>這個翻譯過程是高度有損的。CLIP 這類 encoder 學的是「圖跟文字描述對不對得起來」,所以保留下來的是「物件、場景、構圖」這類粗略語意,不是「色彩處理、筆觸節奏、邊緣呼吸感」這類美學細節。</p>
     <p>這個工具讓你直觀看到那個損失。如果你的 AI 助手對某張圖的反應很怪 (誤判 NSFW、看不懂美感、認錯內容),很可能不是它「不夠努力」,而是它拿到的就是第三、四格那種品質的資料。</p>
+    <p class="further-reading">
+      想深入了解技術細節,推薦 Moris 的兩篇中文整理:
+      <a href="https://medium.com/image-processing-and-ml-note/vision-transformer-vit-90753ac7958d">Vision Transformer (ViT)</a>
+      介紹 ViT 怎麼把圖切成 token、跟
+      <a href="https://medium.com/image-processing-and-ml-note/clip-learning-transferable-visual-models-from-natural-language-supervision-1c3d0f2f5de3">CLIP</a>
+      介紹訓練方式跟資料集 (WIT) 的構成。
+    </p>
+  </details>
+
+  <details>
+    <summary>那 AI 永遠都會這麼瞎嗎?</summary>
+    <p>不會。ViT 架構在進化中——主要的改進方向是<strong>讓模型能讀更高解析度的輸入</strong>。</p>
+    <p>例如 Claude Opus 4.7 (2026 年 4 月) 把輸入解析度上限從 1.15MP 提高到 3.75MP,大約 3.3 倍的像素量。在視覺精細度測試 (XBOW visual-acuity) 上,分數從 54.5% 跳到 98.5%——這不是漸進改善,是質變。</p>
+    <p>做法 (技術上叫 dynamic patching 或 AnyRes) 大致是:<strong>把高解析度的圖切成多個區塊各自處理,而不是把整張圖縮小再切</strong>。每個區塊維持高解析度,細節在 patch 平均時就不會被吃掉了。</p>
+    <p>但這個進步主要解決的是 <strong>OCR、圖表、UI、文件、計數定位</strong> 這類靠細節準確度的任務。對於<strong>美感判斷、藝術筆觸理解、動漫風格識別</strong>這類問題,改善有限——因為根源不在解析度,而在 vision encoder 的訓練資料分布偏差。CLIP 是 OpenAI 在 2021 年發表的視覺語言模型,在 4 億組從網路 scrape 來的圖文配對 (<a href="https://arxiv.org/abs/2103.00020">原始論文</a>) 上訓練,文字部分主要是 alt text 等短描述 (上限 77 tokens)。OpenAI 並未完整公開訓練資料的內容構成,但從「網路常見內容」這個取樣來源來看,日常生活照片可能佔大宗,而動漫風格、特定文化的藝術形式、專業領域的視覺語法相對較少。模型對前者的特徵理解較好,對後者的判斷會比較粗糙。那一層的問題要等下一次架構改動或專門的 finetuning 才會根本改善。</p>
+  </details>
+
+  <details>
+    <summary>ViT 跟生圖 AI (DiT / MMDiT) 是什麼關係?</summary>
+    <p>這個工具示範的是 ViT (Vision Transformer)——讓 AI「看懂」圖的架構。但同樣的「把圖切成 patch、當作 token 序列丟進 Transformer」這個想法,後來也被用到了「生成」圖的模型裡。</p>
+    <p><strong>DiT (Diffusion Transformer)</strong>:把 Transformer 拿來當 diffusion 模型的 backbone,負責把雜訊一步步還原成圖。Stable Diffusion 3、FLUX、Sora 都是這個架構。</p>
+    <p><strong>MMDiT (Multimodal DiT)</strong>:DiT 的進化版,文字 token 和圖像 token 在同一個 Transformer 裡雙向互動 (不再是文字單向 condition 圖像)。Stable Diffusion 3 用的就是這個。</p>
+    <p>也就是說:ViT (讀圖) 跟 DiT (生圖) 用的是同一個基礎概念——patch + Transformer——只是訓練目標不同。如果你常用 PixAI、Midjourney 之類的生圖工具,理解這層關係會讓你更清楚為什麼新一代模型 (DiT 系,例如 Tsubaki、Serin) 吃自然語言敘述,而舊一代 (UNet 系,例如 SDXL、Illustrious) 吃 Danbooru tag。</p>
+    <p class="further-reading">
+      這個演進的視覺化講解,推薦 Julia Turc 的英文影片
+      <a href="https://www.youtube.com/watch?v=jNPmSjrxGtY&t=635s">An image is worth N×N words | Diffusion Transformers (ViT, DiT, MMDiT)</a>
+      (連結跳到 10:35 開始,前段的 ViT 部分工具讀者已經看過了)。
+    </p>
   </details>
 
   <footer>
